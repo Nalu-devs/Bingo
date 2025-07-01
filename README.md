@@ -16,4 +16,4 @@ Este projeto foi construído utilizando as seguintes tecnologias web:
 # Atualizações futuras
 Penso em melhorar esse projeto implementando a marcação automatica da cartela, permitindo que o usuário escolha se o jogo será quina ou cartela cheia, escolha de tema de bingo e melhoria na lógica de programação utilizada
 # Acesse o projeto
-Você pode explorar a Pokédex online através do GitHub Pages:
+Você pode explorar a Pokédex online através do GitHub Pages: https://nalu-devs.github.io/Bingo/
