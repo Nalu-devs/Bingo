@@ -1,0 +1,140 @@
+body,
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #bdbdbd;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.cartela {
+    background-color: #d6d5c8;
+    border: 4px solid #000000;
+    border-radius: 5%;
+    font-size: 50px;
+    padding: 5px 8px;
+    margin: 0 auto;
+    margin-top: 3%;
+}
+
+td {
+    border: 1px solid #000;
+    border-radius: 5%;
+    text-align: center;
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+.b {
+    color: #ffbe0b;
+    -webkit-text-stroke-color: #000;
+    -webkit-text-stroke-width: 2px;
+}
+
+.i {
+    color: #fb5607;
+    -webkit-text-stroke-color: #000;
+    -webkit-text-stroke-width: 2px;
+}
+
+.n {
+    color: #ff006e;
+    -webkit-text-stroke-color: #000;
+    -webkit-text-stroke-width: 2px;
+}
+
+.g {
+    color: #8338ec;
+    -webkit-text-stroke-color: #000;
+    -webkit-text-stroke-width: 2px;
+}
+
+.o {
+    color: #3a86ff;
+    -webkit-text-stroke-color: #000;
+    -webkit-text-stroke-width: 2px;
+}
+
+img {
+    margin-top: 10px;
+    width: 70%;
+    height: 40px;
+}
+
+.botaoGerarCartela {
+    margin-top: 2%;
+    margin-left: 45%;
+    font-size: 1.4rem;
+    border-radius: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+    background: linear-gradient(to right,
+            #FFFF99,
+            #FFCC99,
+            #FFB3C2,
+            #CC99FF,
+            #99CCFF);
+    color: rgb(0, 0, 0);
+    transition: 0.7s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /*sombra*/
+}
+
+.botaoGerarCartela:hover {
+    border-radius: 10px;
+    background-color: #f06543;
+}
+
+table {
+    margin-left: 9%;
+    margin-top: 3%;
+}
+
+.sorteios {
+    width: 50px;
+    background-color: #d6d5c8;
+}
+
+.alinhamento {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    width: 100%;
+}
+
+#display {
+    min-width: 300px;
+    text-align: center;
+}
+
+h1 {
+    position: static;
+    white-space: nowrap;
+    /*Para não quebrar de linha mesmo se o texto for grande*/
+}
+
+.botaoSorteiaNumero {
+    margin-left: 20px;
+    position: static;
+    font-size: 1.4rem;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+    background: linear-gradient(to right,
+            #FFFF99,
+            /* Amarelo bem suave */
+            #FFCC99,
+            /* Laranja pêssego */
+            #FFB3C2,
+            /* Rosa claro */
+            #CC99FF,
+            /* Roxo lavanda */
+            #99CCFF);
+    /* Azul celeste */
+    color: rgb(0, 0, 0);
+    transition: 0.7s;
+}
