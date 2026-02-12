@@ -58,9 +58,14 @@ function VerificarVitoria() {
     
     if (marcadas === totalNecessario) {
         document.getElementById("display").innerHTML = `
-            <h1>🎉 PARABÉNS! VOCÊ VENCEU! 🎉</h1>
-            <p style="font-size: 1.2rem; color: #2ecc71;">BINGO! Cartela completa!</p>
+            <h1 class="vencedor">🎉 PARABÉNS! VOCÊ VENCEU! 🎉</h1>
+            <p style="font-size: 1.2rem; background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">BINGO! Cartela completa!</p>
+            <p style="font-size: 1rem; color: #28a745; margin-top: 10px;">✨ Jogo incrível! ✨</p>
         `
+        
+        // Adicionar classe de animação à cartela
+        document.querySelector('.cartela').classList.add('vencedor')
+        
         return true
     }
     return false
@@ -126,6 +131,9 @@ function GerarCartela() {
         }
     })
     
+    // Remover animação de vitória
+    document.querySelector('.cartela').classList.remove('vencedor')
+    
     vetorB = MisturarArray(GerarVetor(1, 15))
     vetorI = MisturarArray(GerarVetor(16, 30))
     vetorN = MisturarArray(GerarVetor(31, 45))
@@ -140,7 +148,9 @@ function GerarCartela() {
         td.innerText = vetorI[i]
 
         td = document.getElementById("n" + (i + 1))
-        td.innerText = vetorN[i]
+        if (i !== 2) { // Não altera o centro (n3) que tem o coração
+            td.innerText = vetorN[i]
+        }
 
         td = document.getElementById("g" + (i + 1))
         td.innerText = vetorG[i]
