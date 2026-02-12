@@ -45,10 +45,31 @@ function NumeroAleatorio(numeroMinimo, numeroMaximo) {
     }
 }
 
+function VerificarVitoria() {
+    var cartelaCells = document.querySelectorAll('.cartela td')
+    var marcadas = 0
+    var totalNecessario = 24 // 25 células - 1 centro (n3)
+    
+    cartelaCells.forEach(function(td) {
+        if (td.id !== 'n3' && td.style.backgroundColor === 'tomato') {
+            marcadas++
+        }
+    })
+    
+    if (marcadas === totalNecessario) {
+        document.getElementById("display").innerHTML = `
+            <h1>🎉 PARABÉNS! VOCÊ VENCEU! 🎉</h1>
+            <p style="font-size: 1.2rem; color: #2ecc71;">BINGO! Cartela completa!</p>
+        `
+        return true
+    }
+    return false
+}
+
 function NumeroSorteio() {
     if (sorteio.length == 0) { // Adiciona uma verificação para quando os números acabarem
         document.getElementById("display").innerHTML = "<h1>Todos os números foram sorteados!</h1>"
-        return NumeroSorteio()
+        return
     }
     var numerosorteado = sorteio.shift() // Pega o primeiro e remove do array embaralhado
     // Faz o número que foi sorteado aparecer na tela
@@ -60,12 +81,19 @@ function NumeroSorteio() {
         numeroTabela.style.background = "tomato"
     }
 
-
-    // //Tentei marcar na cartela com base no codigo do fernando mas n deu certo
-    // var numeroMarcadoCartela = document.getElementById(numerosorteado)
-    // if (numeroMarcadoCartela != null) {
-    //   numeroMarcadoCartela.style.backgroundColor = "rgba(255,0,0,0.5)"
-    // }
+    // Marcar o número na cartela correspondente
+    var cartelaCells = document.querySelectorAll('.cartela td')
+    cartelaCells.forEach(function(td) {
+        if (td.innerText == numerosorteado && td.id !== 'n3') { // Não marca o centro (n3)
+            td.style.backgroundColor = 'tomato'
+            td.style.color = "white"
+        }
+    })
+    
+    // Verificar se venceu após marcar
+    setTimeout(function() {
+        VerificarVitoria()
+    }, 100)
 }
 
 
@@ -120,4 +148,20 @@ function GerarCartela() {
         td = document.getElementById("o" + (i + 1))
         td.innerText = vetorO[i]
     }
+}
+
+// Adicionar verificação de vitória também ao marcar manualmente
+function MarcarCartela(td) {
+    if (td.style.backgroundColor != 'tomato') {
+        td.style.backgroundColor = 'tomato'
+        td.style.color = "white"
+    } else {
+        td.style.backgroundColor = ''
+        td.style.color = 'black'
+    }
+    
+    // Verificar se venceu após marcar/desmarcar
+    setTimeout(function() {
+        VerificarVitoria()
+    }, 100)
 }
