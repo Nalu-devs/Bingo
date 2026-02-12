@@ -71,6 +71,33 @@ function NumeroSorteio() {
 
 
 function GerarCartela() {
+    // Resetar os números sorteados
+    sorteio = []
+    for (var i = 1; i <= 75; i++) {
+        sorteio.push(i)
+    }
+    sorteio = MisturarArray(sorteio)
+    
+    // Limpar o display
+    document.getElementById("display").innerHTML = "<h1>Testando se sorteia o numero</h1>"
+    
+    // Limpar todas as marcações da tabela de números
+    for (var i = 1; i <= 75; i++) {
+        var numeroTabela = document.getElementById(i)
+        if (numeroTabela) {
+            numeroTabela.style.background = ""
+        }
+    }
+    
+    // Resetar as cores da cartela
+    var cartelaCells = document.querySelectorAll('.cartela td')
+    cartelaCells.forEach(function(td) {
+        if (td.id !== 'n3') { // Não limpa o centro (n3 que tem a imagem)
+            td.style.backgroundColor = ''
+            td.style.color = 'black'
+        }
+    })
+    
     vetorB = MisturarArray(GerarVetor(1, 15))
     vetorI = MisturarArray(GerarVetor(16, 30))
     vetorN = MisturarArray(GerarVetor(31, 45))
