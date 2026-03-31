@@ -7,7 +7,6 @@ function GerarVetor(x, y) {
     console.log('[DEBUG] Vetor gerado:', z)
     return z
 }
-
 function MarcarCartela(x) {
     console.log('[DEBUG] MarcarCartela chamada. Elemento ID:', x.id, 'Texto:', x.innerText)
     if (x.style.backgroundColor != 'tomato') {
