@@ -55,7 +55,7 @@ function VerificarVitoria() {
             marcadas++
         }
     })
-    
+    console.log("Passou")
     if (marcadas === totalNecessario) {
         document.getElementById("display").innerHTML = `
             <h1 class="vencedor">🎉 PARABÉNS! VOCÊ VENCEU! 🎉</h1>
