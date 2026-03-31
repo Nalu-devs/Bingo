@@ -17,6 +17,7 @@ function MarcarCartela(td) {
 }
 
 function MisturarArray(array) {
+    console.log('[DEBUG] Misturando array de tamanho:', array.length)
     var aleatorio
     var cont = array.length
     var auxiliar
@@ -27,6 +28,7 @@ function MisturarArray(array) {
         array[cont] = array[aleatorio]
         array[aleatorio] = auxiliar
     }
+    console.log('[DEBUG] Array misturada:', array)
     return array
 }
 
@@ -46,15 +48,18 @@ function NumeroAleatorio(numeroMinimo, numeroMaximo) {
 }
 
 function VerificarVitoria() {
+    console.log('[DEBUG] Verificando vitória...')
     var cartelaCells = document.querySelectorAll('.cartela td')
     var marcadas = 0
     var totalNecessario = 24 // 25 células - 1 centro (n3)
     
     cartelaCells.forEach(function(td) {
         if (td.id !== 'n3' && td.style.backgroundColor === 'tomato') {
+            console.log('[DEBUG] Célula marcada:', td.id, td.innerText)
             marcadas++
         }
     })
+    console.log('[DEBUG] Marcadas:', marcadas, '/ Total necessário:', totalNecessario)
     console.log("Passou")
     if (marcadas === totalNecessario) {
         document.getElementById("display").innerHTML = `
@@ -72,11 +77,14 @@ function VerificarVitoria() {
 }
 
 function NumeroSorteio() {
+    console.log('[DEBUG] Sortear número chamado. Números restantes:', sorteio.length)
     if (sorteio.length == 0) { // Adiciona uma verificação para quando os números acabarem
+        console.log('[DEBUG] Todos os números foram sorteados!')
         document.getElementById("display").innerHTML = "<h1>Todos os números foram sorteados!</h1>"
         return
     }
     var numerosorteado = sorteio.shift() // Pega o primeiro e remove do array embaralhado
+    console.log('[DEBUG] Número sorteado:', numerosorteado)
     // Faz o número que foi sorteado aparecer na tela
     document.getElementById("display").innerHTML = "<h1>Número sorteado: " + numerosorteado + "</h1>"
     // Pega o elemento TD correspondente ao número sorteado na tabela grande
@@ -104,12 +112,14 @@ function NumeroSorteio() {
 
 
 function GerarCartela() {
+    console.log('[DEBUG] Gerando nova cartela...')
     // Resetar os números sorteados
     sorteio = []
     for (var i = 1; i <= 75; i++) {
         sorteio.push(i)
     }
     sorteio = MisturarArray(sorteio)
+    console.log('[DEBUG] Sorteio resetado. Primeiro número:', sorteio[0])
     
     // Limpar o display
     document.getElementById("display").innerHTML = "<h1>Testando se sorteia o numero</h1>"
