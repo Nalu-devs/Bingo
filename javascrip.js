@@ -1,8 +1,10 @@
 function GerarVetor(numeroInicial, numeroFinal) {
+    console.log('[DEBUG] Gerando vetor de', numeroInicial, 'até', numeroFinal)
     var vetor = []
     for (var i = numeroInicial; i <= numeroFinal; i++) {
         vetor.push(i)
     }
+    console.log('[DEBUG] Vetor gerado:', vetor)
     return vetor
 }
 
@@ -36,11 +38,14 @@ var sorteio = []
 for (var i = 1; i <= 75; i++) {
     sorteio.push(i)
 }
+console.log('[DEBUG] Sorteio inicial gerado. Tamanho:', sorteio.length)
 sorteio = MisturarArray(sorteio)
 
 function NumeroAleatorio(numeroMinimo, numeroMaximo) {
+    console.log('[DEBUG] Gerando número aleatório entre', numeroMinimo, 'e', numeroMaximo)
     var retorno = Math.floor(Math.random() * numeroMaximo)
     if (retorno > 0 && retorno >= numeroMinimo && retorno <= numeroMaximo) {
+        console.log('[DEBUG] Número retornado:', retorno)
         return retorno
     } else {
         return NumeroAleatorio(numeroMinimo, numeroMaximo)
@@ -62,6 +67,7 @@ function VerificarVitoria() {
     console.log('[DEBUG] Marcadas:', marcadas, '/ Total necessário:', totalNecessario)
     console.log("Passou")
     if (marcadas === totalNecessario) {
+        console.log('[DEBUG] VITÓRIA! Todas as células marcadas!')
         document.getElementById("display").innerHTML = `
             <h1 class="vencedor">🎉 PARABÉNS! VOCÊ VENCEU! 🎉</h1>
             <p style="font-size: 1.2rem; background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">BINGO! Cartela completa!</p>
@@ -91,17 +97,26 @@ function NumeroSorteio() {
     var numeroTabela = document.getElementById(numerosorteado)
 
     if (numeroTabela) {
+        console.log('[DEBUG] Encontrou número na tabela grande:', numerosorteado)
         numeroTabela.style.background = "tomato"
+    } else {
+        console.log('[DEBUG] Número NÃO encontrado na tabela grande:', numerosorteado)
     }
 
     // Marcar o número na cartela correspondente
     var cartelaCells = document.querySelectorAll('.cartela td')
+    var marcado = false
     cartelaCells.forEach(function(td) {
         if (td.innerText == numerosorteado && td.id !== 'n3') { // Não marca o centro (n3)
+            console.log('[DEBUG] Marcando número na cartela. ID:', td.id, 'Número:', td.innerText)
             td.style.backgroundColor = 'tomato'
             td.style.color = "white"
+            marcado = true
         }
     })
+    if (!marcado) {
+        console.log('[DEBUG] Número não encontrado na cartela:', numerosorteado)
+    }
     
     // Verificar se venceu após marcar
     setTimeout(function() {
@@ -150,32 +165,43 @@ function GerarCartela() {
     vetorG = MisturarArray(GerarVetor(46, 60))
     vetorO = MisturarArray(GerarVetor(61, 75))
 
+    console.log('[DEBUG] Vetores gerados - B:', vetorB, '| I:', vetorI, '| N:', vetorN, '| G:', vetorG, '| O:', vetorO)
+
     for (var i = 0; i < 5; i++) {
         var td = document.getElementById("b" + (i + 1))
         td.innerText = vetorB[i]
+        console.log('[DEBUG] Definindo b' + (i+1) + ' = ' + vetorB[i])
 
         td = document.getElementById("i" + (i + 1))
         td.innerText = vetorI[i]
+        console.log('[DEBUG] Definindo i' + (i+1) + ' = ' + vetorI[i])
 
         td = document.getElementById("n" + (i + 1))
         if (i !== 2) { // Não altera o centro (n3) que tem o coração
             td.innerText = vetorN[i]
+            console.log('[DEBUG] Definindo n' + (i+1) + ' = ' + vetorN[i])
         }
 
         td = document.getElementById("g" + (i + 1))
         td.innerText = vetorG[i]
+        console.log('[DEBUG] Definindo g' + (i+1) + ' = ' + vetorG[i])
 
         td = document.getElementById("o" + (i + 1))
         td.innerText = vetorO[i]
+        console.log('[DEBUG] Definindo o' + (i+1) + ' = ' + vetorO[i])
     }
+    console.log('[DEBUG] Cartela gerada com sucesso!')
 }
 
 // Adicionar verificação de vitória também ao marcar manualmente
 function MarcarCartela(td) {
+    console.log('[DEBUG] MarcarCartela chamada. Elemento ID:', td.id, 'Texto:', td.innerText)
     if (td.style.backgroundColor != 'tomato') {
+        console.log('[DEBUG] Marcando célula')
         td.style.backgroundColor = 'tomato'
         td.style.color = "white"
     } else {
+        console.log('[DEBUG] Desmarcando célula')
         td.style.backgroundColor = ''
         td.style.color = 'black'
     }
