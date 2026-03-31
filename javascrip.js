@@ -1,37 +1,44 @@
-function GerarVetor(numeroInicial, numeroFinal) {
-    console.log('[DEBUG] Gerando vetor de', numeroInicial, 'até', numeroFinal)
-    var vetor = []
-    for (var i = numeroInicial; i <= numeroFinal; i++) {
-        vetor.push(i)
+function GerarVetor(x, y) {
+    console.log('[DEBUG] Gerando vetor de', x, 'até', y)
+    var z = []
+    for (var i = x; i <= y; i++) {
+        z.push(i)
     }
-    console.log('[DEBUG] Vetor gerado:', vetor)
-    return vetor
+    console.log('[DEBUG] Vetor gerado:', z)
+    return z
 }
 
-function MarcarCartela(td) {
-    if (td.style.backgroundColor != 'tomato') {
-        td.style.backgroundColor = 'tomato'
-        td.style.color = "white"
+function MarcarCartela(x) {
+    console.log('[DEBUG] MarcarCartela chamada. Elemento ID:', x.id, 'Texto:', x.innerText)
+    if (x.style.backgroundColor != 'tomato') {
+        console.log('[DEBUG] Marcando célula')
+        x.style.backgroundColor = 'tomato'
+        x.style.color = "white"
     } else {
-        td.style.backgroundColor = ''
-        td.style.color = 'black'
+        console.log('[DEBUG] Desmarcando célula')
+        x.style.backgroundColor = ''
+        x.style.color = 'black'
     }
+    
+    setTimeout(function() {
+        VerificarVitoria()
+    }, 100)
 }
 
-function MisturarArray(array) {
-    console.log('[DEBUG] Misturando array de tamanho:', array.length)
-    var aleatorio
-    var cont = array.length
-    var auxiliar
-    while (cont != 0) {
-        aleatorio = NumeroAleatorio(1, array.length)
-        cont--
-        auxiliar = array[cont]
-        array[cont] = array[aleatorio]
-        array[aleatorio] = auxiliar
+function MisturarArray(x) {
+    console.log('[DEBUG] Misturando array de tamanho:', x.length)
+    var y
+    var z = x.length
+    var w
+    while (z != 0) {
+        y = NumeroAleatorio(1, x.length)
+        z--
+        w = x[z]
+        x[z] = x[y]
+        x[y] = w
     }
-    console.log('[DEBUG] Array misturada:', array)
-    return array
+    console.log('[DEBUG] Array misturada:', x)
+    return x
 }
 
 var sorteio = []
@@ -41,32 +48,217 @@ for (var i = 1; i <= 75; i++) {
 console.log('[DEBUG] Sorteio inicial gerado. Tamanho:', sorteio.length)
 sorteio = MisturarArray(sorteio)
 
-function NumeroAleatorio(numeroMinimo, numeroMaximo) {
-    console.log('[DEBUG] Gerando número aleatório entre', numeroMinimo, 'e', numeroMaximo)
-    var retorno = Math.floor(Math.random() * numeroMaximo)
-    if (retorno > 0 && retorno >= numeroMinimo && retorno <= numeroMaximo) {
-        console.log('[DEBUG] Número retornado:', retorno)
-        return retorno
+function NumeroAleatorio(x, y) {
+    console.log('[DEBUG] Gerando número aleatório entre', x, 'e', y)
+    var z = Math.floor(Math.random() * y)
+    if (z > 0 && z >= x && z <= y) {
+        console.log('[DEBUG] Número retornado:', z)
+        return z
     } else {
-        return NumeroAleatorio(numeroMinimo, numeroMaximo)
+        return NumeroAleatorio(x, y)
     }
 }
 
 function VerificarVitoria() {
     console.log('[DEBUG] Verificando vitória...')
-    var cartelaCells = document.querySelectorAll('.cartela td')
-    var marcadas = 0
-    var totalNecessario = 24 // 25 células - 1 centro (n3)
+    var x = document.querySelectorAll('.cartela td')
+    var y = 0
+    var z = 24
     
-    cartelaCells.forEach(function(td) {
+    x.forEach(function(td) {
         if (td.id !== 'n3' && td.style.backgroundColor === 'tomato') {
             console.log('[DEBUG] Célula marcada:', td.id, td.innerText)
-            marcadas++
+            y++
         }
     })
-    console.log('[DEBUG] Marcadas:', marcadas, '/ Total necessário:', totalNecessario)
+    console.log('[DEBUG] Marcadas:', y, '/ Total necessário:', z)
     console.log("Passou")
-    if (marcadas === totalNecessario) {
+    if (y === z) {
+        console.log('[DEBUG] VITÓRIA! Todas as células marcadas!')
+        document.getElementById("display").innerHTML = `
+            <h1 class="vencedor">🎉 PARABÉNS! VOCÊ VENCEU! 🎉</h1>
+            <p style="font-size: 1.2rem; background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">BINGO! Cartela completa!</p>
+            <p style="font-size: 1rem; color: #28a745; margin-top: 10px;">✨ Jogo incrível! ✨</p>
+        `
+        
+        document.querySelector('.cartela').classList.add('vencedor')
+        
+        return true
+    }
+    return false
+}
+
+function NumeroSorteio() {
+    console.log('[DEBUG] Sortear número chamado. Números restantes:', sorteio.length)
+    if (sorteio.length == 0) {
+        console.log('[DEBUG] Todos os números foram sorteados!')
+        document.getElementById("display").innerHTML = "<h1>Todos os números foram sorteados!</h1>"
+        return
+    }
+    var x = sorteio.shift()
+    console.log('[DEBUG] Número sorteado:', x)
+    document.getElementById("display").innerHTML = "<h1>Número sorteado: " + x + "</h1>"
+    var y = document.getElementById(x)
+
+    if (y) {
+        console.log('[DEBUG] Encontrou número na tabela grande:', x)
+        y.style.background = "tomato"
+    } else {
+        console.log('[DEBUG] Número NÃO encontrado na tabela grande:', x)
+    }
+
+    var z = document.querySelectorAll('.cartela td')
+    var w = false
+    z.forEach(function(td) {
+        if (td.innerText == x && td.id !== 'n3') {
+            console.log('[DEBUG] Marcando número na cartela. ID:', td.id, 'Número:', td.innerText)
+            td.style.backgroundColor = 'tomato'
+            td.style.color = "white"
+            w = true
+        }
+    })
+    if (!w) {
+        console.log('[DEBUG] Número não encontrado na cartela:', x)
+    }
+    
+    setTimeout(function() {
+        VerificarVitoria()
+    }, 100)
+}
+
+
+function GerarCartela() {
+    console.log('[DEBUG] Gerando nova cartela...')
+    sorteio = []
+    for (var i = 1; i <= 75; i++) {
+        sorteio.push(i)
+    }
+    sorteio = MisturarArray(sorteio)
+    console.log('[DEBUG] Sorteio resetado. Primeiro número:', sorteio[0])
+    
+    document.getElementById("display").innerHTML = "<h1>Testando se sorteia o numero</h1>"
+    
+    for (var i = 1; i <= 75; i++) {
+        var x = document.getElementById(i)
+        if (x) {
+            x.style.background = ""
+        }
+    }
+    
+    var y = document.querySelectorAll('.cartela td')
+    y.forEach(function(td) {
+        if (td.id !== 'n3') {
+            td.style.backgroundColor = ''
+            td.style.color = 'black'
+        }
+    })
+    
+    document.querySelector('.cartela').classList.remove('vencedor')
+    
+    var x = MisturarArray(GerarVetor(1, 15))
+    var y = MisturarArray(GerarVetor(16, 30))
+    var z = MisturarArray(GerarVetor(31, 45))
+    var w = MisturarArray(GerarVetor(46, 60))
+    var v = MisturarArray(GerarVetor(61, 75))
+
+    console.log('[DEBUG] Vetores gerados - B:', x, '| I:', y, '| N:', z, '| G:', w, '| O:', v)
+
+    for (var i = 0; i < 5; i++) {
+        var td = document.getElementById("b" + (i + 1))
+        td.innerText = x[i]
+        console.log('[DEBUG] Definindo b' + (i+1) + ' = ' + x[i])
+
+        td = document.getElementById("i" + (i + 1))
+        td.innerText = y[i]
+        console.log('[DEBUG] Definindo i' + (i+1) + ' = ' + y[i])
+
+        td = document.getElementById("n" + (i + 1))
+        if (i !== 2) {
+            td.innerText = z[i]
+            console.log('[DEBUG] Definindo n' + (i+1) + ' = ' + z[i])
+        }
+
+        td = document.getElementById("g" + (i + 1))
+        td.innerText = w[i]
+        console.log('[DEBUG] Definindo g' + (i+1) + ' = ' + w[i])
+
+        td = document.getElementById("o" + (i + 1))
+        td.innerText = v[i]
+        console.log('[DEBUG] Definindo o' + (i+1) + ' = ' + v[i])
+    }
+    console.log('[DEBUG] Cartela gerada com sucesso!')
+}
+    console.log('[DEBUG] Vetor gerado:', z)
+    return z
+}
+
+function MarcarCartela(x) {
+    console.log('[DEBUG] MarcarCartela chamada. Elemento ID:', x.id, 'Texto:', x.innerText)
+    if (x.style.backgroundColor != 'tomato') {
+        console.log('[DEBUG] Marcando célula')
+        x.style.backgroundColor = 'tomato'
+        x.style.color = "white"
+    } else {
+        console.log('[DEBUG] Desmarcando célula')
+        x.style.backgroundColor = ''
+        x.style.color = 'black'
+    }
+    
+    // Verificar se venceu após marcar/desmarcar
+    setTimeout(function() {
+        VerificarVitoria()
+    }, 100)
+}
+
+function MisturarArray(x) {
+    console.log('[DEBUG] Misturando array de tamanho:', x.length)
+    var y
+    var z = x.length
+    var w
+    while (z != 0) {
+        y = NumeroAleatorio(1, x.length)
+        z--
+        w = x[z]
+        x[z] = x[y]
+        x[y] = w
+    }
+    console.log('[DEBUG] Array misturada:', x)
+    return x
+}
+
+var sorteio = []
+for (var i = 1; i <= 75; i++) {
+    sorteio.push(i)
+}
+console.log('[DEBUG] Sorteio inicial gerado. Tamanho:', sorteio.length)
+sorteio = MisturarArray(sorteio)
+
+function NumeroAleatorio(x, y) {
+    console.log('[DEBUG] Gerando número aleatório entre', x, 'e', y)
+    var z = Math.floor(Math.random() * y)
+    if (z > 0 && z >= x && z <= y) {
+        console.log('[DEBUG] Número retornado:', z)
+        return z
+    } else {
+        return NumeroAleatorio(x, y)
+    }
+}
+
+function VerificarVitoria() {
+    console.log('[DEBUG] Verificando vitória...')
+    var x = document.querySelectorAll('.cartela td')
+    var y = 0
+    var z = 24 // 25 células - 1 centro (n3)
+    
+    x.forEach(function(td) {
+        if (td.id !== 'n3' && td.style.backgroundColor === 'tomato') {
+            console.log('[DEBUG] Célula marcada:', td.id, td.innerText)
+            y++
+        }
+    })
+    console.log('[DEBUG] Marcadas:', y, '/ Total necessário:', z)
+    console.log("Passou")
+    if (y === z) {
         console.log('[DEBUG] VITÓRIA! Todas as células marcadas!')
         document.getElementById("display").innerHTML = `
             <h1 class="vencedor">🎉 PARABÉNS! VOCÊ VENCEU! 🎉</h1>
@@ -89,33 +281,33 @@ function NumeroSorteio() {
         document.getElementById("display").innerHTML = "<h1>Todos os números foram sorteados!</h1>"
         return
     }
-    var numerosorteado = sorteio.shift() // Pega o primeiro e remove do array embaralhado
-    console.log('[DEBUG] Número sorteado:', numerosorteado)
+    var x = sorteio.shift() // Pega o primeiro e remove do array embaralhado
+    console.log('[DEBUG] Número sorteado:', x)
     // Faz o número que foi sorteado aparecer na tela
-    document.getElementById("display").innerHTML = "<h1>Número sorteado: " + numerosorteado + "</h1>"
+    document.getElementById("display").innerHTML = "<h1>Número sorteado: " + x + "</h1>"
     // Pega o elemento TD correspondente ao número sorteado na tabela grande
-    var numeroTabela = document.getElementById(numerosorteado)
+    var y = document.getElementById(x)
 
-    if (numeroTabela) {
-        console.log('[DEBUG] Encontrou número na tabela grande:', numerosorteado)
-        numeroTabela.style.background = "tomato"
+    if (y) {
+        console.log('[DEBUG] Encontrou número na tabela grande:', x)
+        y.style.background = "tomato"
     } else {
-        console.log('[DEBUG] Número NÃO encontrado na tabela grande:', numerosorteado)
+        console.log('[DEBUG] Número NÃO encontrado na tabela grande:', x)
     }
 
     // Marcar o número na cartela correspondente
-    var cartelaCells = document.querySelectorAll('.cartela td')
-    var marcado = false
-    cartelaCells.forEach(function(td) {
-        if (td.innerText == numerosorteado && td.id !== 'n3') { // Não marca o centro (n3)
+    var z = document.querySelectorAll('.cartela td')
+    var w = false
+    z.forEach(function(td) {
+        if (td.innerText == x && td.id !== 'n3') { // Não marca o centro (n3)
             console.log('[DEBUG] Marcando número na cartela. ID:', td.id, 'Número:', td.innerText)
             td.style.backgroundColor = 'tomato'
             td.style.color = "white"
-            marcado = true
+            w = true
         }
     })
-    if (!marcado) {
-        console.log('[DEBUG] Número não encontrado na cartela:', numerosorteado)
+    if (!w) {
+        console.log('[DEBUG] Número não encontrado na cartela:', x)
     }
     
     // Verificar se venceu após marcar
@@ -141,15 +333,15 @@ function GerarCartela() {
     
     // Limpar todas as marcações da tabela de números
     for (var i = 1; i <= 75; i++) {
-        var numeroTabela = document.getElementById(i)
-        if (numeroTabela) {
-            numeroTabela.style.background = ""
+        var x = document.getElementById(i)
+        if (x) {
+            x.style.background = ""
         }
     }
     
     // Resetar as cores da cartela
-    var cartelaCells = document.querySelectorAll('.cartela td')
-    cartelaCells.forEach(function(td) {
+    var y = document.querySelectorAll('.cartela td')
+    y.forEach(function(td) {
         if (td.id !== 'n3') { // Não limpa o centro (n3 que tem a imagem)
             td.style.backgroundColor = ''
             td.style.color = 'black'
@@ -159,55 +351,36 @@ function GerarCartela() {
     // Remover animação de vitória
     document.querySelector('.cartela').classList.remove('vencedor')
     
-    vetorB = MisturarArray(GerarVetor(1, 15))
-    vetorI = MisturarArray(GerarVetor(16, 30))
-    vetorN = MisturarArray(GerarVetor(31, 45))
-    vetorG = MisturarArray(GerarVetor(46, 60))
-    vetorO = MisturarArray(GerarVetor(61, 75))
+    var x = MisturarArray(GerarVetor(1, 15))
+    var y = MisturarArray(GerarVetor(16, 30))
+    var z = MisturarArray(GerarVetor(31, 45))
+    var w = MisturarArray(GerarVetor(46, 60))
+    var v = MisturarArray(GerarVetor(61, 75))
 
-    console.log('[DEBUG] Vetores gerados - B:', vetorB, '| I:', vetorI, '| N:', vetorN, '| G:', vetorG, '| O:', vetorO)
+    console.log('[DEBUG] Vetores gerados - B:', x, '| I:', y, '| N:', z, '| G:', w, '| O:', v)
 
     for (var i = 0; i < 5; i++) {
         var td = document.getElementById("b" + (i + 1))
-        td.innerText = vetorB[i]
-        console.log('[DEBUG] Definindo b' + (i+1) + ' = ' + vetorB[i])
+        td.innerText = x[i]
+        console.log('[DEBUG] Definindo b' + (i+1) + ' = ' + x[i])
 
         td = document.getElementById("i" + (i + 1))
-        td.innerText = vetorI[i]
-        console.log('[DEBUG] Definindo i' + (i+1) + ' = ' + vetorI[i])
+        td.innerText = y[i]
+        console.log('[DEBUG] Definindo i' + (i+1) + ' = ' + y[i])
 
         td = document.getElementById("n" + (i + 1))
         if (i !== 2) { // Não altera o centro (n3) que tem o coração
-            td.innerText = vetorN[i]
-            console.log('[DEBUG] Definindo n' + (i+1) + ' = ' + vetorN[i])
+            td.innerText = z[i]
+            console.log('[DEBUG] Definindo n' + (i+1) + ' = ' + z[i])
         }
 
         td = document.getElementById("g" + (i + 1))
-        td.innerText = vetorG[i]
-        console.log('[DEBUG] Definindo g' + (i+1) + ' = ' + vetorG[i])
+        td.innerText = w[i]
+        console.log('[DEBUG] Definindo g' + (i+1) + ' = ' + w[i])
 
         td = document.getElementById("o" + (i + 1))
-        td.innerText = vetorO[i]
-        console.log('[DEBUG] Definindo o' + (i+1) + ' = ' + vetorO[i])
+        td.innerText = v[i]
+        console.log('[DEBUG] Definindo o' + (i+1) + ' = ' + v[i])
     }
     console.log('[DEBUG] Cartela gerada com sucesso!')
-}
-
-// Adicionar verificação de vitória também ao marcar manualmente
-function MarcarCartela(td) {
-    console.log('[DEBUG] MarcarCartela chamada. Elemento ID:', td.id, 'Texto:', td.innerText)
-    if (td.style.backgroundColor != 'tomato') {
-        console.log('[DEBUG] Marcando célula')
-        td.style.backgroundColor = 'tomato'
-        td.style.color = "white"
-    } else {
-        console.log('[DEBUG] Desmarcando célula')
-        td.style.backgroundColor = ''
-        td.style.color = 'black'
-    }
-    
-    // Verificar se venceu após marcar/desmarcar
-    setTimeout(function() {
-        VerificarVitoria()
-    }, 100)
 }
