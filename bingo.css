@@ -1,208 +1,150 @@
 body,
 html {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #bdbdbd;
+    background-color: #1a1a2e;
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 20px;
     min-height: 100vh;
     box-sizing: border-box;
 }
 
-.cartela {
-    background-color: #d6d5c8;
-    border: 4px solid #000000;
-    border-radius: 5%;
-    font-size: 50px;
-    padding: 5px 8px;
-    margin: 20px auto;
-    max-width: 90vw;
-    overflow-x: auto;
-}
-
-td {
-    border: 1px solid #000;
-    border-radius: 5%;
-    text-align: center;
-    padding: 5px 8px;
-    cursor: pointer;
-}
-
-.b {
-    color: #ffbe0b;
-    -webkit-text-stroke-color: #000;
-    -webkit-text-stroke-width: 2px;
-}
-
-.i {
-    color: #fb5607;
-    -webkit-text-stroke-color: #000;
-    -webkit-text-stroke-width: 2px;
-}
-
-.n {
-    color: #ff006e;
-    -webkit-text-stroke-color: #000;
-    -webkit-text-stroke-width: 2px;
-}
-
-.g {
-    color: #8338ec;
-    -webkit-text-stroke-color: #000;
-    -webkit-text-stroke-width: 2px;
-}
-
-.o {
-    color: #3a86ff;
-    -webkit-text-stroke-color: #000;
-    -webkit-text-stroke-width: 2px;
-}
-
-img {
-    margin-top: 10px;
-    width: 70%;
-    height: 40px;
-    max-width: 100%;
-    object-fit: contain;
-}
-
-/* Responsividade para dispositivos móveis */
-@media (max-width: 768px) {
-    .cartela {
-        font-size: 30px;
-        padding: 3px 5px;
-    }
-    
-    td {
-        padding: 3px 5px;
-    }
-    
-    .sorteios {
-        width: 35px;
-        font-size: 12px;
-    }
-    
-    .botaoGerarCartela,
-    .botaoSorteiaNumero {
-        font-size: 1.2rem;
-        padding: 8px 16px;
-    }
-    
-    h1 {
-        font-size: 1.2rem;
-    }
-    
-    .alinhamento {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .botaoSorteiaNumero {
-        margin-left: 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .cartela {
-        font-size: 20px;
-        padding: 2px 3px;
-    }
-    
-    .sorteios {
-        width: 25px;
-        font-size: 10px;
-    }
-    
-    .botaoGerarCartela,
-    .botaoSorteiaNumero {
-        font-size: 1rem;
-        padding: 6px 12px;
-    }
-    
-    h1 {
-        font-size: 1rem;
-    }
-}
-
-.botaoGerarCartela {
-    margin: 20px auto;
-    font-size: 1.4rem;
-    border-radius: 5px;
-    border: 1px solid black;
-    cursor: pointer;
-    background: linear-gradient(to right,
-            #FFFF99,
-            #FFCC99,
-            #FFB3C2,
-            #CC99FF,
-            #99CCFF);
-    color: rgb(0, 0, 0);
-    transition: 0.7s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: block;
-    padding: 10px 20px;
-}
-
-.botaoGerarCartela:hover {
-    border-radius: 10px;
-    background-color: #f06543;
-}
-
-table {
-    margin: 20px auto;
-    max-width: 90vw;
-    overflow-x: auto;
-}
-
-.sorteios {
-    width: 50px;
-    background-color: #d6d5c8;
-    min-width: 30px;
-}
-
-.alinhamento {
+.container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    margin-top: 2%;
+    gap: 20px;
     width: 100%;
 }
 
 #display {
-    min-width: 300px;
+    min-width: 280px;
     text-align: center;
+    padding: 15px 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-h1 {
-    position: static;
-    white-space: nowrap;
-    /*Para não quebrar de linha mesmo se o texto for grande*/
+#display h1 {
+    margin: 0;
+    color: #fff;
     font-size: clamp(1.2rem, 4vw, 2rem);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.botaoSorteiaNumero,
+.botaoGerarCartela {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .botaoSorteiaNumero {
-    margin-left: 20px;
-    position: static;
-    font-size: 1.4rem;
-    height: 40px;
-    border-radius: 5px;
-    border: 1px solid black;
+    background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+    color: #fff;
+    font-weight: bold;
+}
+
+.botaoSorteiaNumero:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.botaoGerarCartela {
+    background: linear-gradient(135deg, #a8e6cf 0%, #88d8b0 100%);
+    color: #1a1a2e;
+    font-weight: bold;
+}
+
+.botaoGerarCartela:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(136, 216, 176, 0.4);
+}
+
+.cartela {
+    background-color: #16213e;
+    border: 4px solid #e94560;
+    border-radius: 20px;
+    font-size: 45px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(233, 69, 96, 0.3);
+}
+
+.cartela td {
+    border: 2px solid #0f3460;
+    border-radius: 10px;
+    text-align: center;
+    padding: 15px;
     cursor: pointer;
-    background: linear-gradient(to right,
-            #FFFF99,
-            /* Amarelo bem suave */
-            #FFCC99,
-            /* Laranja pêssego */
-            #FFB3C2,
-            /* Rosa claro */
-            #CC99FF,
-            /* Roxo lavanda */
-            #99CCFF);
-    /* Azul celeste */
-    color: rgb(0, 0, 0);
-    transition: 0.7s;
-    padding: 10px 20px;
+    transition: all 0.2s ease;
+    background-color: #1a1a2e;
+    color: #fff;
+}
+
+.cartela td:hover {
+    background-color: #0f3460;
+    transform: scale(1.05);
+}
+
+.cartela th {
+    padding: 15px;
+    font-size: 40px;
+}
+
+.b { color: #ff6b6b }
+.i { color: #feca57 }
+.n { color: #48dbfb }
+.g { color: #ff9ff3 }
+.o { color: #54a0ff }
+
+.numeros {
+    background-color: #16213e;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.numeros td {
+    padding: 8px 12px;
+    text-align: center;
+    border: 1px solid #0f3460;
+    background-color: #1a1a2e;
+    color: #fff;
+    font-size: 14px;
+}
+
+.numeros td.sorteios:first-child {
+    background-color: #e94560;
+    font-weight: bold;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .cartela {
+        font-size: 25px;
+    }
+    
+    .cartela td {
+        padding: 10px 5px;
+    }
+    
+    .botaoSorteiaNumero,
+    .botaoGerarCartela {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
 }
