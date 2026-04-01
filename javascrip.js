@@ -189,3 +189,24 @@ function GerarCartela() {
         td.innerText = v[i]
     }
 }
+
+function LimparMarcacoes() {
+    for (var i = 1; i <= 75; i++) {
+        var x = document.getElementById(i)
+        if (x) {
+            x.style.background = ""
+            x.style.color = ""
+        }
+    }
+    
+    var y = document.querySelectorAll('.cartela td')
+    y.forEach(function(td) {
+        if (td.id !== 'n3') {
+            td.style.backgroundColor = ''
+            td.style.color = 'black'
+        }
+    })
+    
+    document.querySelector('.cartela').classList.remove('vencedor')
+    document.getElementById("display").innerHTML = "<h1>Bingo da Nalu</h1>"
+}

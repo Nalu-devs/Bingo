@@ -43,7 +43,8 @@ html {
 }
 
 .botaoSorteiaNumero,
-.botaoGerarCartela {
+.botaoGerarCartela,
+.botaoReset {
     padding: 15px 30px;
     font-size: 1.2rem;
     border: none;
@@ -73,6 +74,17 @@ html {
 .botaoGerarCartela:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(136, 216, 176, 0.4);
+}
+
+.botaoReset {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    color: #1a1a2e;
+    font-weight: bold;
+}
+
+.botaoReset:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 154, 158, 0.4);
 }
 
 .cartela {
