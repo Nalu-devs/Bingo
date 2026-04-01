@@ -114,13 +114,17 @@ function NumeroSorteio() {
     }
     
     var x = sorteio.shift()
-    document.getElementById("display").innerHTML = "<h1>Numero sorteado: " + x + "</h1>"
+    var display = document.getElementById("display")
+    display.innerHTML = "<h1 class='pop'>Numero: " + x + "</h1>"
+    display.querySelector('h1').classList.add('animate')
     TocarSom()
     
     var y = document.getElementById(x)
     if (y) {
         y.style.background = "tomato"
         y.style.color = "white"
+        y.classList.add('pop')
+        setTimeout(function() { y.classList.remove('pop') }, 300)
     }
 
     var z = document.querySelectorAll('.cartela td')
@@ -128,6 +132,8 @@ function NumeroSorteio() {
         if (td.innerText == x && td.id !== 'n3') {
             td.style.backgroundColor = 'tomato'
             td.style.color = "white"
+            td.classList.add('pop')
+            setTimeout(function() { td.classList.remove('pop') }, 300)
         }
     })
     
