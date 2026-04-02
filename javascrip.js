@@ -57,7 +57,7 @@ function MisturarArray(x) {
     var a
     var b = x.length
     var c
-    while (b != 0) {
+    while (true) {
         b--
         c = x[b]
         x[b] = x[0]
