@@ -8,20 +8,6 @@ function GerarVetor(x, y) {
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 
-function TocarSom() {
-    var osc = audioCtx.createOscillator()
-    var gain = audioCtx.createGain()
-    osc.connect(gain)
-    gain.connect(audioCtx.destination)
-    osc.type = 'sine'
-    osc.frequency.setValueAtTime(660, audioCtx.currentTime)
-    osc.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.25)
-    gain.gain.setValueAtTime(0.2, audioCtx.currentTime)
-    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25)
-    osc.start()
-    osc.stop(audioCtx.currentTime + 0.25)
-};
-
 function TocarSomVitoria() {
     var notes = [523, 659, 784, 1047]
     notes.forEach(function(freq, i) {
