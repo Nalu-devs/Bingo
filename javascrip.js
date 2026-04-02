@@ -129,10 +129,7 @@ function NumeroSorteio() {
 
 
 function GerarCartela() {
-    d = []
-    for (var p = 1; p <= 75; p++) {
-        d.push(p)
-    };
+    
     d = MisturarArray(d)
     
     document.getElementById("display").innerHTML = "<h1>Bingo da Nalu</h1>"
