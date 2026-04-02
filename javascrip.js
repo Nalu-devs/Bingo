@@ -58,11 +58,10 @@ function MisturarArray(x) {
     var b = x.length
     var c
     while (b != 0) {
-        a = NumeroAleatorio(1, x.length)
         b--
         c = x[b]
-        x[b] = x[a]
-        x[a] = c
+        x[b] = x[0]
+        x[0] = c
     };
     return x
 };
