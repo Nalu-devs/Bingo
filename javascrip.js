@@ -113,7 +113,7 @@ function NumeroSorteio() {
         audioCtx.resume()
     };
     
-    var l = d.shift()
+    var l = d.pop()
     var m = document.getElementById("display")
     m.innerHTML = "<h1 class='pop'>Numero: " + l + "</h1>"
     m.querySelector('h1').classList.add('animate')
