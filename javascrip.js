@@ -1,6 +1,11 @@
 var jogadorAtual = 'X';
 var casas = ['', '', '', '', '', '', '', '', ''];
 var jogoAtivo = true;
+var modo = 'pvp';
+var placarX = 0;
+var placarO = 0;
+var countdownInterval = null;
+var countdownTempo = 10;
 
 function TestarAPI() {
     fetch('https://api.openai.com/v1/chat/completions', {
@@ -16,14 +21,70 @@ function TestarAPI() {
     .catch(function(error) { console.error(error) })
 };
 
+function MudarModo() {
+    modo = document.getElementById('modoJogo').value;
+    ReiniciarJogo();
+};
+
+function JogadaPC() {
+    if (!jogoAtivo) return;
+    
+    var casasVazias = [];
+    for (var i = 0; i < 9; i++) {
+        if (casas[i] === '') {
+            casasVazias.push(i);
+        }
+    }
+    
+    if (casasVazias.length === 0) return;
+    
+    var indice = casasVazias[Math.floor(Math.random() * casasVazias.length)];
+    var casa = document.getElementById('c' + indice);
+    
+    casas[indice] = 'O';
+    casa.innerText = 'O';
+    TocarSom();
+    
+    var combinacaoVitoria = VerificarVitoria();
+    if (combinacaoVitoria) {
+        document.getElementById('display').innerHTML = '<h1 class="vencedor">Computador venceu!</h1>';
+        combinacaoVitoria.forEach(function(i) {
+            document.getElementById('c' + i).classList.add('vencedor');
+        });
+        placarO++;
+        document.getElementById('placarO').innerText = placarO;
+        jogoAtivo = false;
+        TocarSomVitoria();
+        IniciarCountdown();
+        return;
+    }
+    
+    if (casas.indexOf('') === -1) {
+        document.getElementById('display').innerHTML = '<h1>Empate!</h1>';
+        jogoAtivo = false;
+        IniciarCountdown();
+        return;
+    }
+    
+    jogadorAtual = 'X';
+    document.getElementById('display').innerHTML = '<h1>Vez do jogador: X</h1>';
+};
+
 function MarcarCasa(casa) {
+    if (!jogoAtivo) return;
+    
     var indice = parseInt(casa.id.replace('c', ''));
-    if (!jogoAtivo || casas[indice] !== '') {
+    if (casas[indice] !== '') {
+        return;
+    }
+    
+    if (modo === 'pve' && jogadorAtual === 'O') {
         return;
     }
     
     casas[indice] = jogadorAtual;
     casa.innerText = jogadorAtual;
+    TocarSom();
     
     var combinacaoVitoria = VerificarVitoria();
     if (combinacaoVitoria) {
@@ -31,20 +92,34 @@ function MarcarCasa(casa) {
         combinacaoVitoria.forEach(function(i) {
             document.getElementById('c' + i).classList.add('vencedor');
         });
+        if (jogadorAtual === 'X') {
+            placarX++;
+            document.getElementById('placarX').innerText = placarX;
+        } else {
+            placarO++;
+            document.getElementById('placarO').innerText = placarO;
+        }
         jogoAtivo = false;
-        setTimeout(ReiniciarJogo, 10000);
+        TocarSomVitoria();
+        IniciarCountdown();
         return;
     }
     
     if (casas.indexOf('') === -1) {
         document.getElementById('display').innerHTML = '<h1>Empate!</h1>';
         jogoAtivo = false;
-        setTimeout(ReiniciarJogo, 10000);
+        IniciarCountdown();
         return;
     }
     
-    jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X';
-    document.getElementById('display').innerHTML = '<h1>Vez do jogador: ' + jogadorAtual + '</h1>';
+    if (modo === 'pve') {
+        jogadorAtual = 'O';
+        document.getElementById('display').innerHTML = '<h1>Vez do computador...</h1>';
+        setTimeout(JogadaPC, 500);
+    } else {
+        jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X';
+        document.getElementById('display').innerHTML = '<h1>Vez do jogador: ' + jogadorAtual + '</h1>';
+    }
 };
 
 function VerificarVitoria() {
@@ -66,7 +141,34 @@ function VerificarVitoria() {
     return null;
 };
 
+function IniciarCountdown() {
+    countdownTempo = 10;
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+    }
+    
+    var display = document.getElementById('display');
+    var textoAtual = display.innerHTML;
+    
+    countdownInterval = setInterval(function() {
+        countdownTempo--;
+        if (countdownTempo > 0) {
+            display.innerHTML = textoAtual + '<p class="countdown">Reiniciando em ' + countdownTempo + 's...</p>';
+        } else {
+            clearInterval(countdownInterval);
+            ReiniciarJogo();
+        }
+    }, 1000);
+    
+    display.innerHTML = textoAtual + '<p class="countdown">Reiniciando em ' + countdownTempo + 's...</p>';
+};
+
 function ReiniciarJogo() {
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+    }
+    
     jogadorAtual = 'X';
     casas = ['', '', '', '', '', '', '', '', ''];
     jogoAtivo = true;
@@ -77,5 +179,9 @@ function ReiniciarJogo() {
         casa.classList.remove('vencedor');
     }
     
-    document.getElementById('display').innerHTML = '<h1>Jogo da Velha</h1>';
+    if (modo === 'pve') {
+        document.getElementById('display').innerHTML = '<h1>Jogo da Velha</h1><p>Sua vez!</p>';
+    } else {
+        document.getElementById('display').innerHTML = '<h1>Jogo da Velha</h1>';
+    }
 };

@@ -16,10 +16,19 @@
       </div>
     </div>
     
+    <div class="placar">
+      <div class="placar-x">X: <span id="placarX">0</span></div>
+      <div class="placar-o">O: <span id="placarO">0</span></div>
+    </div>
+    
     <div class="controls">
       <button class="botaoSorteiaNumero" onclick="ReiniciarJogo()">
         Novo Jogo
       </button>
+      <select id="modoJogo" class="modo-select" onchange="MudarModo()">
+        <option value="pvp">PvP</option>
+        <option value="pve">PvE (PC)</option>
+      </select>
     </div>
     
     <table class="jogo-da-velha">
