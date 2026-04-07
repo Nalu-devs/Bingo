@@ -112,6 +112,11 @@ html {
     transform: scale(1.05);
 }
 
+.jogo-da-velha td.vencedor {
+    background-color: #2ecc71 !important;
+    color: #fff !important;
+}
+
 @media (max-width: 768px) {
     .jogo-da-velha td {
         width: 70px;

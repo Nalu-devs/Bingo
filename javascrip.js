@@ -17,22 +17,29 @@ function TestarAPI() {
 };
 
 function MarcarCasa(casa) {
-    if (!jogoAtivo || casas[casa.id] !== '') {
+    var indice = parseInt(casa.id.replace('c', ''));
+    if (!jogoAtivo || casas[indice] !== '') {
         return;
     }
     
-    casas[casa.id] = jogadorAtual;
+    casas[indice] = jogadorAtual;
     casa.innerText = jogadorAtual;
     
-    if (VerificarVitoria()) {
+    var combinacaoVitoria = VerificarVitoria();
+    if (combinacaoVitoria) {
         document.getElementById('display').innerHTML = '<h1 class="vencedor">Jogador ' + jogadorAtual + ' venceu!</h1>';
+        combinacaoVitoria.forEach(function(i) {
+            document.getElementById('c' + i).classList.add('vencedor');
+        });
         jogoAtivo = false;
+        setTimeout(ReiniciarJogo, 10000);
         return;
     }
     
     if (casas.indexOf('') === -1) {
         document.getElementById('display').innerHTML = '<h1>Empate!</h1>';
         jogoAtivo = false;
+        setTimeout(ReiniciarJogo, 10000);
         return;
     }
     
@@ -53,10 +60,10 @@ function VerificarVitoria() {
         var c = combinacoes[i][2];
         
         if (casas[a] !== '' && casas[a] === casas[b] && casas[b] === casas[c]) {
-            return true;
+            return combinacoes[i];
         }
     }
-    return false;
+    return null;
 };
 
 function ReiniciarJogo() {
@@ -65,7 +72,9 @@ function ReiniciarJogo() {
     jogoAtivo = true;
     
     for (var i = 0; i < 9; i++) {
-        document.getElementById('c' + i).innerText = '';
+        var casa = document.getElementById('c' + i);
+        casa.innerText = '';
+        casa.classList.remove('vencedor');
     }
     
     document.getElementById('display').innerHTML = '<h1>Jogo da Velha</h1>';
