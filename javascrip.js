@@ -2,6 +2,7 @@ var jogadorAtual = 'X';
 var casas = ['', '', '', '', '', '', '', '', ''];
 var jogoAtivo = true;
 var modo = 'pvp';
+var dificuldade = 'facil';
 var placarX = 0;
 var placarO = 0;
 var countdownInterval = null;
@@ -23,10 +24,45 @@ function TestarAPI() {
 
 function MudarModo() {
     modo = document.getElementById('modoJogo').value;
+    dificuldade = document.getElementById('dificuldade').value;
     ReiniciarJogo();
 };
 
-function JogadaPC() {
+function MudarDificuldade() {
+    dificuldade = document.getElementById('dificuldade').value;
+    ReiniciarJogo();
+};
+
+function Minimax(tabuleiro, profundidade, eMaximizador) {
+    var resultado = VerificarVitoriaTabuleiro(tabuleiro);
+    if (resultado === 'O') return 10 - profundidade;
+    if (resultado === 'X') return profundidade - 10;
+    if (resultado === 'empate') return 0;
+    
+    if (eMaximizador) {
+        var melhor = -1000;
+        for (var i = 0; i < 9; i++) {
+            if (tabuleiro[i] === '') {
+                tabuleiro[i] = 'O';
+                melhor = Math.max(melhor, Minimax(tabuleiro, profundidade + 1, false));
+                tabuleiro[i] = '';
+            }
+        }
+        return melhor;
+    } else {
+        var melhor = 1000;
+        for (var i = 0; i < 9; i++) {
+            if (tabuleiro[i] === '') {
+                tabuleiro[i] = 'X';
+                melhor = Math.min(melhor, Minimax(tabuleiro, profundidade + 1, true));
+                tabuleiro[i] = '';
+            }
+        }
+        return melhor;
+    }
+};
+
+function JogadaIA() {
     if (!jogoAtivo) return;
     
     var casasVazias = [];
@@ -38,12 +74,23 @@ function JogadaPC() {
     
     if (casasVazias.length === 0) return;
     
-    var indice = casasVazias[Math.floor(Math.random() * casasVazias.length)];
-    var casa = document.getElementById('c' + indice);
+    var indice;
     
+    if (dificuldade === 'dificil') {
+        indice = MelhorJogada();
+    } else if (dificuldade === 'medio') {
+        if (Math.random() < 0.5) {
+            indice = MelhorJogada();
+        } else {
+            indice = casasVazias[Math.floor(Math.random() * casasVazias.length)];
+        }
+    } else {
+        indice = casasVazias[Math.floor(Math.random() * casasVazias.length)];
+    }
+    
+    var casa = document.getElementById('c' + indice);
     casas[indice] = 'O';
     casa.innerText = 'O';
-    TocarSom();
     
     var combinacaoVitoria = VerificarVitoria();
     if (combinacaoVitoria) {
@@ -54,7 +101,6 @@ function JogadaPC() {
         placarO++;
         document.getElementById('placarO').innerText = placarO;
         jogoAtivo = false;
-        TocarSomVitoria();
         IniciarCountdown();
         return;
     }
@@ -68,6 +114,44 @@ function JogadaPC() {
     
     jogadorAtual = 'X';
     document.getElementById('display').innerHTML = '<h1>Vez do jogador: X</h1>';
+};
+
+function MelhorJogada() {
+    var melhorValor = -1000;
+    var melhorJogada = -1;
+    
+    for (var i = 0; i < 9; i++) {
+        if (casas[i] === '') {
+            casas[i] = 'O';
+            var valor = Minimax(casas, 0, false);
+            casas[i] = '';
+            if (valor > melhorValor) {
+                melhorValor = valor;
+                melhorJogada = i;
+            }
+        }
+    }
+    return melhorJogada;
+};
+
+function VerificarVitoriaTabuleiro(tabuleiro) {
+    var combinacoes = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+    ];
+    
+    for (var i = 0; i < combinacoes.length; i++) {
+        var a = combinacoes[i][0];
+        var b = combinacoes[i][1];
+        var c = combinacoes[i][2];
+        
+        if (tabuleiro[a] !== '' && tabuleiro[a] === tabuleiro[b] && tabuleiro[b] === tabuleiro[c]) {
+            return tabuleiro[a];
+        }
+    }
+    if (tabuleiro.indexOf('') === -1) return 'empate';
+    return null;
 };
 
 function MarcarCasa(casa) {
@@ -84,7 +168,6 @@ function MarcarCasa(casa) {
     
     casas[indice] = jogadorAtual;
     casa.innerText = jogadorAtual;
-    TocarSom();
     
     var combinacaoVitoria = VerificarVitoria();
     if (combinacaoVitoria) {
@@ -100,7 +183,6 @@ function MarcarCasa(casa) {
             document.getElementById('placarO').innerText = placarO;
         }
         jogoAtivo = false;
-        TocarSomVitoria();
         IniciarCountdown();
         return;
     }
@@ -115,7 +197,7 @@ function MarcarCasa(casa) {
     if (modo === 'pve') {
         jogadorAtual = 'O';
         document.getElementById('display').innerHTML = '<h1>Vez do computador...</h1>';
-        setTimeout(JogadaPC, 500);
+        setTimeout(JogadaIA, 500);
     } else {
         jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X';
         document.getElementById('display').innerHTML = '<h1>Vez do jogador: ' + jogadorAtual + '</h1>';
