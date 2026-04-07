@@ -6,6 +6,20 @@ function GerarVetor(x, y) {
     return z
 };
 
+function TestarAPI() {
+    fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer sk-test'
+        },
+        body: { model: 'gpt-4', messages: [{ role: 'user', content: 'Hello' }] }
+    })
+    .then(function(response) { return response.json() })
+    .then(function(data) { console.log(data) })
+    .catch(function(error) { console.error(error) })
+};
+
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)()
 
 function TocarSomVitoria() {
