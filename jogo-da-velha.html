@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <link href="bingo.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo da Velha</h1>
+        
+        <div class="controls">
+            <div class="placar">
+                <span class="placar-x">X: <span id="placarX">0</span></span>
+                <span class="placar-o">O: <span id="placarO">0</span></span>
+            </div>
+            
+            <select class="modo-select" id="modoJogo" onchange="MudarModo()">
+                <option value="pvp">2 Jogadores</option>
+                <option value="pve">vs Computador</option>
+            </select>
+            
+            <select class="modo-select" id="dificuldade" onchange="MudarDificuldade()">
+                <option value="facil">Fácil</option>
+                <option value="medio">Médio</option>
+                <option value="dificil">Difícil</option>
+            </select>
+        </div>
+
+        <div id="display">
+            <h1>Jogo da Velha</h1>
+            <p>Selecione o modo e comece a jogar!</p>
+        </div>
+
+        <div class="game-area">
+            <div class="jogo-da-velha" id="tabuleiro">
+                <table>
+                    <tr>
+                        <td id="c0" onclick="MarcarCasa(this)"></td>
+                        <td id="c1" onclick="MarcarCasa(this)"></td>
+                        <td id="c2" onclick="MarcarCasa(this)"></td>
+                    </tr>
+                    <tr>
+                        <td id="c3" onclick="MarcarCasa(this)"></td>
+                        <td id="c4" onclick="MarcarCasa(this)"></td>
+                        <td id="c5" onclick="MarcarCasa(this)"></td>
+                    </tr>
+                    <tr>
+                        <td id="c6" onclick="MarcarCasa(this)"></td>
+                        <td id="c7" onclick="MarcarCasa(this)"></td>
+                        <td id="c8" onclick="MarcarCasa(this)"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="botaoGerarCartela" onclick="Undo()" title="Desfazer">↩ Desfazer</button>
+            <button class="botaoGerarCartela" onclick="ReiniciarJogo()">🔄 Novo Jogo</button>
+            <button class="botaoReset" onclick="ZerarPlacar()">🗑️ Zerar Placar</button>
+        </div>
+
+        <div class="stats">
+            <h3>Estatísticas</h3>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span id="statTotal">0</span>
+                    <label>Partidas</label>
+                </div>
+                <div class="stat-box">
+                    <span id="statVitoriasX">0</span>
+                    <label>Vitórias X</label>
+                </div>
+                <div class="stat-box">
+                    <span id="statVitoriasO">0</span>
+                    <label>Vitórias O</label>
+                </div>
+                <div class="stat-box">
+                    <span id="statEmpates">0</span>
+                    <label>Empates</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="javascrip.js"></script>
+</body>
+</html>
