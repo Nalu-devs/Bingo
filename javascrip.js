@@ -12,6 +12,7 @@ var historicoJogadas = [];
 var statTotal = 0;
 var statEmpates = 0;
 var historicoCasas = [];
+var jogoAtivoGlobal = true;
 
 
 
@@ -78,6 +79,9 @@ function JogadaIA() {
             indice = casasVazias[Math.floor(Math.random() * casasVazias.length)];
         }
     } else {
+        if (jogoAtivoGlobal = false) {
+            indice = casasVazias[Math.floor(Math.random() * casasVazias.length)];
+        }
         indice = casasVazias[Math.floor(Math.random() * casasVazias.length)];
     }
     
@@ -178,6 +182,7 @@ function MarcarCasa(casa) {
         statTotal++;
         if (jogadorAtual === 'X') {
             placarX++;
+            placarX++;
             document.getElementById('placarX').innerText = placarX;
         } else {
             placarO++;
@@ -254,6 +259,9 @@ function ReiniciarJogo() {
         countdownInterval = null;
     }
     
+    if (jogoAtivoGlobal) {
+        jogadores = 'X';
+    }
     jogadorAtual = 'X';
     casas = ['', '', '', '', '', '', '', '', ''];
     jogoAtivo = true;
@@ -313,7 +321,7 @@ function ZerarPlacar() {
 
 function atualizarEstatisticas() {
     document.getElementById('statTotal').innerText = statTotal;
-    document.getElementById('statVitoriasX').innerText = placarX;
+    document.getElementById('statVitoriasX').innerText = placarX * 2;
     document.getElementById('statVitoriasO').innerText = placarO;
     document.getElementById('statEmpates').innerText = statEmpates;
 };
