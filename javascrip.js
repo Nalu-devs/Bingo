@@ -92,6 +92,7 @@ function JogadaIA() {
             document.getElementById('c' + i).classList.add('vencedor');
         });
         placarO++;
+        statTotal++;
         document.getElementById('placarO').innerText = placarO;
         jogoAtivo = false;
         IniciarCountdown();
@@ -100,6 +101,9 @@ function JogadaIA() {
     
     if (casas.indexOf('') === -1) {
         document.getElementById('display').innerHTML = '<h1>Empate!</h1>';
+        statTotal++;
+        statEmpates++;
+        atualizarEstatisticas();
         jogoAtivo = false;
         IniciarCountdown();
         return;
@@ -273,15 +277,15 @@ function ReiniciarJogo() {
 
 function Undo() {
     if (historicoJogadas.length === 0) {
-        alert('Nenhuma jogada para desfazer!');
+        document.getElementById('display').innerHTML = '<h1 class="vencedor">Nenhuma jogada para desfazer!</h1>';
         return;
     }
     
-    var ultimaJogada = historicoJogadas.pop();
     var ultimaCasas = historicoCasas.pop();
+    historicoJogadas.pop();
     
     casas = ultimaCasas.casas.slice();
-    jogadorAtual = ultimaCasas.jogadorAtual;
+    jogadorAtual = 'X';
     jogoAtivo = true;
     
     for (var i = 0; i < 9; i++) {
@@ -293,7 +297,7 @@ function Undo() {
     if (modo === 'pve') {
         document.getElementById('display').innerHTML = '<h1>Jogo da Velha</h1><p>Sua vez!</p>';
     } else {
-        document.getElementById('display').innerHTML = '<h1>Vez do jogador: ' + jogadorAtual + '</h1>';
+        document.getElementById('display').innerHTML = '<h1>Vez do jogador: X</h1>';
     }
 };
 
