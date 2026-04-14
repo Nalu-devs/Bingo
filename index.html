@@ -17,14 +17,22 @@
       <ul class="nav-links">
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
-      <div class="menu-toggle">
-        <i class="fas fa-bars"></i>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+          <i class="fas fa-moon"></i>
+        </button>
+        <div class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
       </div>
     </div>
   </nav>
+
+  <div id="particles"></div>
 
   <section id="home" class="hero">
     <div class="hero-content">
@@ -60,15 +68,15 @@
           <p>Minhas habilidades abrangem desde o front-end até back-end, sempre com foco em código limpo, performantico e acessível.</p>
           <div class="about-stats">
             <div class="stat">
-              <span class="stat-number">5+</span>
+              <span class="stat-number" data-target="5">0</span>
               <span class="stat-label">Anos de Experiência</span>
             </div>
             <div class="stat">
-              <span class="stat-number">50+</span>
+              <span class="stat-number" data-target="50">0</span>
               <span class="stat-label">Projetos Concluídos</span>
             </div>
             <div class="stat">
-              <span class="stat-number">30+</span>
+              <span class="stat-number" data-target="30">0</span>
               <span class="stat-label">Clientes Satisfeitos</span>
             </div>
           </div>
@@ -194,6 +202,61 @@
             </div>
           </div>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="depoimentos" class="testimonials">
+    <div class="container">
+      <h2 class="section-title">Depoimentos</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <i class="fas fa-quote-left"></i>
+            <p>"Excelente profissional! Entregou o projeto antes do prazo e com uma qualidade acima das expectativas. Sempre muito atencioso e comunicativo durante todo o processo."</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="author-info">
+              <h4>João Silva</h4>
+              <span>CEO, TechStart</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <i class="fas fa-quote-left"></i>
+            <p>"Trabalho excepcional! Entendeu perfeitamente a的需求 e traduziu em um site hermoso e funcional. Recomendo fortemente para qualquer projeto web."</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="author-info">
+              <h4>Maria Santos</h4>
+              <span>Diretora, Arte&Cia</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-content">
+            <i class="fas fa-quote-left"></i>
+            <p>"Profissional extremamente competente. Resolveu problemas complexos de forma rápida e eficiente. Já estou contratando para próximos projetos!"</p>
+          </div>
+          <div class="testimonial-author">
+            <div class="author-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="author-info">
+              <h4>Carlos Oliveira</h4>
+              <span>Founder, StartupHub</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

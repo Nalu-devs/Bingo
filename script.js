@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const menuToggle = document.querySelector('.menu-toggle');
   const navLinks = document.querySelector('.nav-links');
   const navLinksItems = document.querySelectorAll('.nav-links a');
+  const themeToggle = document.getElementById('themeToggle');
+  
+  createParticles();
 
   window.addEventListener('scroll', function() {
     if (window.scrollY > 50) {
@@ -11,6 +14,31 @@ document.addEventListener('DOMContentLoaded', function() {
       navbar.classList.remove('scrolled');
     }
   });
+
+  themeToggle.addEventListener('click', function() {
+    const html = document.documentElement;
+    const icon = themeToggle.querySelector('i');
+    
+    if (html.getAttribute('data-theme') === 'light') {
+      html.setAttribute('data-theme', 'dark');
+      icon.classList.remove('fa-sun');
+      icon.classList.add('fa-moon');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      html.setAttribute('data-theme', 'light');
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+      localStorage.setItem('theme', 'light');
+    }
+  });
+
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+    const icon = themeToggle.querySelector('i');
+    icon.classList.remove('fa-moon');
+    icon.classList.add('fa-sun');
+  }
 
   menuToggle.addEventListener('click', function() {
     navLinks.classList.toggle('active');
@@ -42,6 +70,9 @@ document.addEventListener('DOMContentLoaded', function() {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        if (entry.target.id === 'sobre') {
+          animateCounters();
+        }
       }
     });
   }, observerOptions);
@@ -56,6 +87,60 @@ document.addEventListener('DOMContentLoaded', function() {
     card.style.animationDelay = (index * 0.1) + 's';
   });
 });
+
+function createParticles() {
+  const container = document.getElementById('particles');
+  const colors = ['#6366f1', '#ec4899', '#8b5cf6', '#06b6d4'];
+  const particleCount = 30;
+  
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    
+    const size = Math.random() * 6 + 2;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const left = Math.random() * 100;
+    const top = Math.random() * 100;
+    const duration = Math.random() * 20 + 10;
+    const delay = Math.random() * 5;
+    
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+    particle.style.backgroundColor = color;
+    particle.style.left = left + '%';
+    particle.style.top = top + '%';
+    particle.style.animationDuration = duration + 's';
+    particle.style.animationDelay = delay + 's';
+    
+    container.appendChild(particle);
+  }
+}
+
+function animateCounters() {
+  const counters = document.querySelectorAll('.stat-number');
+  const speed = 200;
+  
+  counters.forEach(function(counter) {
+    const target = +counter.getAttribute('data-target');
+    const increment = target / speed;
+    
+    let current = 0;
+    const updateCounter = function() {
+      current += increment;
+      if (current < target) {
+        counter.textContent = Math.ceil(current) + '+';
+        setTimeout(updateCounter, 20);
+      } else {
+        counter.textContent = target + '+';
+      }
+    };
+    
+    if (!counter.classList.contains('animated')) {
+      counter.classList.add('animated');
+      updateCounter();
+    }
+  });
+}
 
 function enviarEmail(event) {
   event.preventDefault();
