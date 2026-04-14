@@ -183,3 +183,57 @@ html {
     font-size: 1rem;
     margin-top: 10px;
 }
+
+.stats {
+    margin-top: 30px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.stats h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    background: #16213e;
+    padding: 15px 25px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+}
+
+.stat-box span {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.stat-box label {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 5px;
+}
+
+.game-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.jogo-da-velha table {
+    border-collapse: collapse;
+}

@@ -159,6 +159,9 @@ function MarcarCasa(casa) {
         return;
     }
     
+    historicoJogadas.push({ indice: indice, jogador: jogadorAtual });
+    historicoCasas.push({ casas: casas.slice(), jogadorAtual: jogadorAtual });
+    
     casas[indice] = jogadorAtual;
     casa.innerText = jogadorAtual;
     
@@ -168,6 +171,7 @@ function MarcarCasa(casa) {
         combinacaoVitoria.forEach(function(i) {
             document.getElementById('c' + i).classList.add('vencedor');
         });
+        statTotal++;
         if (jogadorAtual === 'X') {
             placarX++;
             document.getElementById('placarX').innerText = placarX;
@@ -182,6 +186,8 @@ function MarcarCasa(casa) {
     
     if (casas.indexOf('') === -1) {
         document.getElementById('display').innerHTML = '<h1>Empate!</h1>';
+        statTotal++;
+        statEmpates++;
         jogoAtivo = false;
         IniciarCountdown();
         return;
@@ -259,4 +265,51 @@ function ReiniciarJogo() {
     } else {
         document.getElementById('display').innerHTML = '<h1>Jogo da Velha</h1>';
     }
+    
+    historicoJogadas = [];
+    historicoCasas = [];
+    atualizarEstatisticas();
+};
+
+function Undo() {
+    if (historicoJogadas.length === 0) {
+        alert('Nenhuma jogada para desfazer!');
+        return;
+    }
+    
+    var ultimaJogada = historicoJogadas.pop();
+    var ultimaCasas = historicoCasas.pop();
+    
+    casas = ultimaCasas.casas.slice();
+    jogadorAtual = ultimaCasas.jogadorAtual;
+    jogoAtivo = true;
+    
+    for (var i = 0; i < 9; i++) {
+        var casa = document.getElementById('c' + i);
+        casa.innerText = casas[i];
+        casa.classList.remove('vencedor');
+    }
+    
+    if (modo === 'pve') {
+        document.getElementById('display').innerHTML = '<h1>Jogo da Velha</h1><p>Sua vez!</p>';
+    } else {
+        document.getElementById('display').innerHTML = '<h1>Vez do jogador: ' + jogadorAtual + '</h1>';
+    }
+};
+
+function ZerarPlacar() {
+    placarX = 0;
+    placarO = 0;
+    statTotal = 0;
+    statEmpates = 0;
+    document.getElementById('placarX').innerText = 0;
+    document.getElementById('placarO').innerText = 0;
+    atualizarEstatisticas();
+};
+
+function atualizarEstatisticas() {
+    document.getElementById('statTotal').innerText = statTotal;
+    document.getElementById('statVitoriasX').innerText = placarX;
+    document.getElementById('statVitoriasO').innerText = placarO;
+    document.getElementById('statEmpates').innerText = statEmpates;
 };
