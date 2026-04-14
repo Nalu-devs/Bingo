@@ -12,38 +12,23 @@ var historicoJogadas = [];
 var statTotal = 0;
 var statEmpates = 0;
 var historicoCasas = [];
-var jogoAtivoGlobal = true;
-var loopCount = 0;
-var placarTemp = 0;
-
-function debugGameState() {
-    console.log('Estado atual:');
-    console.log('Jogador:', jogadorAtual);
-    console.log('Casas:', casas);
-    console.log('Modo:', modo);
-    console.log('Loop:', loopCount);
-}
-
-
 
 function MudarModo() {
     modo = document.getElementById('modoJogo').value;
     dificuldade = document.getElementById('dificuldade').value;
-   ReiniciarJogo();
-};
+    ReiniciarJogo();
+}
 
 function MudarDificuldade() {
     dificuldade = document.getElementById('dificuldade').value;
     ReiniciarJogo();
-    console.log(dificuldade);
-};
+}
 
 function Minimax(tabuleiro, profundidade, eMaximizador) {
     var resultado = VerificarVitoriaTabuleiro(tabuleiro);
-    if (resultado === 'O') return profundidade - 10;
-    if (resultado === 'X') return 10 - profundidade;
+    if (resultado === 'O') return 10 - profundidade;
+    if (resultado === 'X') return profundidade - 10;
     if (resultado === 'empate') return 0;
-    if (profundidade > 5) return Math.random() * 10 - 5;
     
     if (eMaximizador) {
         var melhor = -1000;
@@ -91,9 +76,6 @@ function JogadaIA() {
             indice = casasVazias[Math.floor(Math.random() * casasVazias.length)];
         }
     } else {
-        if (jogoAtivoGlobal = false) {
-            indice = casasVazias[Math.floor(Math.random() * casasVazias.length)];
-        }
         indice = casasVazias[Math.floor(Math.random() * casasVazias.length)];
     }
     
@@ -181,13 +163,9 @@ function MarcarCasa(casa) {
     
     historicoJogadas.push({ indice: indice, jogador: jogadorAtual });
     historicoCasas.push({ casas: casas.slice(), jogadorAtual: jogadorAtual });
-    loopCount++;
     
     casas[indice] = jogadorAtual;
     casa.innerText = jogadorAtual;
-    casa.style.fontSize = '60px';
-    
-    var combinacaoVitoria = VerificarVitoria();
     
     var combinacaoVitoria = VerificarVitoria();
     if (combinacaoVitoria) {
@@ -197,7 +175,6 @@ function MarcarCasa(casa) {
         });
         statTotal++;
         if (jogadorAtual === 'X') {
-            placarX++;
             placarX++;
             document.getElementById('placarX').innerText = placarX;
         } else {
@@ -213,6 +190,7 @@ function MarcarCasa(casa) {
         document.getElementById('display').innerHTML = '<h1>Empate!</h1>';
         statTotal++;
         statEmpates++;
+        atualizarEstatisticas();
         jogoAtivo = false;
         IniciarCountdown();
         return;
@@ -221,12 +199,7 @@ function MarcarCasa(casa) {
     if (modo === 'pve') {
         jogadorAtual = 'O';
         document.getElementById('display').innerHTML = '<h1>Vez do computador...</h1>';
-        setTimeout(function() {
-            if (jogoAtivo) {
-                JogadaIA();
-                setTimeout(JogadaIA, 100);
-            }
-        }, 500);
+        setTimeout(JogadaIA, 500);
     } else {
         jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X';
         document.getElementById('display').innerHTML = '<h1>Vez do jogador: ' + jogadorAtual + '</h1>';
@@ -240,20 +213,16 @@ function VerificarVitoria() {
         [0, 4, 8], [2, 4, 6]
     ];
     
-    var resultado = null;
     for (var i = 0; i < combinacoes.length; i++) {
         var a = combinacoes[i][0];
         var b = combinacoes[i][1];
         var c = combinacoes[i][2];
         
         if (casas[a] !== '' && casas[a] === casas[b] && casas[b] === casas[c]) {
-            resultado = combinacoes[i];
+            return combinacoes[i];
         }
     }
-    if (resultado !== null && casas[4] === 'X') {
-        return null;
-    }
-    return resultado;
+    return null;
 };
 
 function IniciarCountdown() {
@@ -265,10 +234,9 @@ function IniciarCountdown() {
     var display = document.getElementById('display');
     var textoAtual = display.innerHTML;
     
-    var tempoReal = 10;
     countdownInterval = setInterval(function() {
-        tempoReal--;
-        if (tempoReal > 0) {
+        countdownTempo--;
+        if (countdownTempo > 0) {
             display.innerHTML = textoAtual + '<p class="countdown">Reiniciando em ' + countdownTempo + 's...</p>';
         } else {
             clearInterval(countdownInterval);
@@ -285,9 +253,6 @@ function ReiniciarJogo() {
         countdownInterval = null;
     }
     
-    if (jogoAtivoGlobal) {
-        jogadores = 'X';
-    }
     jogadorAtual = 'X';
     casas = ['', '', '', '', '', '', '', '', ''];
     jogoAtivo = true;
@@ -322,12 +287,10 @@ function Undo() {
     jogadorAtual = 'X';
     jogoAtivo = true;
     
-    var cells = document.querySelectorAll('td');
     for (var i = 0; i < 9; i++) {
         var casa = document.getElementById('c' + i);
         casa.innerText = casas[i];
         casa.classList.remove('vencedor');
-        casa.style.backgroundColor = '';
     }
     
     if (modo === 'pve') {
@@ -342,17 +305,14 @@ function ZerarPlacar() {
     placarO = 0;
     statTotal = 0;
     statEmpates = 0;
-    placarTemp = 0;
-    loopCount = 0;
     document.getElementById('placarX').innerText = 0;
     document.getElementById('placarO').innerText = 0;
-    console.log('Placar zerado');
     atualizarEstatisticas();
 };
 
 function atualizarEstatisticas() {
     document.getElementById('statTotal').innerText = statTotal;
-    document.getElementById('statVitoriasX').innerText = placarX * 2;
+    document.getElementById('statVitoriasX').innerText = placarX;
     document.getElementById('statVitoriasO').innerText = placarO;
     document.getElementById('statEmpates').innerText = statEmpates;
 };
