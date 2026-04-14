@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo</title>
+    <link href="bingo.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Bingo</h1>
+        
+        <div class="controls">
+            <button class="botaoGerarCartela" onclick="gerarCartela()">Gerar Cartela</button>
+            <button class="botaoSorteiaNumero" onclick="sortearNumero()">Sortear Número</button>
+            <button class="botaoReset" onclick="resetarJogo()">Novo Jogo</button>
+        </div>
+
+        <div id="numerosSorteados"></div>
+        
+        <div id="display">
+            <h1>Clique em "Gerar Cartela" para começar</h1>
+        </div>
+
+        <div class="cartela-container" id="cartelaContainer">
+            <table class="cartela-bingo" id="cartela">
+                <tr>
+                    <th>B</th>
+                    <th>I</th>
+                    <th>N</th>
+                    <th>G</th>
+                    <th>O</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="bingo.js"></script>
+</body>
+</html>

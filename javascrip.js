@@ -8,19 +8,7 @@ var placarO = 0;
 var countdownInterval = null;
 var countdownTempo = 10;
 
-function TestarAPI() {
-    fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer sk-test'
-        },
-        body: { model: 'gpt-4', messages: [{ role: 'user', content: 'Hello' }] }
-    })
-    .then(function(response) { return response.json() })
-    .then(function(data) { console.log(data) })
-    .catch(function(error) { console.error(error) })
-};
+
 
 function MudarModo() {
     modo = document.getElementById('modoJogo').value;
