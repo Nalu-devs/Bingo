@@ -8,6 +8,11 @@ var placarO = 0;
 var countdownInterval = null;
 var countdownTempo = 10;
 
+var historicoJogadas = [];
+var statTotal = 0;
+var statEmpates = 0;
+var historicoCasas = [];
+
 
 
 function MudarModo() {
