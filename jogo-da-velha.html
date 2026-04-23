@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo da Velha</title>
     <link href="bingo.css" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
 </head>
 <body>
     <div class="container">
-        <h1>Jogo da Velha</h1>
+        <header class="header">
+            <h1>🎮 Jogo da Velha</h1>
+            <p class="subtitle">Desafie seus amigos ou o computador!</p>
+        </header>
         
         <div class="controls">
             <div class="placar">
@@ -17,15 +21,15 @@
             </div>
             
             <select class="modo-select" id="modoJogo" onchange="MudarModo()">
-                <option value="pvp">2 Jogadores</option>
-                <option value="pve">vs Computador</option>
-                <option value="pvp3">3 Jogadores</option>
+                <option value="pvp">👥 2 Jogadores</option>
+                <option value="pve">🤖 vs Computador</option>
+                <option value="pvp3">👥 3 Jogadores</option>
             </select>
             
             <select class="modo-select" id="dificuldade" onchange="MudarDificuldade()">
-                <option value="facil">Fácil</option>
-                <option value="medio">Médio</option>
-                <option value="dificil">Difícil</option>
+                <option value="facil">😊 Fácil</option>
+                <option value="medio">🤔 Médio</option>
+                <option value="dificil">😈 Difícil</option>
             </select>
         </div>
 
@@ -38,32 +42,44 @@
             <div class="jogo-da-velha" id="tabuleiro">
                 <table>
                     <tr>
-                        <td id="c0" onclick="MarcarCasa(this)"></td>
-                        <td id="c1" onclick="MarcarCasa(this)"></td>
-                        <td id="c2" onclick="MarcarCasa(this)"></td>
+                        <td id="c0" data-index="0" tabindex="0"></td>
+                        <td id="c1" data-index="1" tabindex="0"></td>
+                        <td id="c2" data-index="2" tabindex="0"></td>
                     </tr>
                     <tr>
-                        <td id="c3" onclick="MarcarCasa(this)"></td>
-                        <td id="c4" onclick="MarcarCasa(this)"></td>
-                        <td id="c5" onclick="MarcarCasa(this)"></td>
+                        <td id="c3" data-index="3" tabindex="0"></td>
+                        <td id="c4" data-index="4" tabindex="0"></td>
+                        <td id="c5" data-index="5" tabindex="0"></td>
                     </tr>
                     <tr>
-                        <td id="c6" onclick="MarcarCasa(this)"></td>
-                        <td id="c7" onclick="MarcarCasa(this)"></td>
-                        <td id="c8" onclick="MarcarCasa(this)"></td>
+                        <td id="c6" data-index="6" tabindex="0"></td>
+                        <td id="c7" data-index="7" tabindex="0"></td>
+                        <td id="c8" data-index="8" tabindex="0"></td>
                     </tr>
                 </table>
             </div>
         </div>
 
         <div class="controls">
-            <button class="botaoGerarCartela" onclick="Undo()" title="Desfazer">↩ Desfazer</button>
-            <button class="botaoGerarCartela" onclick="ReiniciarJogo()">🔄 Novo Jogo</button>
-            <button class="botaoReset" onclick="ZerarPlacar()">🗑️ Zerar Placar</button>
+            <button class="botaoGerarCartela" onclick="Undo()" title="Desfazer">
+                ↩ Desfazer
+            </button>
+            <button class="botaoGerarCartela" onclick="ReiniciarJogo()">
+                🔄 Novo Jogo
+            </button>
+            <button class="botaoReset" onclick="ZerarPlacar()">
+                🗑️ Zerar Placar
+            </button>
+        </div>
+
+        <div class="sound-controls">
+            <button id="soundToggle" class="sound-btn" onclick="toggleSound()">
+                🔊 Som
+            </button>
         </div>
 
         <div class="stats">
-            <h3>Estatísticas</h3>
+            <h3>📊 Estatísticas</h3>
             <div class="stats-grid">
                 <div class="stat-box">
                     <span id="statTotal">0</span>
@@ -83,8 +99,84 @@
                 </div>
             </div>
         </div>
+
+        <div class="theme-toggle">
+            <button onclick="toggleTheme()" class="theme-btn">🌙/☀️</button>
+        </div>
+
+        <footer class="footer">
+            <p>Use as teclas 1-9 para jogar | Pressione U para desfazer | Pressione R para reiniciar</p>
+        </footer>
     </div>
 
     <script src="javascrip.js"></script>
+    <script>
+        let soundEnabled = true;
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            if (type === 'click') {
+                oscillator.frequency.value = 440;
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            } else if (type === 'win') {
+                oscillator.frequency.value = 523;
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                oscillator.start(audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(659, audioContext.currentTime + 0.1);
+                oscillator.frequency.setValueAtTime(784, audioContext.currentTime + 0.2);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+                oscillator.stop(audioContext.currentTime + 0.4);
+            } else if (type === 'lose') {
+                oscillator.frequency.value = 200;
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.3);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('soundToggle');
+            btn.textContent = soundEnabled ? '🔊 Som' : '🔇 Sem Som';
+            btn.classList.toggle('disabled', !soundEnabled);
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+        }
+
+        document.addEventListener('keydown', function(e) {
+            const key = e.key;
+            if (key >= '1' && key <= '9') {
+                const index = parseInt(key) - 1;
+                const cell = document.getElementById('c' + index);
+                if (cell) MarcarCasa(cell);
+            } else if (key.toLowerCase() === 'u') {
+                Undo();
+            } else if (key.toLowerCase() === 'r') {
+                ReiniciarJogo();
+            }
+        });
+
+        document.querySelectorAll('.jogo-da-velha td').forEach(cell => {
+            cell.addEventListener('click', () => playSound('click'));
+            cell.addEventListener('focus', () => {
+                if (!cell.innerText) playSound('click');
+            });
+        });
+    </script>
 </body>
 </html>
