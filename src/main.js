@@ -10,5 +10,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (undoBtn) undoBtn.addEventListener('click', () => game._undo());
   if (resetBtn) resetBtn.addEventListener('click', () => game._resetGame());
-  if (clearScoresBtn) clearScoresBtn.addEventListener('click', () => game.resetScores());
+  if (clearScoresBtn) .addEventListener('click', () => game.resetScores());
 });
