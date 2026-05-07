@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Velha — Professional Edition</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Jogo da Velha</h1>
+      <p class="subtitle">Desafie seus amigos ou o computador!</p>
+    </header>
+
+    <div class="controls">
+      <div class="placar">
+        <span class="placar-x">X: <span id="placarX">0</span></span>
+        <span class="placar-o">O: <span id="placarO">0</span></span>
+      </div>
+
+      <select class="modo-select" id="modoJogo">
+        <option value="pvp">2 Jogadores</option>
+        <option value="pve">vs Computador</option>
+        <option value="pvp3">3 Jogadores</option>
+      </select>
+
+      <select class="modo-select" id="dificuldade">
+        <option value="facil">Fácil</option>
+        <option value="medio">Médio</option>
+        <option value="dificil">Difícil</option>
+      </select>
+    </div>
+
+    <div id="display">
+      <h1>Jogo da Velha</h1>
+      <p>Selecione o modo e comece a jogar!</p>
+    </div>
+
+    <div class="game-area">
+      <div class="jogo-da-velha" id="tabuleiro">
+        <table>
+          <tr>
+            <td id="c0" data-index="0" tabindex="0"></td>
+            <td id="c1" data-index="1" tabindex="0"></td>
+            <td id="c2" data-index="2" tabindex="0"></td>
+          </tr>
+          <tr>
+            <td id="c3" data-index="3" tabindex="0"></td>
+            <td id="c4" data-index="4" tabindex="0"></td>
+            <td id="c5" data-index="5" tabindex="0"></td>
+          </tr>
+          <tr>
+            <td id="c6" data-index="6" tabindex="0"></td>
+            <td id="c7" data-index="7" tabindex="0"></td>
+            <td id="c8" data-index="8" tabindex="0"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn btn--undo" id="undoBtn">Desfazer</button>
+      <button class="btn btn--reset" id="resetBtn">Novo Jogo</button>
+      <button class="btn btn--clear" id="clearScoresBtn">Zerar Placar</button>
+    </div>
+
+    <div class="sound-controls">
+      <button id="soundToggle" class="sound-btn">Som</button>
+    </div>
+
+    <div class="stats">
+      <h3>Estatísticas</h3>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span id="statTotal">0</span>
+          <label>Partidas</label>
+        </div>
+        <div class="stat-box">
+          <span id="statVitoriasX">0</span>
+          <label>Vitórias X</label>
+        </div>
+        <div class="stat-box">
+          <span id="statVitoriasO">0</span>
+          <label>Vitórias O</label>
+        </div>
+        <div class="stat-box">
+          <span id="statEmpates">0</span>
+          <label>Empates</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="theme-toggle">
+      <button id="themeToggle" class="theme-btn">🌙/☀️</button>
+    </div>
+
+    <footer class="footer">
+      <p>Use as teclas 1-9 para jogar | Pressione U para desfazer | Pressione R para reiniciar</p>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
