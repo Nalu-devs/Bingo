@@ -7,7 +7,6 @@ import { ThemeManager } from '../ui/ThemeManager.js';
 import {
   WINNING_COMBOS,
   GAME_MODES,
-  DIFFICULTIES,
   AI_DELAY_MS,
 } from './constants.js';
 
@@ -19,14 +18,21 @@ export class GameController {
     this.display = new DisplayManager('display');
     this.sound = new SoundManager();
     this.theme = new ThemeManager();
+    this._isAIThinking = false;
 
     this._setupControls();
     this._setupKeyboard();
-    this._setupBoardClicks();
     this._setupSoundToggle();
+    this._setupButtons();
     this.display.showMainMenu(this.state.mode);
     this.display.updateScores(this.state.scores);
     this.display.updateStatistics(this.state.statistics, this.state.scores);
+  }
+
+  _setupButtons() {
+    document.getElementById('undoBtn')?.addEventListener('click', () => this._undo());
+    document.getElementById('resetBtn')?.addEventListener('click', () => this._resetGame());
+    document.getElementById('clearScoresBtn')?.addEventListener('click', () => this.resetScores());
   }
 
   _setupControls() {
@@ -56,20 +62,12 @@ export class GameController {
   _setupKeyboard() {
     document.addEventListener('keydown', (e) => {
       if (e.key >= '1' && e.key <= '9') {
-        const index = parseInt(e.key) - 1;
-        this.handleCellClick(index);
+        this.handleCellClick(parseInt(e.key) - 1);
       } else if (e.key.toLowerCase() === 'u') {
         this._undo();
       } else if (e.key.toLowerCase() === 'r') {
         this._resetGame();
       }
-    });
-  }
-
-  _setupBoardClicks() {
-    const cells = document.querySelectorAll('.jogo-da-velha td');
-    cells.forEach(cell => {
-      cell.addEventListener('click', () => this.sound.click());
     });
   }
 
@@ -107,6 +105,7 @@ export class GameController {
     if (result.winner === 'draw') {
       this.display.showDraw();
       this.state.incrementDraws();
+      this.board.animateDraw();
       this.sound.draw();
     } else {
       if (this.state.mode === GAME_MODES.PVE && result.winner === 'O') {
@@ -133,17 +132,20 @@ export class GameController {
       this.state.mode === GAME_MODES.PVE &&
       this.state.currentPlayer === 'O'
     ) {
+      this._isAIThinking = true;
       this.display.showComputerTurn();
       setTimeout(() => this._doAIMove(), AI_DELAY_MS);
     }
   }
 
   _doAIMove() {
+    this._isAIThinking = false;
     if (!this.state.isActive) return;
+
     const move = this.ai.getMove(this.state.board);
     if (move === -1) return;
 
-    this.state.board[move] = 'O';
+    this.state.makeMove(move);
     this.board.render(this.state.board);
     this.board.animateCell(move);
     this.sound.move();
@@ -159,7 +161,7 @@ export class GameController {
   }
 
   handleCellClick(index) {
-    if (!this.state.isActive) return;
+    if (!this.state.isActive || this._isAIThinking) return;
 
     if (
       this.state.mode === GAME_MODES.PVE &&
@@ -185,20 +187,32 @@ export class GameController {
   }
 
   _undo() {
+    if (!this.state.isActive || this._isAIThinking) return;
+
     if (this.state.boardSnapshots.length === 0) {
       this.display.showNoUndo();
       setTimeout(() => this.display.showMainMenu(this.state.mode), 1000);
       return;
     }
 
-    this.state.undoLastMove();
+    if (this.state.mode === GAME_MODES.PVE) {
+      this.state.undoLastMove();
+      if (this.state.boardSnapshots.length > 0) {
+        this.state.undoLastMove();
+      }
+    } else {
+      this.state.undoLastMove();
+    }
+
     this.board.render(this.state.board);
     this.board.clearHighlights();
+    this.sound.undo();
     this.display.showMainMenu(this.state.mode);
     this.display.updateScores(this.state.scores);
   }
 
   _resetGame() {
+    this._isAIThinking = false;
     this.display.stopCountdown();
     this.state.reset();
     this.board.render(this.state.board);
@@ -207,10 +221,8 @@ export class GameController {
     this.display.updateScores(this.state.scores);
     this.display.updateStatistics(this.state.statistics, this.state.scores);
 
-    if (
-      this.state.mode === GAME_MODES.PVE &&
-      this.state.currentPlayer === 'O'
-    ) {
+    if (this.state.mode === GAME_MODES.PVE) {
+      this._isAIThinking = true;
       this.display.showComputerTurn();
       setTimeout(() => this._doAIMove(), AI_DELAY_MS);
     }
@@ -222,5 +234,3 @@ export class GameController {
     this.display.updateStatistics(this.state.statistics, this.state.scores);
   }
 }
-
-window.GameController = GameController;

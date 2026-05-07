@@ -19,10 +19,6 @@ export class DisplayManager {
     }
   }
 
-  showTurn(player) {
-    this.showMessage(`<h1>Vez do jogador: ${player}</h1>`);
-  }
-
   showPlayerTurn(player) {
     this.showMessage(`<h1>Vez do jogador: ${player}</h1>`);
   }
@@ -76,10 +72,13 @@ export class DisplayManager {
   }
 
   updateScores(scores) {
-    const xEl = document.getElementById('placarX');
-    const oEl = document.getElementById('placarO');
-    if (xEl) xEl.textContent = scores.X;
-    if (oEl) oEl.textContent = scores.O;
+    const setText = (id, value) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    };
+    setText('placarX', scores.X);
+    setText('placarO', scores.O);
+    setText('placarY', scores.Y);
   }
 
   updateStatistics(stats, scores) {
@@ -90,6 +89,7 @@ export class DisplayManager {
     setText('statTotal', stats.total);
     setText('statVitoriasX', scores.X);
     setText('statVitoriasO', scores.O);
+    setText('statVitoriasY', scores.Y);
     setText('statEmpates', stats.draws);
   }
 }
