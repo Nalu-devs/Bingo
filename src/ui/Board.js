@@ -40,7 +40,7 @@ export class Board {
 
   clearHighlights() {
     this.cells.forEach(cell => {
-      cell.classList.remove(CSS_CLASSES.WINNER, CSS_CLASSES.POP);
+      cell.classList.remove(CSS_CLASSES.WINNER, CSS_CLASSES.POP, CSS_CLASSES.DRAW);
     });
   }
 
@@ -48,5 +48,15 @@ export class Board {
     this.cells[index].classList.remove(CSS_CLASSES.POP);
     void this.cells[index].offsetWidth;
     this.cells[index].classList.add(CSS_CLASSES.POP);
+  }
+
+  animateDraw() {
+    this.cells.forEach((cell, i) => {
+      setTimeout(() => {
+        cell.classList.remove(CSS_CLASSES.DRAW);
+        void cell.offsetWidth;
+        cell.classList.add(CSS_CLASSES.DRAW);
+      }, i * 60);
+    });
   }
 }

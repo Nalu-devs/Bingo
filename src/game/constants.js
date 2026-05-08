@@ -26,6 +26,7 @@ export const AI_DELAY_MS = 500;
 export const CSS_CLASSES = {
   WINNER: 'vencedor',
   POP: 'pop',
+  DRAW: 'draw-cell',
   DISABLED: 'disabled',
   LIGHT_MODE: 'light-mode',
 };

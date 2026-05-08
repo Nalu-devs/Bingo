@@ -9,7 +9,6 @@ export class SoundManager {
     try {
       this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
     } catch {
-      console.warn('Web Audio API não suportada neste navegador.');
       this.enabled = false;
     }
   }
@@ -69,10 +68,6 @@ export class SoundManager {
     });
   }
 
-  click() {
-    this._playTone(440, 0.1, 'square', 0.15);
-  }
-
   move() {
     this._playTone(660, 0.12, 'sine', 0.2);
   }
@@ -99,5 +94,12 @@ export class SoundManager {
       [330, 0.12, 0.12],
       [330, 0.24, 0.2],
     ], 0.2);
+  }
+
+  undo() {
+    this._playSequence([
+      [400, 0, 0.08],
+      [300, 0.08, 0.1],
+    ], 0.15);
   }
 }
