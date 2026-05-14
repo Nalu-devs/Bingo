@@ -46,7 +46,7 @@ a:hover { color: var(--accent-hover); }
 
 button { font-family: inherit; cursor: pointer; }
 
-.btn {
+.btn, button.btn {
   padding: 10px 22px;
   font-size: 0.95rem;
   font-weight: 600;
@@ -57,7 +57,7 @@ button { font-family: inherit; cursor: pointer; }
   transition: all var(--transition);
 }
 
-.btn:hover {
+.btn:hover, button.btn:hover {
   background: var(--accent);
   color: var(--bg);
   transform: translateY(-2px);
@@ -92,7 +92,9 @@ select {
   transition: all var(--transition);
 }
 
-select:hover { border-color: var(--accent-hover); }
+select:hover {
+  border-color: var(--accent-hover);
+}
 
 select:focus {
   outline: none;
@@ -127,7 +129,10 @@ select:focus {
   background-clip: text;
 }
 
-.topbar-actions { display: flex; gap: 8px; }
+.topbar-actions {
+  display: flex;
+  gap: 8px;
+}
 
 .icon-btn {
   width: 40px;
@@ -169,7 +174,9 @@ select:focus {
   pointer-events: none;
 }
 
-#sidebar ul { list-style: none; }
+#sidebar ul {
+  list-style: none;
+}
 
 #sidebar li a {
   display: block;
@@ -199,9 +206,15 @@ select:focus {
   pointer-events: none;
 }
 
-#content { flex: 1; padding: 24px; }
+#content {
+  flex: 1;
+  padding: 24px;
+}
 
-.game-page { max-width: 900px; margin: 0 auto; }
+.game-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
 
 .game-header {
   display: flex;
@@ -212,7 +225,10 @@ select:focus {
   margin-bottom: 24px;
 }
 
-.game-header h2 { font-size: 1.5rem; color: var(--accent); }
+.game-header h2 {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
 
 .game-controls {
   display: flex;
@@ -229,9 +245,14 @@ select:focus {
   margin-top: 16px;
 }
 
-.home-page { text-align: center; }
+.home-page {
+  text-align: center;
+}
 
-.hero { padding: 40px 20px; margin-bottom: 32px; }
+.hero {
+  padding: 40px 20px;
+  margin-bottom: 32px;
+}
 
 .hero h2 {
   font-size: 2.5rem;
@@ -242,7 +263,10 @@ select:focus {
   margin-bottom: 12px;
 }
 
-.hero p { font-size: 1.1rem; color: var(--text-dim); }
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+}
 
 .game-grid {
   display: grid;
@@ -273,9 +297,20 @@ select:focus {
   box-shadow: 0 8px 25px rgba(201, 168, 76, 0.2);
 }
 
-.game-card .game-icon { font-size: 2.5rem; }
-.game-card h3 { color: var(--accent); font-size: 1.1rem; }
-.game-card p { color: var(--text-dim); font-size: 0.85rem; line-height: 1.4; }
+.game-card .game-icon {
+  font-size: 2.5rem;
+}
+
+.game-card h3 {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.game-card p {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
 
 .quick-stats {
   padding: 20px;
@@ -285,11 +320,32 @@ select:focus {
   margin: 0 auto;
 }
 
-.quick-stats h3 { color: var(--accent); margin-bottom: 16px; }
-.stats-grid { display: flex; justify-content: center; gap: 24px; }
-.stat-card { text-align: center; }
-.stat-value { display: block; font-size: 2rem; font-weight: 700; color: var(--accent); }
-.stat-label { font-size: 0.85rem; color: var(--text-dim); }
+.quick-stats h3 {
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.stat-card {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
 
 .velha-layout {
   display: grid;
@@ -363,7 +419,6 @@ select:focus {
 }
 
 .scores { display: flex; flex-direction: column; gap: 8px; }
-
 .score-row {
   display: flex;
   justify-content: space-between;
@@ -449,7 +504,10 @@ select:focus {
   gap: 6px;
 }
 
-.teclado-linha { display: flex; gap: 4px; }
+.teclado-linha {
+  display: flex;
+  gap: 4px;
+}
 
 .tecla {
   width: 38px;
@@ -492,7 +550,12 @@ select:focus {
 }
 
 .jp-score h3 { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 8px; }
-.jp-score-value { font-size: 2rem; font-weight: 700; color: var(--accent); }
+
+.jp-score-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
 
 .jp-result {
   font-size: 1.2rem;
@@ -511,7 +574,11 @@ select:focus {
 .jp-result.lose { color: var(--color-lose); }
 .jp-result.draw { color: var(--accent); }
 
-.jp-moves { display: flex; gap: 16px; justify-content: center; }
+.jp-moves {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
 
 .jp-btn {
   display: flex;
@@ -533,10 +600,16 @@ select:focus {
 }
 
 .jp-btn:disabled { opacity: 0.3; cursor: default; transform: none; }
+
 .jp-btn .jp-emoji { font-size: 3rem; display: block; }
 .jp-btn .jp-label { font-size: 0.9rem; font-weight: 600; color: var(--text); }
 
-.jp-history { width: 100%; max-width: 500px; max-height: 200px; overflow-y: auto; }
+.jp-history {
+  width: 100%;
+  max-width: 500px;
+  max-height: 200px;
+  overflow-y: auto;
+}
 
 .jp-round {
   padding: 6px 12px;
@@ -583,8 +656,7 @@ select:focus {
   transform-style: preserve-3d;
 }
 
-.memoria-card.flipped .memoria-card-inner,
-.memoria-card.matched .memoria-card-inner {
+.memoria-card.flipped .memoria-card-inner, .memoria-card.matched .memoria-card-inner {
   transform: rotateY(180deg);
 }
 
@@ -632,8 +704,16 @@ select:focus {
 .memoria-status .win { color: var(--color-win); }
 .memoria-status .new-record { color: var(--accent); display: block; margin-top: 4px; font-size: 1.1rem; }
 
-.stats-page { max-width: 600px; margin: 0 auto; }
-.stats-page h2 { text-align: center; color: var(--accent); margin-bottom: 24px; }
+.stats-page {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.stats-page h2 {
+  text-align: center;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
 
 .stats-cards {
   display: grid;
@@ -656,7 +736,12 @@ select:focus {
   border-bottom: 1px solid var(--accent);
 }
 
-.stat-block p { font-size: 0.9rem; margin-bottom: 4px; color: var(--text-dim); }
+.stat-block p {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: var(--text-dim);
+}
+
 .stat-block p strong { color: var(--text); }
 
 @keyframes pulse {

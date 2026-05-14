@@ -43,7 +43,7 @@ export class ForcaGame {
           <div class="forca-main">
             <div id="forcaPalavra" class="forca-palavra"></div>
             <div id="forcaLetras" class="forca-letras"></div>
-            <div id="forcaStatus" class="forca-status">Clique em "Nova Partida" para comecar</div>
+            <div id="forcaStatus" class="forca-status">Clique em "Nova Partida" para começar</div>
             <div class="forca-teclado" id="forcaTeclado"></div>
           </div>
         </div>
@@ -152,14 +152,14 @@ export class ForcaGame {
   _checkEnd() {
     if (this.errors >= 6) {
       this.isActive = false;
-      this.statusEl.innerHTML = `Voce perdeu! A palavra era: <strong>${this.word}</strong>`;
+      this.statusEl.innerHTML = `Você perdeu! A palavra era: <strong>${this.word}</strong>`;
       this.scoreManager.update('forca', { losses: (this.scoreManager.get('forca').losses ?? 0) + 1 });
       return;
     }
 
     if (this.revealed.every(r => r)) {
       this.isActive = false;
-      this.statusEl.innerHTML = `Parabens! Voce acertou: <strong>${this.word}</strong>`;
+      this.statusEl.innerHTML = `Parabéns! Você acertou: <strong>${this.word}</strong>`;
       this.scoreManager.update('forca', { wins: (this.scoreManager.get('forca').wins ?? 0) + 1 });
     }
   }

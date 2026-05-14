@@ -54,13 +54,13 @@ document.getElementById('soundToggle').addEventListener('click', () => {
   const btn = document.getElementById('soundToggle');
   const isMuted = btn.dataset.muted === 'true';
   btn.dataset.muted = String(!isMuted);
-  btn.textContent = isMuted ? 'U' : 'M';
+  btn.textContent = isMuted ? '🔊' : '🔇';
 });
 
 document.getElementById('themeToggle').addEventListener('click', () => {
   document.body.classList.toggle('light-mode');
   const btn = document.getElementById('themeToggle');
-  btn.textContent = document.body.classList.contains('light-mode') ? 'L' : 'D';
+  btn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
 });
 
 router.start();

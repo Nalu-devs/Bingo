@@ -1,6 +1,5 @@
 const MOVES = ['pedra', 'papel', 'tesoura'];
-const EMOJIS = { pedra: 'P', papel: 'p', tesoura: 'T' };
-const NAMES = { pedra: 'Pedra', papel: 'Papel', tesoura: 'Tesoura' };
+const EMOJIS = { pedra: '🪨', papel: '📄', tesoura: '✂️' };
 
 const WIN_MAP = {
   pedra: 'tesoura',
@@ -14,7 +13,6 @@ export class JokenpoGame {
     this.scoreManager = scoreManager;
     this.playerScore = 0;
     this.computerScore = 0;
-    this.drawsCount = 0;
     this.round = 0;
     this.isActive = false;
     this.maxRounds = 5;
@@ -58,7 +56,7 @@ export class JokenpoGame {
             ${MOVES.map(m => `
               <button class="jp-btn" data-move="${m}">
                 <span class="jp-emoji">${EMOJIS[m]}</span>
-                <span class="jp-label">${NAMES[m]}</span>
+                <span class="jp-label">${m.charAt(0).toUpperCase() + m.slice(1)}</span>
               </button>
             `).join('')}
           </div>
@@ -109,13 +107,13 @@ export class JokenpoGame {
     roundHtml.className = `jp-round ${result}`;
 
     if (result === 'win') {
-      roundHtml.innerHTML = `Rodada ${this.round}: ${NAMES[playerMove]} vence ${NAMES[computerMove]} - Voce venceu!`;
+      roundHtml.innerHTML = `Rodada ${this.round}: ${EMOJIS[playerMove]} vence ${EMOJIS[computerMove]} — Voce venceu!`;
       this.playerScore++;
     } else if (result === 'lose') {
-      roundHtml.innerHTML = `Rodada ${this.round}: ${NAMES[computerMove]} vence ${NAMES[playerMove]} - Computador venceu!`;
+      roundHtml.innerHTML = `Rodada ${this.round}: ${EMOJIS[computerMove]} vence ${EMOJIS[playerMove]} — Computador venceu!`;
       this.computerScore++;
     } else {
-      roundHtml.innerHTML = `Rodada ${this.round}: ${NAMES[playerMove]} vs ${NAMES[computerMove]} - Empate!`;
+      roundHtml.innerHTML = `Rodada ${this.round}: ${EMOJIS[playerMove]} vs ${EMOJIS[computerMove]} — Empate!`;
       this.drawsCount++;
     }
 
@@ -131,7 +129,7 @@ export class JokenpoGame {
       draws: this.drawsCount,
     });
 
-    this.resultEl.textContent = `Voce: ${NAMES[playerMove]} vs Computador: ${NAMES[computerMove]}`;
+    this.resultEl.textContent = `Voce: ${EMOJIS[playerMove]} vs Computador: ${EMOJIS[computerMove]}`;
     this.resultEl.className = `jp-result ${result}`;
 
     this._checkMatchEnd();
@@ -146,9 +144,9 @@ export class JokenpoGame {
       this.container.querySelectorAll('.jp-btn').forEach(b => b.disabled = true);
 
       if (this.playerScore > this.computerScore) {
-        this.resultEl.innerHTML = 'Voce venceu a partida!';
+        this.resultEl.innerHTML = '🏆 Voce venceu a partida!';
       } else {
-        this.resultEl.innerHTML = 'Computador venceu a partida!';
+        this.resultEl.innerHTML = '💻 Computador venceu a partida!';
       }
     }
   }

@@ -1,6 +1,6 @@
 const EMOJIS = [
-  'A', 'B', 'C', 'D', 'E', 'F',
-  'G', 'H', 'I', 'J', 'K', 'L',
+  '🍎', '🍊', '🍋', '🍇', '🍓', '🍒',
+  '🍑', '🥝', '🍌', '🍉', '🍍', '🥭',
 ];
 
 const GRID_SIZES = { facil: 12, medio: 16, dificil: 20 };
@@ -175,7 +175,7 @@ export class MemoriaGame {
 
       this.statusEl.innerHTML = `
         <span class="win">Parabens! Voce encontrou todos os pares em ${this.moves} movimentos (${this.timer}s)!</span>
-        ${isNewBest ? '<span class="new-record">Novo recorde!</span>' : ''}
+        ${isNewBest ? '<span class="new-record">🎉 Novo recorde!</span>' : ''}
       `;
     } else {
       this.scoreManager.update('memoria', {

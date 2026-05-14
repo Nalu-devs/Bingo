@@ -10,26 +10,26 @@ export class HomePage {
       <div class="home-page">
         <section class="hero">
           <h2>Arcade Hub</h2>
-          <p>Escolha um jogo para comecar!</p>
+          <p>Escolha um jogo para começar!</p>
         </section>
         <div class="game-grid">
           <a href="#/velha" class="game-card" data-nav>
-            <span class="game-icon">X O</span>
+            <span class="game-icon">❌⭕</span>
             <h3>Jogo da Velha</h3>
-            <p>Classico jogo de estrategia. Modos PvP, PvE e 3 jogadores!</p>
+            <p>Clássico jogo de estratégia. Modos PvP, PvE e 3 jogadores!</p>
           </a>
           <a href="#/forca" class="game-card" data-nav>
-            <span class="game-icon">F</span>
+            <span class="game-icon">🪢</span>
             <h3>Forca</h3>
             <p>Adivinhe a palavra antes de ser enforcado!</p>
           </a>
           <a href="#/jokenpo" class="game-card" data-nav>
-            <span class="game-icon">P T</span>
+            <span class="game-icon">✂️📄🪨</span>
             <h3>Jokenpo</h3>
             <p>Pedra, papel ou tesoura contra o computador!</p>
           </a>
           <a href="#/memoria" class="game-card" data-nav>
-            <span class="game-icon">M</span>
+            <span class="game-icon">🧠</span>
             <h3>Memoria</h3>
             <p>Teste sua memoria encontrando os pares!</p>
           </a>
