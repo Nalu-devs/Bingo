@@ -173,6 +173,8 @@ export class GameController {
     const move = this.ai.getMove(this.state.board);
     if (move === -1) return;
 
+    if (this.timer.elapsed === 0) this.timer.start();
+
     this.state.makeMove(move);
     this.board.render(this.state.board);
     this.board.animateCell(move);
@@ -199,6 +201,8 @@ export class GameController {
     }
 
     if (this.state.board[index] !== '') return;
+
+    if (this.timer.elapsed === 0) this.timer.start();
 
     this.state.makeMove(index);
     this.board.render(this.state.board);

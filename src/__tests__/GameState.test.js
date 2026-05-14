@@ -43,13 +43,15 @@ describe('GameState', () => {
     expect(state.makeMove(0)).toBe(false);
   });
 
-  it('should switch player to O after move', () => {
+  it('should switch player to O after switchPlayer', () => {
     state.makeMove(0);
+    state.switchPlayer();
     expect(state.currentPlayer).toBe('O');
   });
 
-  it('should switch back to X', () => {
+  it('should switch back to X after two switches', () => {
     state.makeMove(0);
+    state.switchPlayer();
     state.switchPlayer();
     expect(state.currentPlayer).toBe('X');
   });
@@ -67,6 +69,7 @@ describe('GameState', () => {
 
   it('should undo last move', () => {
     state.makeMove(0);
+    state.switchPlayer();
     state.makeMove(1);
     expect(state.board[1]).toBe('O');
     state.undoLastMove();
