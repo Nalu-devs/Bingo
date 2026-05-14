@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Forca</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container { text-align: center; padding: 2rem; max-width: 700px; width: 100%; }
+        h1 { font-size: 2.5rem; margin-bottom: 0.3rem; }
+        .dica { color: #aaa; margin-bottom: 1.5rem; font-size: 1rem; }
+
+        .desenho {
+            font-family: monospace;
+            font-size: 1.2rem;
+            line-height: 1.4;
+            color: #f5576c;
+            margin: 1rem 0;
+            white-space: pre;
+            min-height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .palavra {
+            font-size: 2.5rem;
+            letter-spacing: 0.5rem;
+            font-weight: bold;
+            margin: 1.5rem 0;
+            color: #4facfe;
+        }
+
+        .letras-erradas {
+            color: #f5576c;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            min-height: 2rem;
+        }
+
+        .teclado {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .tecla {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .tecla:hover { background: rgba(255,255,255,0.2); }
+        .tecla.usada { opacity: 0.3; cursor: default; background: transparent; }
+        .tecla.errada { background: rgba(245,87,108,0.3); border-color: #f5576c; }
+        .tecla.certa { background: rgba(67,233,123,0.3); border-color: #43e97b; }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #f5576c, #4facfe);
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 0.3rem;
+        }
+        .btn:hover { transform: scale(1.05); }
+
+        .btn-voltar {
+            background: rgba(255,255,255,0.1);
+            color: #ccc;
+            text-decoration: none;
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            margin-top: 1rem;
+            transition: background 0.2s;
+            font-size: 0.95rem;
+        }
+        .btn-voltar:hover { background: rgba(255,255,255,0.2); }
+
+        .mensagem {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            min-height: 2.5rem;
+        }
+        .ganhou { color: #43e97b; }
+        .perdeu { color: #f5576c; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔤 Forca</h1>
+        <p class="dica" id="dica">Clique nas letras para adivinhar</p>
+        <div class="desenho" id="desenho"></div>
+        <div class="palavra" id="palavra"></div>
+        <div class="letras-erradas" id="letrasErradas">Letras erradas: </div>
+        <div class="mensagem" id="mensagem"></div>
+        <div class="teclado" id="teclado"></div>
+        <button class="btn" onclick="novoJogo()">Nova Palavra</button>
+        <br>
+        <a href="index.html" class="btn-voltar">← Voltar ao menu</a>
+    </div>
+    <script>
+        const palavras = [
+            { palavra: 'ABACAXI', dica: 'Fruta' },
+            { palavra: 'BANANA', dica: 'Fruta amarela' },
+            { palavra: 'ELEFANTE', dica: 'Animal de grande porte' },
+            { palavra: 'GIRAFa', dica: 'Animal de pescoço comprido' },
+            { palavra: 'PIRATA', dica: 'Navegante que saqueia navios' },
+            { palavra: 'BRASIL', dica: 'País da América do Sul' },
+            { palavra: 'FUTEBOL', dica: 'Esporte mais popular do mundo' },
+            { palavra: 'CHOCOLATE', dica: 'Doce feito de cacau' },
+            { palavra: 'VIOLAO', dica: 'Instrumento musical de cordas' },
+            { palavra: 'BORBOLETA', dica: 'Inseto colorido que voa' },
+            { palavra: 'CACHORRO', dica: 'Melhor amigo do homem' },
+            { palavra: 'GATINHO', dica: 'Animal de estimação que mia' },
+            { palavra: 'PIANO', dica: 'Instrumento musical de teclas' },
+            { palavra: 'SAPO', dica: 'Anfíbio que pula' },
+            { palavra: 'ESTRELA', dica: 'Corpo celeste que brilha no céu' },
+        ];
+
+        const estadosForca = [
+            `  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========`,
+            `  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========`,
+            `  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========`,
+            `  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========`,
+            `  +---+
+  |   |
+  O   |
+ /|\\  |
+      |
+      |
+=========`,
+            `  +---+
+  |   |
+  O   |
+ /|\\  |
+ /    |
+      |
+=========`,
+            `  +---+
+  |   |
+  O   |
+ /|\\  |
+ / \\  |
+      |
+=========`,
+        ];
+
+        let palavraAtual, dicaAtual, estadoLetras, tentativasErradas, acertos, jogoAtivo;
+
+        function novoJogo() {
+            const idx = Math.floor(Math.random() * palavras.length);
+            palavraAtual = palavras[idx].palavra.toUpperCase();
+            dicaAtual = palavras[idx].dica;
+            estadoLetras = {};
+            tentativasErradas = 0;
+            acertos = 0;
+            jogoAtivo = true;
+            document.getElementById('dica').textContent = `Dica: ${dicaAtual}`;
+            document.getElementById('mensagem').textContent = '';
+            document.getElementById('mensagem').className = 'mensagem';
+            renderizar();
+        }
+
+        function renderizar() {
+            const palavraEl = document.getElementById('palavra');
+            palavraEl.textContent = [...palavraAtual].map(l => estadoLetras[l] ? l : '_').join(' ');
+            document.getElementById('desenho').textContent = estadosForca[tentativasErradas];
+            const erradas = Object.keys(estadoLetras).filter(l => !palavraAtual.includes(l) && estadoLetras[l]);
+            document.getElementById('letrasErradas').textContent = 'Letras erradas: ' + (erradas.length ? erradas.join(', ') : '');
+
+            document.querySelectorAll('.tecla').forEach(btn => {
+                const letra = btn.dataset.letra;
+                btn.className = 'tecla';
+                if (estadoLetras[letra]) {
+                    btn.classList.add('usada');
+                    if (!palavraAtual.includes(letra)) btn.classList.add('errada');
+                    else btn.classList.add('certa');
+                }
+            });
+        }
+
+        function tentar(letra) {
+            if (!jogoAtivo || estadoLetras[letra]) return;
+            estadoLetras[letra] = true;
+            if (palavraAtual.includes(letra)) {
+                acertos++;
+                if ([...palavraAtual].every(l => estadoLetras[l])) {
+                    const m = document.getElementById('mensagem');
+                    m.textContent = 'Você venceu! 🎉';
+                    m.className = 'mensagem ganhou';
+                    jogoAtivo = false;
+                }
+            } else {
+                tentativasErradas++;
+                if (tentativasErradas >= 6) {
+                    const m = document.getElementById('mensagem');
+                    m.textContent = `Você perdeu! A palavra era: ${palavraAtual}`;
+                    m.className = 'mensagem perdeu';
+                    jogoAtivo = false;
+                }
+            }
+            renderizar();
+        }
+
+        document.getElementById('teclado').innerHTML = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(l =>
+            `<button class="tecla" data-letra="${l}" onclick="tentar('${l}')">${l}</button>`
+        ).join('');
+
+        novoJogo();
+    </script>
+</body>
+</html>
