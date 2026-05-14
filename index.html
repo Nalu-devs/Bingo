@@ -1,110 +1,113 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jogo da Velha — Professional Edition</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub de Jogos</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 900px;
+            width: 90%;
+            padding: 2rem;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #f093fb, #f5576c, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-bottom: 3rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2rem 1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-color: rgba(255,255,255,0.3);
+        }
+        .icon {
+            font-size: 3.5rem;
+        }
+        .card h2 {
+            font-size: 1.3rem;
+        }
+        .card p {
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+        .velha { border-top: 4px solid #f5576c; }
+        .forca { border-top: 4px solid #4facfe; }
+        .memoria { border-top: 4px solid #43e97b; }
+        .jokenpo { border-top: 4px solid #fa709a; }
+        footer {
+            margin-top: 3rem;
+            color: #555;
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <header class="header">
-      <h1>Jogo da Velha</h1>
-      <p class="subtitle">Desafie seus amigos ou o computador!</p>
-    </header>
-
-    <div class="controls">
-      <div class="placar">
-        <span class="placar-x">X: <span id="placarX">0</span></span>
-        <span class="placar-o">O: <span id="placarO">0</span></span>
-        <span class="placar-y">Y: <span id="placarY">0</span></span>
-      </div>
-
-      <select class="modo-select" id="modoJogo">
-        <option value="pvp">2 Jogadores</option>
-        <option value="pve">vs Computador</option>
-        <option value="pvp3">3 Jogadores</option>
-      </select>
-
-      <select class="modo-select" id="dificuldade">
-        <option value="facil">Fácil</option>
-        <option value="medio">Médio</option>
-        <option value="dificil">Difícil</option>
-      </select>
-    </div>
-
-    <div id="display">
-      <h1>Jogo da Velha</h1>
-      <p>Selecione o modo e comece a jogar!</p>
-    </div>
-
-    <div class="game-area">
-      <div class="jogo-da-velha" id="tabuleiro">
-        <table>
-          <tr>
-            <td id="c0" data-index="0" tabindex="0"></td>
-            <td id="c1" data-index="1" tabindex="0"></td>
-            <td id="c2" data-index="2" tabindex="0"></td>
-          </tr>
-          <tr>
-            <td id="c3" data-index="3" tabindex="0"></td>
-            <td id="c4" data-index="4" tabindex="0"></td>
-            <td id="c5" data-index="5" tabindex="0"></td>
-          </tr>
-          <tr>
-            <td id="c6" data-index="6" tabindex="0"></td>
-            <td id="c7" data-index="7" tabindex="0"></td>
-            <td id="c8" data-index="8" tabindex="0"></td>
-          </tr>
-        </table>
-      </div>
-    </div>
-
-    <div class="controls">
-      <button class="btn btn--undo" id="undoBtn">Desfazer</button>
-      <button class="btn btn--reset" id="resetBtn">Novo Jogo</button>
-      <button class="btn btn--clear" id="clearScoresBtn">Zerar Placar</button>
-    </div>
-
-    <div class="sound-controls">
-      <button id="soundToggle" class="sound-btn">Som</button>
-    </div>
-
-    <div class="stats">
-      <h3>Estatísticas</h3>
-      <div class="stats-grid">
-        <div class="stat-box">
-          <span id="statTotal">0</span>
-          <label>Partidas</label>
+    <div class="container">
+        <h1>Arcade Hub</h1>
+        <p class="subtitle">Escolha um jogo para jogar</p>
+        <div class="grid">
+            <a href="jogo-da-velha.html" class="card velha">
+                <span class="icon">✕○</span>
+                <h2>Jogo da Velha</h2>
+                <p>Clássico jogo de tabuleiro para 2 jogadores</p>
+            </a>
+            <a href="forca.html" class="card forca">
+                <span class="icon">🔤</span>
+                <h2>Forca</h2>
+                <p>Adivinhe a palavra antes de ser enforcado</p>
+            </a>
+            <a href="memoria.html" class="card memoria">
+                <span class="icon">🧠</span>
+                <h2>Jogo da Memória</h2>
+                <p>Encontre todos os pares de cartas</p>
+            </a>
+            <a href="jokenpo.html" class="card jokenpo">
+                <span class="icon">✊✋✌️</span>
+                <h2>Jokenpô</h2>
+                <p>Pedra, papel ou tesoura contra o computador</p>
+            </a>
         </div>
-        <div class="stat-box">
-          <span id="statVitoriasX">0</span>
-          <label>Vitórias X</label>
-        </div>
-        <div class="stat-box">
-          <span id="statVitoriasO">0</span>
-          <label>Vitórias O</label>
-        </div>
-        <div class="stat-box">
-          <span id="statVitoriasY">0</span>
-          <label>Vitórias Y</label>
-        </div>
-        <div class="stat-box">
-          <span id="statEmpates">0</span>
-          <label>Empates</label>
-        </div>
-      </div>
+        <footer>Feito com ❤️</footer>
     </div>
-
-    <div class="theme-toggle">
-      <button id="themeToggle" class="theme-btn">🌙/☀️</button>
-    </div>
-
-    <footer class="footer">
-      <p>Use as teclas 1-9 para jogar | Pressione U para desfazer | Pressione R para reiniciar</p>
-    </footer>
-  </div>
-
-  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
