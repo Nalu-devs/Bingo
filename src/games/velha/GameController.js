@@ -4,6 +4,8 @@ import { Board } from '../../ui/Board.js';
 import { DisplayManager } from '../../ui/DisplayManager.js';
 import { SoundManager } from '../../ui/SoundManager.js';
 import { ThemeManager } from '../../ui/ThemeManager.js';
+import { GameTimer } from '../../utils/gameTimer.js';
+import { fireConfetti } from '../../utils/confetti.js';
 import {
   WINNING_COMBOS,
   GAME_MODES,
@@ -19,7 +21,10 @@ export class GameController {
     this.display = new DisplayManager('display');
     this.sound = new SoundManager();
     this.theme = new ThemeManager();
+    this.timer = new GameTimer((t) => this._onTimerTick(t));
     this._isAIThinking = false;
+    this._totalGameTime = 0;
+    this._gameCount = 0;
 
     const saved = this.scoreManager.get('velha');
     if (saved) {
@@ -34,6 +39,7 @@ export class GameController {
     this.display.showMainMenu(this.state.mode);
     this.display.updateScores(this.state.scores);
     this.display.updateStatistics(this.state.statistics, this.state.scores);
+    this._updateTimerDisplay();
   }
 
   _setupButtons() {
@@ -108,6 +114,9 @@ export class GameController {
 
   _handleGameEnd(result) {
     this.state.isActive = false;
+    this.timer.stop();
+    this._totalGameTime += this.timer.time;
+    this._gameCount++;
 
     if (result.winner === 'draw') {
       this.display.showDraw();
@@ -121,6 +130,7 @@ export class GameController {
       } else {
         this.display.showWinner(result.winner);
         this.sound.win();
+        fireConfetti(60);
       }
       this.board.highlightWinningCells(result.combo);
       this.state.incrementScore(result.winner);
@@ -129,6 +139,7 @@ export class GameController {
     this.display.updateScores(this.state.scores);
     this.display.updateStatistics(this.state.statistics, this.state.scores);
     this._persistScores();
+    this._updateTimerDisplay();
     this.display.startCountdown(() => this._resetGame());
   }
 
@@ -231,6 +242,7 @@ export class GameController {
   _resetGame() {
     this._isAIThinking = false;
     this.display.stopCountdown();
+    this.timer.reset();
     this.state.reset();
     this.board.render(this.state.board);
     this.board.clearHighlights();
@@ -248,7 +260,29 @@ export class GameController {
   resetScores() {
     this.state.resetScores();
     this.scoreManager.reset('velha');
+    this._totalGameTime = 0;
+    this._gameCount = 0;
     this.display.updateScores(this.state.scores);
     this.display.updateStatistics(this.state.statistics, this.state.scores);
+    this._updateTimerDisplay();
+  }
+
+  _onTimerTick(elapsed) {
+    this._updateTimerValue(elapsed);
+  }
+
+  _updateTimerDisplay() {
+    const avg = this._gameCount > 0 ? Math.round(this._totalGameTime / this._gameCount) : 0;
+    const label = document.getElementById('timerLabel');
+    if (label) {
+      label.textContent = this._gameCount > 0
+        ? `Media: ${this.timer.format(avg)} por partida`
+        : 'Tempo medio: -';
+    }
+  }
+
+  _updateTimerValue(seconds) {
+    const el = document.getElementById('gameTimer');
+    if (el) el.textContent = this.timer.format(seconds);
   }
 }

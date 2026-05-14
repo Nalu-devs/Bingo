@@ -54,6 +54,11 @@ export class VelhaGame {
               <p>Vitorias Y: <span id="statVitoriasY">0</span></p>
               <p>Empates: <span id="statEmpates">0</span></p>
             </div>
+            <div class="timer-card">
+              <h3>Tempo</h3>
+              <span id="gameTimer" class="timer-value">00:00</span>
+              <p id="timerLabel" class="timer-label">Tempo medio: -</p>
+            </div>
           </div>
         </div>
       </div>
