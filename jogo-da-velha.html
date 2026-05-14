@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container { text-align: center; padding: 2rem; }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .status {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #4facfe;
+            font-weight: bold;
+        }
+        .tabuleiro {
+            display: grid;
+            grid-template-columns: repeat(3, 110px);
+            grid-template-rows: repeat(3, 110px);
+            gap: 6px;
+            margin: 0 auto 1.5rem;
+            justify-content: center;
+        }
+        .celula {
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            font-size: 3rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+        }
+        .celula:hover { background: rgba(255,255,255,0.15); }
+        .celula.x { color: #f5576c; }
+        .celula.o { color: #4facfe; }
+        .celula.vencedora {
+            background: rgba(67, 233, 123, 0.3);
+            border-color: #43e97b;
+            animation: pulse 0.6s infinite alternate;
+        }
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
+        }
+        .btn {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #f5576c, #4facfe);
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 0.3rem;
+        }
+        .btn:hover { transform: scale(1.05); }
+        .btn-voltar {
+            background: rgba(255,255,255,0.1);
+            color: #ccc;
+            text-decoration: none;
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            margin-top: 1rem;
+            transition: background 0.2s;
+            font-size: 0.95rem;
+        }
+        .btn-voltar:hover { background: rgba(255,255,255,0.2); }
+        .pontos {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        .pontos span { color: #aaa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✕ ○ Jogo da Velha</h1>
+        <div class="pontos">
+            <div>Jogador X: <strong id="pontoX">0</strong></div>
+            <div>Jogador O: <strong id="pontoO">0</strong></div>
+            <div>Empates: <strong id="pontoE">0</strong></div>
+        </div>
+        <div class="status" id="status">Vez do jogador X</div>
+        <div class="tabuleiro" id="tabuleiro"></div>
+        <button class="btn" onclick="resetarPartida()">Nova Partida</button>
+        <button class="btn" onclick="resetarPlacar()">Zerar Placar</button>
+        <br>
+        <a href="index.html" class="btn-voltar">← Voltar ao menu</a>
+    </div>
+    <script>
+        const tabuleiroEl = document.getElementById('tabuleiro');
+        const statusEl = document.getElementById('status');
+        const pontoX = document.getElementById('pontoX');
+        const pontoO = document.getElementById('pontoO');
+        const pontoE = document.getElementById('pontoE');
+
+        let estado = Array(9).fill(null);
+        let vezX = true;
+        let placar = { X: 0, O: 0, E: 0 };
+
+        function renderizar() {
+            tabuleiroEl.innerHTML = '';
+            estado.forEach((val, i) => {
+                const cel = document.createElement('div');
+                cel.className = 'celula' + (val === 'X' ? ' x' : val === 'O' ? ' o' : '');
+                cel.textContent = val || '';
+                cel.onclick = () => jogar(i);
+                tabuleiroEl.appendChild(cel);
+            });
+        }
+
+        function jogar(i) {
+            if (estado[i] || verificarVencedor()) return;
+            estado[i] = vezX ? 'X' : 'O';
+            const vencedor = verificarVencedor();
+            if (vencedor) {
+                finalizar(vencedor);
+            } else if (!estado.includes(null)) {
+                statusEl.textContent = 'Empate!';
+                placar.E++;
+                pontoE.textContent = placar.E;
+            } else {
+                vezX = !vezX;
+                statusEl.textContent = `Vez do jogador ${vezX ? 'X' : 'O'}`;
+            }
+            renderizar();
+        }
+
+        function verificarVencedor() {
+            const lines = [
+                [0,1,2],[3,4,5],[6,7,8],
+                [0,3,6],[1,4,7],[2,5,8],
+                [0,4,8],[2,4,6]
+            ];
+            for (const [a,b,c] of lines) {
+                if (estado[a] && estado[a] === estado[b] && estado[a] === estado[c]) {
+                    return estado[a];
+                }
+            }
+            return null;
+        }
+
+        function finalizar(v) {
+            statusEl.textContent = `Jogador ${v} venceu!`;
+            placar[v]++;
+            if (v === 'X') pontoX.textContent = placar.X;
+            else pontoO.textContent = placar.O;
+            const lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            const celulas = tabuleiroEl.children;
+            for (const [a,b,c] of lines) {
+                if (estado[a] && estado[a] === estado[b] && estado[a] === estado[c]) {
+                    celulas[a].classList.add('vencedora');
+                    celulas[b].classList.add('vencedora');
+                    celulas[c].classList.add('vencedora');
+                    break;
+                }
+            }
+        }
+
+        function resetarPartida() {
+            estado = Array(9).fill(null);
+            vezX = true;
+            statusEl.textContent = 'Vez do jogador X';
+            renderizar();
+        }
+
+        function resetarPlacar() {
+            placar = { X: 0, O: 0, E: 0 };
+            pontoX.textContent = 0;
+            pontoO.textContent = 0;
+            pontoE.textContent = 0;
+            resetarPartida();
+        }
+
+        renderizar();
+    </script>
+</body>
+</html>

@@ -29,7 +29,7 @@ export class ScoreManager {
   }
 
   get(game) {
-    return this.data[game] || this._defaults()[game];
+    return this.data[game] || { X: 0, O: 0, Y: 0, draws: 0, wins: 0, losses: 0, bestScore: Infinity };
   }
 
   update(game, updates) {
