@@ -247,7 +247,6 @@
             }
             renderizar();
         }
-
         document.getElementById('teclado').innerHTML = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(l =>
             `<button class="tecla" data-letra="${l}" onclick="tentar('${l}')">${l}</button>`
         ).join('');
