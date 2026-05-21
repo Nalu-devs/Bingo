@@ -20,9 +20,6 @@ function mountPage(page) {
   document.getElementById('sidebar').classList.add('hidden');
   document.getElementById('sidebar-overlay').classList.add('hidden');
 }
-
-
-
 const router = new Router([
   { path: '/', handler: () => mountPage(new HomePage(content, scoreManager)) },
   { path: '/velha', handler: () => mountPage(new VelhaGame(content, scoreManager)) },
