@@ -10,6 +10,8 @@ import { StatsPage } from './games/stats/StatsPage.js';
 const content = document.getElementById('content');
 const scoreManager = new ScoreManager();
 
+console.log('Bem-vindo ao GameHub! Explore os jogos e divirta-se!');
+
 let currentPage = null;
 
 function mountPage(page) {
