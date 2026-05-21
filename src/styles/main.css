@@ -15,7 +15,7 @@
   --color-lose: #e74c3c;
   --shadow: rgba(0, 0, 0, 0.45);
   --radius: 12px;
-  --transition: 0.10s ease;
+  --transition: 0.2s ease;
 }
 
 body.light-mode {
