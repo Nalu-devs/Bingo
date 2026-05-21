@@ -37,8 +37,6 @@ document.getElementById('menuBtn').addEventListener('click', () => {
   overlay.classList.toggle('hidden');
 });
 
-
-
 document.getElementById('sidebar-overlay').addEventListener('click', () => {
   document.getElementById('sidebar').classList.add('hidden');
   document.getElementById('sidebar-overlay').classList.add('hidden');
