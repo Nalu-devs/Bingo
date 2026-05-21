@@ -20,6 +20,7 @@ function mountPage(page) {
   page.mount();
   document.getElementById('sidebar').classList.add('hidden');
   document.getElementById('sidebar-overlay').classList.add('hidden');
+
 }
 
 const router = new Router([
