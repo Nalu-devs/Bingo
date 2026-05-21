@@ -11,7 +11,6 @@ const content = document.getElementById('content');
 const scoreManager = new ScoreManager();
 
 let currentPage = null;
-
 function mountPage(page) {
   if (currentPage && currentPage.onLeave) {
     currentPage.onLeave();
