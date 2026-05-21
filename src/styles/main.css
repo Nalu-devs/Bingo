@@ -19,7 +19,6 @@
 }
 
 body.light-mode {
-  --bg: #f5efe4;
   --bg-secondary: #e8dcc8;
   --bg-tertiary: #ddd0b8;
   --bg-card: #f0ead8;
