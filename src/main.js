@@ -30,6 +30,8 @@ const router = new Router([
   { path: '/stats', handler: () => mountPage(new StatsPage(content, scoreManager)) },
 ]);
 
+
+
 document.getElementById('menuBtn').addEventListener('click', () => {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebar-overlay');
