@@ -6,6 +6,8 @@ import { ForcaGame } from './games/forca/ForcaGame.js';
 import { JokenpoGame } from './games/jokenpo/JokenpoGame.js';
 import { MemoriaGame } from './games/memoria/MemoriaGame.js';
 import { StatsPage } from './games/stats/StatsPage.js';
+
+
 const content = document.getElementById('content');
 const scoreManager = new ScoreManager();
 
