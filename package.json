@@ -1,20 +1,20 @@
 {
-  "name": "jogo-da-velha",
-  "version": "2.0.0",
-  "description": "Jogo da Velha moderno com modos PvP, PvE (IA com Minimax) e 3 jogadores",
+  "name": "arcade-hub",
+  "version": "1.0.0",
+  "description": "Arcade Hub com Jogo da Velha, Forca, Jokenpo e Memoria",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "vite": "^6.3.5"
+    "happy-dom": "^20.9.0",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Nalu-devs/Bingo.git"
-  },
-  "keywords": ["jogo-da-velha", "tic-tac-toe", "minimax", "vite"],
   "license": "MIT"
 }

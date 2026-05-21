@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokenpô</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container { text-align: center; padding: 2rem; max-width: 600px; width: 100%; }
+        h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+
+        .placar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        .placar-item {
+            text-align: center;
+        }
+        .placar-item .nome { color: #aaa; font-size: 0.9rem; }
+        .placar-item .valor { font-size: 2.5rem; font-weight: bold; }
+        .voce .valor { color: #4facfe; }
+        .cpu .valor { color: #f5576c; }
+        .empate-item .valor { color: #facc15; }
+
+        .batalha {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            min-height: 120px;
+        }
+        .jogada {
+            font-size: 4rem;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.06);
+            border-radius: 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        .vs { font-size: 1.5rem; color: #aaa; }
+
+        .opcoes {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .opcao {
+            font-size: 2.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            border: 2px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.06);
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s, border-color 0.2s;
+        }
+        .opcao:hover {
+            transform: scale(1.1);
+            background: rgba(255,255,255,0.15);
+            border-color: #4facfe;
+        }
+
+        .resultado {
+            font-size: 1.4rem;
+            font-weight: bold;
+            min-height: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .resultado.vitoria { color: #43e97b; }
+        .resultado.derrota { color: #f5576c; }
+        .resultado.empate { color: #facc15; }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #f5576c, #4facfe);
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 0.3rem;
+        }
+        .btn:hover { transform: scale(1.05); }
+
+        .btn-voltar {
+            background: rgba(255,255,255,0.1);
+            color: #ccc;
+            text-decoration: none;
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            margin-top: 1rem;
+            transition: background 0.2s;
+            font-size: 0.95rem;
+        }
+        .btn-voltar:hover { background: rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✊✋✌️ Jokenpô</h1>
+        <div class="placar">
+            <div class="placar-item voce">
+                <div class="nome">Você</div>
+                <div class="valor" id="pontoVoce">0</div>
+            </div>
+            <div class="placar-item empate-item">
+                <div class="nome">Empates</div>
+                <div class="valor" id="pontoEmpate">0</div>
+            </div>
+            <div class="placar-item cpu">
+                <div class="nome">Computador</div>
+                <div class="valor" id="pontoCPU">0</div>
+            </div>
+        </div>
+        <div class="batalha">
+            <div class="jogada" id="jogadaVoce">❓</div>
+            <div class="vs">VS</div>
+            <div class="jogada" id="jogadaCPU">❓</div>
+        </div>
+        <div class="resultado" id="resultado">Escolha sua jogada!</div>
+        <div class="opcoes">
+            <button class="opcao" onclick="jogar('pedra')">✊</button>
+            <button class="opcao" onclick="jogar('papel')">✋</button>
+            <button class="opcao" onclick="jogar('tesoura')">✌️</button>
+        </div>
+        <button class="btn" onclick="resetarPlacar()">Zerar Placar</button>
+        <br>
+        <a href="index.html" class="btn-voltar">← Voltar ao menu</a>
+    </div>
+    <script>
+        const emojis = { pedra: '✊', papel: '✋', tesoura: '✌️' };
+        const placar = { voce: 0, cpu: 0, empate: 0 };
+
+        function jogar(escolha) {
+            const opcoes = ['pedra', 'papel', 'tesoura'];
+            const cpu = opcoes[Math.floor(Math.random() * 3)];
+            document.getElementById('jogadaVoce').textContent = emojis[escolha];
+            document.getElementById('jogadaCPU').textContent = emojis[cpu];
+
+            const res = document.getElementById('resultado');
+            if (escolha === cpu) {
+                res.textContent = 'Empate!';
+                res.className = 'resultado empate';
+                placar.empate++;
+            } else if (
+                (escolha === 'pedra' && cpu === 'tesoura') ||
+                (escolha === 'papel' && cpu === 'pedra') ||
+                (escolha === 'tesoura' && cpu === 'papel')
+            ) {
+                res.textContent = 'Você venceu! 🎉';
+                res.className = 'resultado vitoria';
+                placar.voce++;
+            } else {
+                res.textContent = 'Computador venceu!';
+                res.className = 'resultado derrota';
+                placar.cpu++;
+            }
+
+            document.getElementById('pontoVoce').textContent = placar.voce;
+            document.getElementById('pontoCPU').textContent = placar.cpu;
+            document.getElementById('pontoEmpate').textContent = placar.empate;
+        }
+
+        function resetarPlacar() {
+            placar.voce = placar.cpu = placar.empate = 0;
+            document.getElementById('pontoVoce').textContent = '0';
+            document.getElementById('pontoCPU').textContent = '0';
+            document.getElementById('pontoEmpate').textContent = '0';
+            document.getElementById('jogadaVoce').textContent = '❓';
+            document.getElementById('jogadaCPU').textContent = '❓';
+            document.getElementById('resultado').textContent = 'Escolha sua jogada!';
+            document.getElementById('resultado').className = 'resultado';
+        }
+    </script>
+</body>
+</html>
