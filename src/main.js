@@ -32,6 +32,7 @@ const router = new Router([
 
 document.getElementById('menuBtn').addEventListener('click', () => {
   const sidebar = document.getElementById('sidebar');
+  
   const overlay = document.getElementById('sidebar-overlay');
   sidebar.classList.toggle('hidden');
   overlay.classList.toggle('hidden');
