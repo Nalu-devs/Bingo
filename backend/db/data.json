@@ -1,0 +1,94 @@
+{
+  "users": [
+    {
+      "name": "Teste",
+      "email": "teste@teste.com",
+      "password": "123",
+      "id": 1
+    }
+  ],
+  "products": [
+    {
+      "name": "Camiseta Básica",
+      "description": "Camiseta 100% algodão, confortável e durável.",
+      "price": 49.9,
+      "category": "Roupas",
+      "stock": 50,
+      "image": "/images/camiseta.jpg",
+      "id": 1
+    },
+    {
+      "name": "Tênis Esportivo",
+      "description": "Tênis leve e resistente para corrida.",
+      "price": 199.9,
+      "category": "Calçados",
+      "stock": 30,
+      "image": "/images/tenis.jpg",
+      "id": 2
+    },
+    {
+      "name": "Fone Bluetooth",
+      "description": "Fone sem fio com cancelamento de ruído.",
+      "price": 149.9,
+      "category": "Eletrônicos",
+      "stock": 25,
+      "image": "/images/fone.jpg",
+      "id": 3
+    },
+    {
+      "name": "Mochila Executiva",
+      "description": "Mochila com compartimento para notebook.",
+      "price": 129.9,
+      "category": "Acessórios",
+      "stock": 20,
+      "image": "/images/mochila.jpg",
+      "id": 4
+    },
+    {
+      "name": "Smartwatch",
+      "description": "Relógio inteligente com monitor cardíaco.",
+      "price": 299.9,
+      "category": "Eletrônicos",
+      "stock": 15,
+      "image": "/images/smartwatch.jpg",
+      "id": 5
+    },
+    {
+      "name": "Jaqueta Jeans",
+      "description": "Jaqueta jeans clássica, tamanho único.",
+      "price": 179.9,
+      "category": "Roupas",
+      "stock": 35,
+      "image": "/images/jaqueta.jpg",
+      "id": 6
+    },
+    {
+      "name": "Óculos de Sol",
+      "description": "Óculos polarizado com proteção UV.",
+      "price": 89.9,
+      "category": "Acessórios",
+      "stock": 40,
+      "image": "/images/oculos.jpg",
+      "id": 7
+    },
+    {
+      "name": "Bolsa de Couro",
+      "description": "Bolsa feminina em couro legítimo.",
+      "price": 249.9,
+      "category": "Acessórios",
+      "stock": 12,
+      "image": "/images/bolsa.jpg",
+      "id": 8
+    }
+  ],
+  "cart_items": [],
+  "orders": [],
+  "order_items": [],
+  "nextId": {
+    "users": 2,
+    "products": 9,
+    "cart_items": 1,
+    "orders": 1,
+    "order_items": 1
+  }
+}
