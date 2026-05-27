@@ -27,12 +27,14 @@ export class Board {
   }
 
   render(board) {
+    console.log('[Board.js] render()', board);
     for (let i = 0; i < BOARD_SIZE; i++) {
       this.cells[i].textContent = board[i];
     }
   }
 
   highlightWinningCells(combo) {
+    console.log('[Board.js] highlightWinningCells()', combo);
     if (!combo) return;
     combo.forEach(index => {
       this.cells[index].classList.add(CSS_CLASSES.WINNER);

@@ -16,6 +16,7 @@ export class GameState {
   }
 
   reset() {
+    console.log('[GameState.js] reset()');
     this.board = new Array(BOARD_SIZE).fill('');
     this.currentPlayer = SYMBOLS[0];
     this.isActive = true;
@@ -24,9 +25,15 @@ export class GameState {
   }
 
   makeMove(index) {
-    if (!this.isActive) return false;
+    if (!this.isActive) {
+      console.log('[GameState.js] makeMove() jogo inativo');
+      return false;
+    }
     if (index < 0 || index >= BOARD_SIZE) return false;
-    if (this.board[index] !== '') return false;
+    if (this.board[index] !== '') {
+      console.log('[GameState.js] makeMove() celula ocupada:', index);
+      return false;
+    }
 
     this.boardSnapshots.push({
       board: [...this.board],
@@ -35,6 +42,7 @@ export class GameState {
 
     this.board[index] = this.currentPlayer;
     this.moveHistory.push({ index, player: this.currentPlayer });
+    console.log('[GameState.js] makeMove() jogador', this.currentPlayer, 'na posicao', index);
     return true;
   }
 
@@ -50,12 +58,14 @@ export class GameState {
   }
 
   switchPlayer() {
+    const old = this.currentPlayer;
     if (this.mode === 'pvp3') {
       const idx = SYMBOLS.indexOf(this.currentPlayer);
       this.currentPlayer = SYMBOLS[(idx + 1) % SYMBOLS.length];
     } else {
       this.currentPlayer = this.currentPlayer === SYMBOLS[0] ? SYMBOLS[1] : SYMBOLS[0];
     }
+    console.log('[GameState.js] switchPlayer()', old, '->', this.currentPlayer);
   }
 
   incrementScore(player) {

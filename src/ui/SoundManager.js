@@ -16,6 +16,7 @@ export class SoundManager {
 
   toggle() {
     this.enabled = !this.enabled;
+    console.log('[SoundManager.js] toggle()', this.enabled ? 'ativado' : 'desativado');
     return this.enabled;
   }
 
@@ -70,10 +71,12 @@ export class SoundManager {
   }
 
   move() {
+    console.log('[SoundManager.js] move()');
     this._playTone(660, 0.12, 'sine', 0.2);
   }
 
   win() {
+    console.log('[SoundManager.js] win()');
     this._playSequence([
       [523, 0, 0.15],
       [659, 0.1, 0.15],
@@ -82,6 +85,7 @@ export class SoundManager {
   }
 
   lose() {
+    console.log('[SoundManager.js] lose()');
     this._playSequence([
       [200, 0, 0.15],
       [150, 0.1, 0.15],
@@ -90,6 +94,7 @@ export class SoundManager {
   }
 
   draw() {
+    console.log('[SoundManager.js] draw()');
     this._playSequence([
       [330, 0, 0.12],
       [330, 0.12, 0.12],
@@ -98,6 +103,7 @@ export class SoundManager {
   }
 
   undo() {
+    console.log('[SoundManager.js] undo()');
     this._playSequence([
       [400, 0, 0.08],
       [300, 0.08, 0.1],

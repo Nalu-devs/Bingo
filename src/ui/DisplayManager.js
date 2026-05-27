@@ -9,10 +9,12 @@ export class DisplayManager {
   }
 
   showMessage(html) {
+    console.log('[DisplayManager.js] showMessage()', html.substring(0, 50));
     this.displayElement.innerHTML = html;
   }
 
   showMainMenu(mode) {
+    console.log('[DisplayManager.js] showMainMenu() modo:', mode);
     if (mode === 'pve') {
       this.showMessage('<h1>Jogo da Velha</h1><p>Sua vez!</p>');
     } else {
@@ -21,30 +23,37 @@ export class DisplayManager {
   }
 
   showPlayerTurn(player) {
+    console.log('[DisplayManager.js] showPlayerTurn()', player);
     this.showMessage(`<h1>Vez do jogador: ${player}</h1>`);
   }
 
   showComputerTurn() {
+    console.log('[DisplayManager.js] showComputerTurn()');
     this.showMessage('<h1>Vez do computador...</h1>');
   }
 
   showWinner(player) {
+    console.log('[DisplayManager.js] showWinner()', player);
     this.showMessage(`<h1 class="vencedor">Jogador ${player} venceu!</h1>`);
   }
 
   showComputerWin() {
+    console.log('[DisplayManager.js] showComputerWin()');
     this.showMessage('<h1 class="vencedor">Computador venceu!</h1>');
   }
 
   showDraw() {
+    console.log('[DisplayManager.js] showDraw()');
     this.showMessage('<h1>Empate!</h1>');
   }
 
   showNoUndo() {
+    console.log('[DisplayManager.js] showNoUndo()');
     this.showMessage('<h1>Nenhuma jogada para desfazer!</h1>');
   }
 
   startCountdown(onComplete) {
+    console.log('[DisplayManager.js] startCountdown()');
     this.countdownValue = COUNTDOWN_SECONDS;
     this.stopCountdown();
 
@@ -73,6 +82,7 @@ export class DisplayManager {
   }
 
   updateScores(scores) {
+    console.log('[DisplayManager.js] updateScores()', scores);
     const setText = (id, value) => {
       const el = document.getElementById(id);
       if (el) el.textContent = value;

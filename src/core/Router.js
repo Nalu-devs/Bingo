@@ -9,12 +9,17 @@ export class Router {
 
   _onHashChange() {
     const hash = window.location.hash.slice(1) || '/';
+    console.log('[Router.js] Hash mudou para:', hash);
     this.navigate(hash);
   }
 
   navigate(path) {
+    console.log('[Router.js] navigate()', path);
     const route = this.routes.find(r => r.path === path) || this.routes.find(r => r.path === '/');
-    if (!route) return;
+    if (!route) {
+      console.log('[Router.js] Rota não encontrada:', path);
+      return;
+    }
 
     if (this.currentRoute && this.currentRoute.onLeave) {
       this.currentRoute.onLeave();

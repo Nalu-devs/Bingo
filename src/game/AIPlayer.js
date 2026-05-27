@@ -12,19 +12,25 @@ export class AIPlayer {
 
   getMove(board, aiSymbol = 'O', playerSymbol = 'X') {
     const available = this._getAvailableMoves(board);
+    console.log('[AIPlayer.js] getMove() dificuldade:', this.difficulty, 'movimentos disponiveis:', available.length);
     if (available.length === 0) return -1;
 
+    let move;
     switch (this.difficulty) {
       case DIFFICULTIES.HARD:
-        return this._getBestMove(board, aiSymbol, playerSymbol);
+        move = this._getBestMove(board, aiSymbol, playerSymbol);
+        break;
       case DIFFICULTIES.MEDIUM:
-        return Math.random() < 0.5
+        move = Math.random() < 0.5
           ? this._getBestMove(board, aiSymbol, playerSymbol)
           : available[Math.floor(Math.random() * available.length)];
+        break;
       case DIFFICULTIES.EASY:
       default:
-        return available[Math.floor(Math.random() * available.length)];
+        move = available[Math.floor(Math.random() * available.length)];
     }
+    console.log('[AIPlayer.js] getMove() escolheu:', move);
+    return move;
   }
 
   _getAvailableMoves(board) {

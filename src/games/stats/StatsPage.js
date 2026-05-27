@@ -6,6 +6,7 @@ export class StatsPage {
   }
 
   mount() {
+    console.log('[StatsPage.js] mount()');
     const scores = this.scoreManager.getAll();
     this.container.innerHTML = `
       <div class="stats-page">

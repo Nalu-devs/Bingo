@@ -6,6 +6,7 @@ export class HomePage {
   }
 
   mount() {
+    console.log('[HomePage.js] mount()');
     const scores = this.scoreManager.getAll();
     this.container.innerHTML = `
       <div class="home-page">

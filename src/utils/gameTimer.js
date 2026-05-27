@@ -7,6 +7,7 @@ export class GameTimer {
   }
 
   start() {
+    console.log('[gameTimer.js] start()');
     this.elapsed = 0;
     this.interval = setInterval(() => {
       this.elapsed++;
@@ -15,6 +16,7 @@ export class GameTimer {
   }
 
   stop() {
+    console.log('[gameTimer.js] stop() elapsed:', this.elapsed);
     if (this.interval) {
       clearInterval(this.interval);
       this.interval = null;
@@ -22,6 +24,7 @@ export class GameTimer {
   }
 
   reset() {
+    console.log('[gameTimer.js] reset()');
     this.stop();
     this.elapsed = 0;
     if (this.onTick) this.onTick(0);

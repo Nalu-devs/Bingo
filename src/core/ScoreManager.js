@@ -3,7 +3,9 @@ const STORAGE_KEY = 'arcadehub_scores';
 
 export class ScoreManager {
   constructor() {
+    console.log('[ScoreManager.js] Construtor');
     this.data = this._load();
+    console.log('[ScoreManager.js] Dados carregados:', this.data);
   }
 
   _load() {
@@ -34,17 +36,20 @@ export class ScoreManager {
   }
 
   update(game, updates) {
+    console.log('[ScoreManager.js] update()', game, updates);
     if (!this.data[game]) this.data[game] = this._defaults()[game];
     Object.assign(this.data[game], updates);
     this._save();
   }
 
   reset(game) {
+    console.log('[ScoreManager.js] reset()', game);
     this.data[game] = this._defaults()[game];
     this._save();
   }
 
   resetAll() {
+    console.log('[ScoreManager.js] resetAll()');
     this.data = this._defaults();
     this._save();
   }

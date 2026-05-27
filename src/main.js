@@ -10,10 +10,10 @@ import { StatsPage } from './games/stats/StatsPage.js';
 
 const content = document.getElementById('content');
 const scoreManager = new ScoreManager();
-
 let currentPage = null;
 
 function mountPage(page) {
+  console.log('[main.js] mountPage()', page.constructor.name);
   if (currentPage && currentPage.onLeave) {
     currentPage.onLeave();
   }
@@ -64,4 +64,5 @@ document.getElementById('themeToggle').addEventListener('click', () => {
   btn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
 });
 
+console.log('[main.js] Iniciando router');
 router.start();

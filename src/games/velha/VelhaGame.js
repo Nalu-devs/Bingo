@@ -9,6 +9,7 @@ export class VelhaGame {
   }
 
   mount() {
+    console.log('[VelhaGame.js] mount()');
     this.container.innerHTML = `
       <div class="game-page">
         <div class="game-header">
@@ -68,6 +69,7 @@ export class VelhaGame {
   }
 
   onLeave() {
+    console.log('[VelhaGame.js] onLeave()');
     this.controller = null;
   }
 }

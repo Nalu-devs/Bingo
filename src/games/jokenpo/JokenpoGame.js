@@ -89,9 +89,11 @@ export class JokenpoGame {
   }
 
   _play(playerMove) {
+    console.log('[JokenpoGame.js] _play() jogador:', playerMove);
     if (!this.isActive) return;
 
     const computerMove = MOVES[Math.floor(Math.random() * MOVES.length)];
+    console.log('[JokenpoGame.js] Computador:', computerMove);
     let result;
 
     if (playerMove === computerMove) {
@@ -101,6 +103,7 @@ export class JokenpoGame {
     } else {
       result = 'lose';
     }
+    console.log('[JokenpoGame.js] Resultado:', result);
 
     this.round++;
 
@@ -139,8 +142,10 @@ export class JokenpoGame {
   _checkMatchEnd() {
     const max = parseInt(this.roundsSelect.value);
     const half = Math.ceil(max / 2);
+    console.log('[JokenpoGame.js] _checkMatchEnd()', this.playerScore, 'x', this.computerScore, 'max:', max);
 
     if (this.playerScore >= half || this.computerScore >= half) {
+      console.log('[JokenpoGame.js] Partida encerrada');
       this.isActive = false;
       this.container.querySelectorAll('.jp-btn').forEach(b => b.disabled = true);
 
@@ -153,6 +158,7 @@ export class JokenpoGame {
   }
 
   _resetMatch() {
+    console.log('[JokenpoGame.js] _resetMatch()');
     this.isActive = true;
     this.round = 0;
     this.playerScore = 0;
