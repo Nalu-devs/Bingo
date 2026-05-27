@@ -1,4 +1,5 @@
 async function renderHome() {
+  console.log('[products.js] renderHome()');
   const content = document.getElementById('page-content');
 
   content.innerHTML = `
@@ -22,6 +23,8 @@ async function renderHome() {
       api('/products/categories'),
       api('/products'),
     ]);
+    console.log('[products.js] Categorias carregadas:', categories);
+    console.log('[products.js] Produtos carregados:', products.length);
 
     document.getElementById('categories-list').innerHTML = categories.map(cat => `
       <div class="category-card" onclick="navigate('products', '${cat}')">
@@ -33,11 +36,13 @@ async function renderHome() {
     document.getElementById('featured-products').innerHTML =
       products.slice(0, 4).map(p => renderProductCard(p)).join('');
   } catch (err) {
+    console.log('[products.js] Erro ao renderizar home:', err.message);
     content.innerHTML = `<div class="empty-state"><h3>Erro</h3><p>${err.message}</p></div>`;
   }
 }
 
 async function renderProducts(category) {
+  console.log('[products.js] renderProducts() - category:', category);
   const content = document.getElementById('page-content');
 
   content.innerHTML = `
@@ -57,6 +62,7 @@ async function renderProducts(category) {
       api('/products/categories'),
       category ? api(`/products?category=${encodeURIComponent(category)}`) : api('/products'),
     ]);
+    console.log('[products.js] Produtos filtrados:', products.length);
 
     document.getElementById('filter-bar').innerHTML =
       `<button class="filter-btn ${!category ? 'active' : ''}" onclick="filterProducts('')">Todos</button>` +
@@ -69,6 +75,7 @@ async function renderProducts(category) {
         ? products.map(p => renderProductCard(p)).join('')
         : '<div class="empty-state"><h3>Nenhum produto encontrado</h3></div>';
   } catch (err) {
+    console.log('[products.js] Erro ao renderizar produtos:', err.message);
     content.innerHTML = `<div class="empty-state"><h3>Erro</h3><p>${err.message}</p></div>`;
   }
 }
@@ -109,6 +116,7 @@ function getProductEmoji(name) {
 }
 
 function filterProducts(category) {
+  console.log('[products.js] Filtrando por categoria:', category);
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.toggle('active', btn.textContent === (category || 'Todos'));
   });
@@ -117,6 +125,7 @@ function filterProducts(category) {
 
 async function searchProducts() {
   const query = document.getElementById('search-input').value;
+  console.log('[products.js] searchProducts:', query);
   const list = document.getElementById('products-list');
 
   try {
@@ -128,6 +137,6 @@ async function searchProducts() {
       ? products.map(p => renderProductCard(p)).join('')
       : '<div class="empty-state"><h3>Nenhum produto encontrado</h3></div>';
   } catch {
-    // ignore
+    console.log('[products.js] Erro na busca (ignorado)');
   }
 }

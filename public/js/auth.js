@@ -48,6 +48,7 @@ function showRegister() {
 
 async function login(event) {
   event.preventDefault();
+  console.log('[auth.js] Submetendo login');
   const errorEl = document.getElementById('form-error');
 
   try {
@@ -58,11 +59,13 @@ async function login(event) {
         password: document.getElementById('login-password').value,
       },
     });
+    console.log('[auth.js] Login OK, usuário:', user);
     setUser(user.id, user.name, user.email);
     closeModal();
     updateAuthUI();
     navigate('home');
   } catch (err) {
+    console.log('[auth.js] Login falhou:', err.message);
     errorEl.textContent = err.message;
     errorEl.classList.remove('hidden');
   }
@@ -70,6 +73,7 @@ async function login(event) {
 
 async function register(event) {
   event.preventDefault();
+  console.log('[auth.js] Submetendo registro');
   const errorEl = document.getElementById('form-error');
 
   try {
@@ -81,23 +85,27 @@ async function register(event) {
         password: document.getElementById('reg-password').value,
       },
     });
+    console.log('[auth.js] Registro OK, usuário:', user);
     setUser(user.id, user.name, user.email);
     closeModal();
     updateAuthUI();
     navigate('home');
   } catch (err) {
+    console.log('[auth.js] Registro falhou:', err.message);
     errorEl.textContent = err.message;
     errorEl.classList.remove('hidden');
   }
 }
 
 function logout() {
+  console.log('[auth.js] Fazendo logout');
   clearUser();
   updateAuthUI();
   navigate('home');
 }
 
 function updateAuthUI() {
+  console.log('[auth.js] Atualizando UI de autenticação. Logado:', isLoggedIn());
   const authSection = document.getElementById('auth-section');
   const userSection = document.getElementById('user-section');
   const userName = document.getElementById('user-name');

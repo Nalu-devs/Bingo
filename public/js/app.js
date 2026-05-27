@@ -2,6 +2,7 @@ let currentPage = 'home';
 let currentCategory = '';
 
 function navigate(page, category) {
+  console.log('[app.js] Navegando para:', page, category || '');
   currentPage = page;
   currentCategory = category || '';
 
@@ -27,6 +28,7 @@ function closeModal() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('[app.js] DOM carregado!');
   updateAuthUI();
   updateCartCount();
   navigate('home');

@@ -1,5 +1,7 @@
 async function showCart() {
+  console.log('[cart.js] showCart()');
   if (!isLoggedIn()) {
+    console.log('[cart.js] Usuário não logado, redirecionando para login');
     showLogin();
     return;
   }
@@ -10,8 +12,10 @@ async function showCart() {
 
   try {
     const items = await api('/cart');
+    console.log('[cart.js] Itens do carrinho:', items);
     renderCart(items);
   } catch (err) {
+    console.log('[cart.js] Erro ao carregar carrinho:', err.message);
     document.getElementById('modal-body').innerHTML =
       `<div class="empty-state"><h3>Erro</h3><p>${err.message}</p></div>`;
   }
@@ -102,7 +106,9 @@ async function checkout() {
 }
 
 async function addToCart(productId) {
+  console.log('[cart.js] addToCart() - productId:', productId);
   if (!isLoggedIn()) {
+    console.log('[cart.js] Usuário não logado, redirecionando para login');
     showLogin();
     return;
   }
@@ -112,9 +118,11 @@ async function addToCart(productId) {
       method: 'POST',
       body: { product_id: productId, quantity: 1 },
     });
+    console.log('[cart.js] Produto adicionado ao carrinho');
     updateCartCount();
     showCart();
   } catch (err) {
+    console.log('[cart.js] Erro ao adicionar:', err.message);
     alert(err.message);
   }
 }
@@ -128,6 +136,7 @@ async function updateCartCount() {
   try {
     const items = await api('/cart');
     const total = items.reduce((s, i) => s + i.quantity, 0);
+    console.log('[cart.js] updateCartCount - total itens:', total);
     countEl.textContent = total;
   } catch {
     countEl.textContent = '0';

@@ -21,9 +21,11 @@ function load() {
     try {
       const raw = fs.readFileSync(DATA_FILE, 'utf-8');
       data = JSON.parse(raw);
+      console.log('[database.js] Dados carregados do arquivo.');
     } catch {
       data = JSON.parse(JSON.stringify(defaultData));
       save();
+      console.log('[database.js] Novo banco criado (arquivo não existia).');
     }
   }
   return data;
@@ -53,41 +55,57 @@ export function insert(table, record) {
   record.id = id;
   db[table].push(record);
   save();
+  console.log(`[database.js] insert em "${table}" - id: ${id}`, record);
   return record;
 }
 
 export function update(table, id, changes) {
   const db = load();
   const idx = db[table].findIndex(r => r.id === id);
-  if (idx === -1) return null;
+  if (idx === -1) {
+    console.log(`[database.js] update em "${table}" - id ${id} não encontrado`);
+    return null;
+  }
   db[table][idx] = { ...db[table][idx], ...changes };
   save();
+  console.log(`[database.js] update em "${table}" - id ${id}`, changes);
   return db[table][idx];
 }
 
 export function remove(table, id) {
   const db = load();
   const idx = db[table].findIndex(r => r.id === id);
-  if (idx === -1) return false;
+  if (idx === -1) {
+    console.log(`[database.js] remove em "${table}" - id ${id} não encontrado`);
+    return false;
+  }
   db[table].splice(idx, 1);
   save();
+  console.log(`[database.js] remove em "${table}" - id ${id} removido`);
   return true;
 }
 
 export function query(table, filterFn) {
   const db = load();
   const items = db[table];
-  return filterFn ? items.filter(filterFn) : [...items];
+  const result = filterFn ? items.filter(filterFn) : [...items];
+  console.log(`[database.js] query em "${table}" - ${result.length} resultados`);
+  return result;
 }
 
 export function findOne(table, filterFn) {
   const db = load();
-  return db[table].find(filterFn) || null;
+  const result = db[table].find(filterFn) || null;
+  console.log(`[database.js] findOne em "${table}" - encontrado:`, !!result);
+  return result;
 }
 
 export function seedProducts() {
   const db = load();
-  if (db.products.length > 0) return;
+  if (db.products.length > 0) {
+    console.log('[database.js] Produtos já existem, seed ignorado.');
+    return;
+  }
 
   const products = [
     { name: 'Camiseta Básica', description: 'Camiseta 100% algodão, confortável e durável.', price: 49.90, category: 'Roupas', stock: 50, image: '/images/camiseta.jpg' },

@@ -1,6 +1,8 @@
 const API_BASE = '/api';
 
 async function api(path, options = {}) {
+  console.log(`[api.js] ${options.method || 'GET'} ${path}`, options.body || '');
+
   const config = {
     headers: { 'Content-Type': 'application/json' },
     ...options,
@@ -18,9 +20,11 @@ async function api(path, options = {}) {
   const data = await res.json();
 
   if (!res.ok) {
+    console.log('[api.js] Erro na resposta:', data);
     throw new Error(data.error || 'Erro na requisição');
   }
 
+  console.log('[api.js] Resposta:', data);
   return data;
 }
 

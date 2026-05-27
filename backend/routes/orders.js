@@ -6,9 +6,11 @@ const router = Router();
 router.use(authMiddleware);
 
 router.post('/checkout', (req, res) => {
+  console.log('[orders.js] POST /checkout - userId:', req.userId);
   const cartItems = query('cart_items', ci => ci.user_id === req.userId);
 
   if (cartItems.length === 0) {
+    console.log('[orders.js] Carrinho vazio');
     return res.status(400).json({ error: 'Carrinho vazio' });
   }
 
@@ -19,11 +21,13 @@ router.post('/checkout', (req, res) => {
 
   for (const item of items) {
     if (item.stock < item.quantity) {
+      console.log('[orders.js] Estoque insuficiente para', item.name);
       return res.status(400).json({ error: `Estoque insuficiente para ${item.name}` });
     }
   }
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  console.log('[orders.js] Total do pedido:', total);
   const order = insert('orders', { user_id: req.userId, total, status: 'pending' });
 
   for (const item of items) {
@@ -39,6 +43,7 @@ router.post('/checkout', (req, res) => {
 
   cartItems.forEach(ci => remove('cart_items', ci.id));
 
+  console.log('[orders.js] Pedido criado com sucesso:', order.id);
   res.status(201).json({
     order_id: order.id,
     total,
@@ -47,6 +52,7 @@ router.post('/checkout', (req, res) => {
 });
 
 router.get('/', (req, res) => {
+  console.log('[orders.js] GET / - userId:', req.userId);
   const orders = query('orders', o => o.user_id === req.userId).reverse();
 
   const result = orders.map(order => {
@@ -57,6 +63,7 @@ router.get('/', (req, res) => {
     return { ...order, items };
   });
 
+  console.log('[orders.js] Retornando', result.length, 'pedidos');
   res.json(result);
 });
 
