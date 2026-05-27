@@ -31,6 +31,7 @@ export class ForcaGame {
   }
 
   mount() {
+    console.log('[ForcaGame.js] mount()');
     this.container.innerHTML = `
       <div class="game-page">
         <div class="game-header">
@@ -78,6 +79,7 @@ export class ForcaGame {
   }
 
   _buildKeyboard() {
+    console.log('[ForcaGame.js] _buildKeyboard()');
     this.tecladoEl.innerHTML = '';
     const linhas = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
     linhas.forEach(linha => {
@@ -96,6 +98,7 @@ export class ForcaGame {
   }
 
   _updateKeyboard() {
+    console.log('[ForcaGame.js] _updateKeyboard()');
     this.tecladoEl.querySelectorAll('.tecla').forEach(btn => {
       const letra = btn.dataset.letra;
       btn.classList.remove('correct', 'wrong');
@@ -174,6 +177,7 @@ export class ForcaGame {
 
   _handleKey(e) {
     if (!this.isActive) return;
+    console.log('[ForcaGame.js] _handleKey()', e.key);
     const key = e.key.toUpperCase();
     if (/^[A-Z]$/.test(key) && key.length === 1) {
       this._guess(key);
@@ -181,6 +185,7 @@ export class ForcaGame {
   }
 
   onLeave() {
+    console.log('[ForcaGame.js] onLeave()');
     document.removeEventListener('keydown', this._handleKey);
   }
 }

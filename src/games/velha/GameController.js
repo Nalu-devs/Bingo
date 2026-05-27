@@ -56,6 +56,7 @@ export class GameController {
 
     if (modeSelect) {
       modeSelect.addEventListener('change', () => {
+        console.log('[GameController.js] Modo alterado:', modeSelect.value);
         this.state.mode = modeSelect.value;
         this.ai.setDifficulty(this.state.difficulty);
         if (this.state.mode === GAME_MODES.PVP3) {
@@ -67,6 +68,7 @@ export class GameController {
 
     if (diffSelect) {
       diffSelect.addEventListener('change', () => {
+        console.log('[GameController.js] Dificuldade alterada:', diffSelect.value);
         this.state.difficulty = diffSelect.value;
         this.ai.setDifficulty(this.state.difficulty);
         this._resetGame();
@@ -98,6 +100,7 @@ export class GameController {
   }
 
   _getResult() {
+    console.log('[GameController.js] _getResult()');
     for (const combo of WINNING_COMBOS) {
       const [a, b, c] = combo;
       if (
@@ -231,6 +234,7 @@ export class GameController {
   }
 
   _undo() {
+    console.log('[GameController.js] _undo()');
     if (!this.state.isActive || this._isAIThinking) return;
 
     if (this.state.boardSnapshots.length === 0) {
@@ -275,6 +279,7 @@ export class GameController {
   }
 
   resetScores() {
+    console.log('[GameController.js] resetScores()');
     this.state.resetScores();
     this.scoreManager.reset('velha');
     this._totalGameTime = 0;

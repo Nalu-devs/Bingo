@@ -20,6 +20,7 @@ export class JokenpoGame {
   }
 
   mount() {
+    console.log('[JokenpoGame.js] mount()');
     const saved = this.scoreManager.get('jokenpo');
     this.container.innerHTML = `
       <div class="game-page">
@@ -174,6 +175,7 @@ export class JokenpoGame {
   }
 
   onLeave() {
+    console.log('[JokenpoGame.js] onLeave()');
     this.isActive = false;
   }
 }

@@ -42,18 +42,21 @@ export class Board {
   }
 
   clearHighlights() {
+    console.log('[Board.js] clearHighlights()');
     this.cells.forEach(cell => {
       cell.classList.remove(CSS_CLASSES.WINNER, CSS_CLASSES.POP, CSS_CLASSES.DRAW);
     });
   }
 
   animateCell(index) {
+    console.log('[Board.js] animateCell()', index);
     this.cells[index].classList.remove(CSS_CLASSES.POP);
     void this.cells[index].offsetWidth;
     this.cells[index].classList.add(CSS_CLASSES.POP);
   }
 
   animateDraw() {
+    console.log('[Board.js] animateDraw()');
     this.cells.forEach((cell, i) => {
       setTimeout(() => {
         cell.classList.remove(CSS_CLASSES.DRAW);

@@ -75,6 +75,7 @@ export class DisplayManager {
   }
 
   stopCountdown() {
+    console.log('[DisplayManager.js] stopCountdown()');
     if (this.countdownInterval) {
       clearInterval(this.countdownInterval);
       this.countdownInterval = null;
@@ -93,6 +94,7 @@ export class DisplayManager {
   }
 
   updateStatistics(stats, scores) {
+    console.log('[DisplayManager.js] updateStatistics()', stats);
     const setText = (id, value) => {
       const el = document.getElementById(id);
       if (el) el.textContent = value;

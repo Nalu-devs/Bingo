@@ -21,6 +21,7 @@ export class MemoriaGame {
   }
 
   mount() {
+    console.log('[MemoriaGame.js] mount()');
     this.container.innerHTML = `
       <div class="game-page">
         <div class="game-header">
@@ -150,6 +151,7 @@ export class MemoriaGame {
   }
 
   _startTimer() {
+    console.log('[MemoriaGame.js] _startTimer()');
     this._stopTimer();
     this.timerInterval = setInterval(() => {
       this.timer++;
@@ -159,6 +161,7 @@ export class MemoriaGame {
 
   _stopTimer() {
     if (this.timerInterval) {
+      console.log('[MemoriaGame.js] _stopTimer()');
       clearInterval(this.timerInterval);
       this.timerInterval = null;
     }
@@ -193,6 +196,7 @@ export class MemoriaGame {
   }
 
   onLeave() {
+    console.log('[MemoriaGame.js] onLeave()');
     this._stopTimer();
     this.isActive = false;
   }

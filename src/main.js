@@ -33,6 +33,7 @@ const router = new Router([
 ]);
 
 document.getElementById('menuBtn').addEventListener('click', () => {
+  console.log('[main.js] Menu toggle');
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebar-overlay');
   sidebar.classList.toggle('hidden');
@@ -40,6 +41,7 @@ document.getElementById('menuBtn').addEventListener('click', () => {
 });
 
 document.getElementById('sidebar-overlay').addEventListener('click', () => {
+  console.log('[main.js] Fechando sidebar');
   document.getElementById('sidebar').classList.add('hidden');
   document.getElementById('sidebar-overlay').classList.add('hidden');
 });
@@ -52,6 +54,7 @@ document.querySelectorAll('[data-nav]').forEach(el => {
 });
 
 document.getElementById('soundToggle').addEventListener('click', () => {
+  console.log('[main.js] Sound toggle');
   const btn = document.getElementById('soundToggle');
   const isMuted = btn.dataset.muted === 'true';
   btn.dataset.muted = String(!isMuted);
@@ -59,6 +62,7 @@ document.getElementById('soundToggle').addEventListener('click', () => {
 });
 
 document.getElementById('themeToggle').addEventListener('click', () => {
+  console.log('[main.js] Theme toggle');
   document.body.classList.toggle('light-mode');
   const btn = document.getElementById('themeToggle');
   btn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';

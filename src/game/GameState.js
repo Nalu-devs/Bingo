@@ -47,13 +47,17 @@ export class GameState {
   }
 
   undoLastMove() {
-    if (this.boardSnapshots.length === 0) return false;
+    if (this.boardSnapshots.length === 0) {
+      console.log('[GameState.js] undoLastMove() sem snapshots');
+      return false;
+    }
 
     const snapshot = this.boardSnapshots.pop();
     this.board = snapshot.board;
     this.currentPlayer = snapshot.player;
     this.moveHistory.pop();
     this.isActive = true;
+    console.log('[GameState.js] undoLastMove() desfeito, jogador:', this.currentPlayer);
     return true;
   }
 
@@ -69,6 +73,7 @@ export class GameState {
   }
 
   incrementScore(player) {
+    console.log('[GameState.js] incrementScore()', player);
     if (this.scores[player] !== undefined) {
       this.scores[player]++;
     }
@@ -76,11 +81,13 @@ export class GameState {
   }
 
   incrementDraws() {
+    console.log('[GameState.js] incrementDraws()');
     this.statistics.draws++;
     this.statistics.total++;
   }
 
   resetScores() {
+    console.log('[GameState.js] resetScores()');
     this.scores = { X: 0, O: 0, Y: 0 };
     this.statistics = { total: 0, draws: 0 };
   }
