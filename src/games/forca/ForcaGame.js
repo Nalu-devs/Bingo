@@ -1,3 +1,4 @@
+console.log('[ForcaGame.js] Carregado');
 const WORDS = [
   'ABACATE', 'BANANA', 'CAVALO', 'DINHEIRO', 'ELEFANTE',
   'FLORESTA', 'GIRAFa', 'HOSPITAL', 'IGREJA', 'JANELA',

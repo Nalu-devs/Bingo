@@ -1,3 +1,4 @@
+console.log('[gameTimer.js] Carregado');
 export class GameTimer {
   constructor(onTick) {
     this.elapsed = 0;

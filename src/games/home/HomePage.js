@@ -1,3 +1,4 @@
+console.log('[HomePage.js] Carregado');
 export class HomePage {
   constructor(container, scoreManager) {
     this.container = container;

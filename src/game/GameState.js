@@ -1,3 +1,4 @@
+console.log('[GameState.js] Carregado');
 import { BOARD_SIZE, SYMBOLS } from './constants.js';
 
 export class GameState {

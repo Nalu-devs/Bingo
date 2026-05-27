@@ -1,3 +1,4 @@
+console.log('[ScoreManager.js] Carregado');
 const STORAGE_KEY = 'arcadehub_scores';
 
 export class ScoreManager {

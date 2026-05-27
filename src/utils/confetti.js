@@ -1,3 +1,4 @@
+console.log('[confetti.js] Carregado');
 const COLORS = ['#c9a84c', '#c1694f', '#5a9e7e', '#d4af37', '#2ecc71', '#e74c3c', '#3498db'];
 
 export function fireConfetti(count = 80) {

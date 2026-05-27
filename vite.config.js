@@ -1,3 +1,4 @@
+console.log('[vite.config.js] Carregado');
 import { defineConfig } from 'vite';
 
 export default defineConfig({

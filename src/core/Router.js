@@ -1,3 +1,4 @@
+console.log('[Router.js] Carregado');
 export class Router {
   constructor(routes) {
     this.routes = routes;

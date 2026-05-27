@@ -1,3 +1,4 @@
+console.log('[GameController.js] Carregado');
 import { GameState } from '../../game/GameState.js';
 import { AIPlayer } from '../../game/AIPlayer.js';
 import { Board } from '../../ui/Board.js';

@@ -1,3 +1,4 @@
+console.log('[MemoriaGame.js] Carregado');
 const EMOJIS = [
   '🍎', '🍊', '🍋', '🍇', '🍓', '🍒',
   '🍑', '🥝', '🍌', '🍉', '🍍', '🥭',

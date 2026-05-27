@@ -1,3 +1,4 @@
+console.log('[ThemeManager.js] Carregado');
 import { CSS_CLASSES } from '../game/constants.js';
 
 export class ThemeManager {

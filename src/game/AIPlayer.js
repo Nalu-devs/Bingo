@@ -1,3 +1,4 @@
+console.log('[AIPlayer.js] Carregado');
 import { WINNING_COMBOS, BOARD_SIZE, DIFFICULTIES } from './constants.js';
 
 export class AIPlayer {

@@ -1,3 +1,4 @@
+console.log('[DisplayManager.js] Carregado');
 import { COUNTDOWN_SECONDS } from '../game/constants.js';
 
 export class DisplayManager {

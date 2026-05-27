@@ -1,3 +1,4 @@
+console.log('[Board.js] Carregado');
 import { BOARD_SIZE, CSS_CLASSES } from '../game/constants.js';
 
 export class Board {

@@ -1,3 +1,4 @@
+console.log('[VelhaGame.js] Carregado');
 import { GameController } from './GameController.js';
 
 export class VelhaGame {

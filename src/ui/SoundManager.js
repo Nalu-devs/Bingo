@@ -1,3 +1,4 @@
+console.log('[SoundManager.js] Carregado');
 export class SoundManager {
   constructor() {
     this.enabled = true;

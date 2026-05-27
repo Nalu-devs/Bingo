@@ -1,3 +1,4 @@
+console.log('[StatsPage.js] Carregado');
 export class StatsPage {
   constructor(container, scoreManager) {
     this.container = container;

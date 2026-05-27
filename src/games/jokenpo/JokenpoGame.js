@@ -1,3 +1,4 @@
+console.log('[JokenpoGame.js] Carregado');
 const MOVES = ['pedra', 'papel', 'tesoura'];
 const EMOJIS = { pedra: '🪨', papel: '📄', tesoura: '✂️' };
 
