@@ -6,8 +6,10 @@ const router = Router();
 router.use(authMiddleware);
 
 function getCartItems(userId) {
+  console.log('[cart.js] getCartItems() - userId:', userId);
   const items = query('cart_items', ci => ci.user_id === userId);
-  return items.map(ci => {
+  console.log('[cart.js] getCartItems() -', items.length, 'itens crus no banco');
+  const enriched = items.map(ci => {
     const p = findOne('products', prod => prod.id === ci.product_id);
     return {
       id: ci.id,
@@ -19,6 +21,8 @@ function getCartItems(userId) {
       stock: p?.stock || 0,
     };
   });
+  console.log('[cart.js] getCartItems() - retornando', enriched.length, 'itens enriquecidos');
+  return enriched;
 }
 
 router.get('/', (req, res) => {

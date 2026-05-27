@@ -22,9 +22,11 @@ async function showCart() {
 }
 
 function renderCart(items) {
+  console.log('[cart.js] renderCart() -', items.length, 'itens');
   const body = document.getElementById('modal-body');
 
   if (items.length === 0) {
+    console.log('[cart.js] Carrinho vazio');
     body.innerHTML = `
       <div class="empty-state">
         <h3>Carrinho vazio</h3>
@@ -35,6 +37,7 @@ function renderCart(items) {
   }
 
   const total = items.reduce((s, i) => s + i.price * i.quantity, 0);
+  console.log('[cart.js] Total do carrinho: R$', total.toFixed(2));
 
   body.innerHTML = `
     <div id="cart-items">
@@ -63,11 +66,13 @@ function renderCart(items) {
 }
 
 async function updateCartQty(productId, delta) {
+  console.log('[cart.js] updateCartQty() - productId:', productId, 'delta:', delta);
   const itemEl = document.querySelector(`.cart-item[data-id="${productId}"]`);
   const qtyEl = itemEl?.querySelector('.qty-value');
   if (!qtyEl) return;
 
   const newQty = parseInt(qtyEl.textContent) + delta;
+  console.log('[cart.js] Nova quantidade:', newQty);
   if (newQty < 1) return;
 
   try {
@@ -84,6 +89,7 @@ async function updateCartQty(productId, delta) {
 }
 
 async function removeFromCart(productId) {
+  console.log('[cart.js] removeFromCart() - productId:', productId);
   try {
     await api(`/cart/${productId}`, { method: 'DELETE' });
     const items = await api('/cart');
@@ -95,12 +101,15 @@ async function removeFromCart(productId) {
 }
 
 async function checkout() {
+  console.log('[cart.js] checkout()');
   try {
     const result = await api('/orders/checkout', { method: 'POST' });
+    console.log('[cart.js] Pedido criado:', result);
     closeModal();
     alert(`Pedido #${result.order_id} realizado com sucesso! Total: R$ ${result.total.toFixed(2)}`);
     updateCartCount();
   } catch (err) {
+    console.log('[cart.js] Erro no checkout:', err.message);
     alert(err.message);
   }
 }

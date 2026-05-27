@@ -18,11 +18,13 @@ function navigate(page, category) {
 }
 
 function openModal() {
+  console.log('[app.js] openModal()');
   document.getElementById('modal-overlay').classList.remove('hidden');
   document.getElementById('modal').classList.remove('hidden');
 }
 
 function closeModal() {
+  console.log('[app.js] closeModal()');
   document.getElementById('modal-overlay').classList.add('hidden');
   document.getElementById('modal').classList.add('hidden');
 }

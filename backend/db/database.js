@@ -35,6 +35,7 @@ function save() {
   const dir = path.dirname(DATA_FILE);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+  console.log('[database.js] Dados salvos em disco.');
 }
 
 export function getDb() {
@@ -46,6 +47,7 @@ export function getNextId(table) {
   const id = db.nextId[table];
   db.nextId[table]++;
   save();
+  console.log(`[database.js] getNextId para "${table}" = ${id}`);
   return id;
 }
 
@@ -119,5 +121,5 @@ export function seedProducts() {
   ];
 
   for (const p of products) insert('products', p);
-  console.log('Produtos seedados com sucesso!');
+  console.log('[database.js] Produtos seedados com sucesso!');
 }

@@ -81,6 +81,7 @@ async function renderProducts(category) {
 }
 
 function renderProductCard(product) {
+  console.log('[products.js] renderProductCard() -', product.name, 'R$', product.price, 'estoque:', product.stock);
   return `
     <div class="product-card">
       <div class="product-image">${getProductEmoji(product.name)}</div>
@@ -112,7 +113,9 @@ function getProductEmoji(name) {
     bolsa: '👛',
   };
   const key = Object.keys(emojis).find(k => name.toLowerCase().includes(k));
-  return key ? emojis[key] : '📦';
+  const emoji = key ? emojis[key] : '📦';
+  console.log('[products.js] getProductEmoji() -', name, '=>', emoji);
+  return emoji;
 }
 
 function filterProducts(category) {

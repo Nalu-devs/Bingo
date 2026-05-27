@@ -1,4 +1,5 @@
 function showLogin() {
+  console.log('[auth.js] showLogin()');
   document.getElementById('modal-title').textContent = 'Entrar';
   document.getElementById('modal-body').innerHTML = `
     <form id="auth-form" onsubmit="login(event)">
@@ -21,6 +22,7 @@ function showLogin() {
 }
 
 function showRegister() {
+  console.log('[auth.js] showRegister()');
   document.getElementById('modal-title').textContent = 'Cadastrar';
   document.getElementById('modal-body').innerHTML = `
     <form id="auth-form" onsubmit="register(event)">
