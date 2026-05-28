@@ -33,6 +33,7 @@ const router = new Router([
 ]);
 
 document.getElementById('menuBtn').addEventListener('click', () => {
+  console.log('[main.js] Menu toggle');
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebar-overlay');
   sidebar.classList.toggle('hidden');
