@@ -12,3 +12,4 @@ export default defineConfig({
     open: true,
   },
 });
+console.log('[vite.config.js] Config exportada');
