@@ -3,6 +3,7 @@ import { BOARD_SIZE, CSS_CLASSES } from '../game/constants.js';
 
 export class Board {
   constructor(containerId, onCellClick) {
+    console.log('[Board.js] Construtor', containerId);
     this.container = document.getElementById(containerId);
     this.cells = [];
     this.onCellClick = onCellClick;

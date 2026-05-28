@@ -3,6 +3,7 @@ import { CSS_CLASSES } from '../game/constants.js';
 
 export class ThemeManager {
   constructor() {
+    console.log('[ThemeManager.js] Construtor');
     this.isLightMode = false;
     this.button = document.getElementById('themeToggle');
     if (this.button) {

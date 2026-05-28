@@ -3,6 +3,7 @@ import { COUNTDOWN_SECONDS } from '../game/constants.js';
 
 export class DisplayManager {
   constructor(displayId) {
+    console.log('[DisplayManager.js] Construtor', displayId);
     this.displayElement = document.getElementById(displayId);
     this.countdownInterval = null;
     this.countdownValue = COUNTDOWN_SECONDS;

@@ -1,15 +1,19 @@
 console.log('[SoundManager.js] Carregado');
 export class SoundManager {
   constructor() {
+    console.log('[SoundManager.js] Construtor');
     this.enabled = true;
     this.audioContext = null;
     this._init();
   }
 
   _init() {
+    console.log('[SoundManager.js] _init()');
     try {
       this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      console.log('[SoundManager.js] AudioContext criado');
     } catch {
+      console.log('[SoundManager.js] Erro ao criar AudioContext');
       this.enabled = false;
     }
   }
@@ -22,12 +26,16 @@ export class SoundManager {
 
   _ensureResumed() {
     if (this.audioContext && this.audioContext.state === 'suspended') {
+      console.log('[SoundManager.js] _ensureResumed() retomando contexto');
       this.audioContext.resume();
     }
   }
 
   _playTone(frequency, duration, type = 'sine', volume = 0.3) {
-    if (!this.enabled || !this.audioContext) return;
+    if (!this.enabled || !this.audioContext) {
+      console.log('[SoundManager.js] _playTone() ignorado - disabled ou sem context');
+      return;
+    }
     this._ensureResumed();
 
     const oscillator = this.audioContext.createOscillator();
@@ -47,7 +55,10 @@ export class SoundManager {
   }
 
   _playSequence(notes, volume = 0.3) {
-    if (!this.enabled || !this.audioContext) return;
+    if (!this.enabled || !this.audioContext) {
+      console.log('[SoundManager.js] _playSequence() ignorado - disabled ou sem context');
+      return;
+    }
     this._ensureResumed();
 
     const now = this.audioContext.currentTime;

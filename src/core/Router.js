@@ -30,11 +30,13 @@ export class Router {
   }
 
   start() {
+    console.log('[Router.js] start()');
     const hash = window.location.hash.slice(1) || '/';
     this.navigate(hash);
   }
 
   destroy() {
+    console.log('[Router.js] destroy()');
     window.removeEventListener('hashchange', this._onHashChange);
   }
 }

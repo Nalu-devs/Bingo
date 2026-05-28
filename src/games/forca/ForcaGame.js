@@ -141,11 +141,13 @@ export class ForcaGame {
   }
 
   _render() {
+    console.log('[ForcaGame.js] _render() erros:', this.errors);
     const display = this.revealed.map((r, i) => {
       if (r) return this.word[i];
       return '_';
     }).join(' ');
 
+    console.log('[ForcaGame.js] Palavra:', display.replace(/ /g, ''));
     this.wordEl.textContent = display;
     this.bonecoEl.textContent = STAGES[Math.min(this.errors, STAGES.length - 1)];
 

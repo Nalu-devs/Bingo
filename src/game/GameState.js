@@ -3,6 +3,7 @@ import { BOARD_SIZE, SYMBOLS } from './constants.js';
 
 export class GameState {
   constructor() {
+    console.log('[GameState.js] Construtor');
     this.board = [];
     this.currentPlayer = SYMBOLS[0];
     this.isActive = true;

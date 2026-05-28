@@ -45,9 +45,36 @@ export class GameController {
   }
 
   _setupButtons() {
+    console.log('[GameController.js] _setupButtons()');
     document.getElementById('undoBtn')?.addEventListener('click', () => this._undo());
     document.getElementById('resetBtn')?.addEventListener('click', () => this._resetGame());
     document.getElementById('clearScoresBtn')?.addEventListener('click', () => this.resetScores());
+  }
+
+  _setupKeyboard() {
+    console.log('[GameController.js] _setupKeyboard()');
+    document.addEventListener('keydown', (e) => {
+      console.log('[GameController.js] Tecla pressionada:', e.key);
+      if (e.key >= '1' && e.key <= '9') {
+        this.handleCellClick(parseInt(e.key) - 1);
+      } else if (e.key.toLowerCase() === 'u') {
+        this._undo();
+      } else if (e.key.toLowerCase() === 'r') {
+        this._resetGame();
+      }
+    });
+  }
+
+  _setupSoundToggle() {
+    console.log('[GameController.js] _setupSoundToggle()');
+    const btn = document.getElementById('soundToggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const enabled = this.sound.toggle();
+        btn.textContent = enabled ? 'Som' : 'Sem Som';
+        btn.classList.toggle('disabled', !enabled);
+      });
+    }
   }
 
   _setupControls() {
@@ -152,6 +179,7 @@ export class GameController {
   }
 
   _persistScores() {
+    console.log('[GameController.js] _persistScores()');
     this.scoreManager.update('velha', {
       X: this.state.scores.X,
       O: this.state.scores.O,
@@ -290,6 +318,7 @@ export class GameController {
   }
 
   _onTimerTick(elapsed) {
+    console.log('[GameController.js] _onTimerTick()', elapsed);
     this._updateTimerValue(elapsed);
   }
 
@@ -304,6 +333,7 @@ export class GameController {
   }
 
   _updateTimerValue(seconds) {
+    console.log('[GameController.js] _updateTimerValue()', seconds);
     const el = document.getElementById('gameTimer');
     if (el) el.textContent = this.timer.format(seconds);
   }
