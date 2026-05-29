@@ -130,8 +130,8 @@ export class MemoriaGame {
       this.matched++;
       this.matchedEl.textContent = this.matched;
       const cards = this.gridEl.querySelectorAll('.memoria-card');
-      cards[a].classList.add('matched');
-      cards[b].classList.add('matched');
+      cards[a].classList.add('matched', 'bounce');
+      cards[b].classList.add('matched', 'bounce');
       this.flipped = [];
       this.isLocked = false;
 
@@ -140,10 +140,12 @@ export class MemoriaGame {
         this._endGame(true);
       }
     } else {
+      const cards = this.gridEl.querySelectorAll('.memoria-card');
+      cards[a].classList.add('shake');
+      cards[b].classList.add('shake');
       setTimeout(() => {
-        const cards = this.gridEl.querySelectorAll('.memoria-card');
-        cards[a].classList.remove('flipped');
-        cards[b].classList.remove('flipped');
+        cards[a].classList.remove('flipped', 'shake');
+        cards[b].classList.remove('flipped', 'shake');
         this.flipped = [];
         this.isLocked = false;
       }, 800);
