@@ -69,5 +69,17 @@ document.getElementById('themeToggle').addEventListener('click', () => {
   btn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
 });
 
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const sidebar = document.getElementById('sidebar');
+    if (!sidebar.classList.contains('hidden')) {
+      sidebar.classList.add('hidden');
+      document.getElementById('sidebar-overlay').classList.add('hidden');
+    } else {
+      window.location.hash = '#/';
+    }
+  }
+});
+
 console.log('[main.js] Iniciando router');
 router.start();

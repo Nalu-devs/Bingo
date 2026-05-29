@@ -103,29 +103,6 @@ export class GameController {
     }
   }
 
-  _setupKeyboard() {
-    document.addEventListener('keydown', (e) => {
-      if (e.key >= '1' && e.key <= '9') {
-        this.handleCellClick(parseInt(e.key) - 1);
-      } else if (e.key.toLowerCase() === 'u') {
-        this._undo();
-      } else if (e.key.toLowerCase() === 'r') {
-        this._resetGame();
-      }
-    });
-  }
-
-  _setupSoundToggle() {
-    const btn = document.getElementById('soundToggle');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const enabled = this.sound.toggle();
-        btn.textContent = enabled ? 'Som' : 'Sem Som';
-        btn.classList.toggle('disabled', !enabled);
-      });
-    }
-  }
-
   _getResult() {
     console.log('[GameController.js] _getResult()');
     for (const combo of WINNING_COMBOS) {
