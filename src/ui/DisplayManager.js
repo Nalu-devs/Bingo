@@ -10,8 +10,12 @@ export class DisplayManager {
   }
 
   showMessage(html) {
-    console.log('[DisplayManager.js] showMessage()', html.substring(0, 50));
     this.displayElement.innerHTML = html;
+    this.displayElement.style.opacity = '0';
+    this.displayElement.style.transition = 'opacity 0.3s ease';
+    requestAnimationFrame(() => {
+      this.displayElement.style.opacity = '1';
+    });
   }
 
   showMainMenu(mode) {
