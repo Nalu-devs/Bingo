@@ -86,6 +86,13 @@ export class JokenpoGame {
     this.roundsSelect.addEventListener('change', () => this._resetMatch());
     this.resetBtn.addEventListener('click', () => this._resetMatch());
 
+    this._handleKey = (e) => {
+      if (!this.isActive) return;
+      const map = { '1': 'pedra', '2': 'papel', '3': 'tesoura' };
+      if (map[e.key]) this._play(map[e.key]);
+    };
+    document.addEventListener('keydown', this._handleKey);
+
     this.isActive = true;
   }
 
@@ -177,5 +184,8 @@ export class JokenpoGame {
   onLeave() {
     console.log('[JokenpoGame.js] onLeave()');
     this.isActive = false;
+    if (this._handleKey) {
+      document.removeEventListener('keydown', this._handleKey);
+    }
   }
 }
