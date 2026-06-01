@@ -20,7 +20,6 @@ export class HomePage {
             <h3>Jogo da Velha</h3>
             <p>Clássico jogo de estratégia. Modos PvP, PvE e 3 jogadores!</p>
           </a>
-          
           <a href="#/forca" class="game-card" data-nav>
             <span class="game-icon">🪢</span>
             <h3>Forca</h3>
