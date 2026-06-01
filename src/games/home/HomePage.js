@@ -15,9 +15,8 @@ export class HomePage {
           <p>Escolha um jogo para começar!</p>
         </section>
         <div class="game-grid">
-        
           <a href="#/velha" class="game-card" data-nav>
-            <span class="game-icon">❌⭕</span>
+            <span class="game-icon">⭕</span>
             <h3>Jogo da Velha</h3>
             <p>Clássico jogo de estratégia. Modos PvP, PvE e 3 jogadores!</p>
           </a>
