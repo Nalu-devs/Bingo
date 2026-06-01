@@ -66,18 +66,9 @@ export class AIPlayer {
   _minimax(board, depth, isMaximizing, aiSymbol, playerSymbol) {
     const result = this._checkWinner(board);
 
-    if (result === aiSymbol) {
-      console.log('[AIPlayer.js] _minimax() profundidade:', depth, 'IA vence');
-      return 10 - depth;
-    }
-    if (result === playerSymbol) {
-      console.log('[AIPlayer.js] _minimax() profundidade:', depth, 'jogador vence');
-      return depth - 10;
-    }
-    if (result === 'draw') {
-      console.log('[AIPlayer.js] _minimax() profundidade:', depth, 'empate');
-      return 0;
-    }
+    if (result === aiSymbol) return 10 - depth;
+    if (result === playerSymbol) return depth - 10;
+    if (result === 'draw') return 0;
 
     if (isMaximizing) {
       let best = -Infinity;
@@ -103,13 +94,8 @@ export class AIPlayer {
   _checkWinner(board) {
     for (const combo of WINNING_COMBOS) {
       const [a, b, c] = combo;
-      if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-        console.log('[AIPlayer.js] _checkWinner() vencedor:', board[a]);
-        return board[a];
-      }
+      if (board[a] && board[a] === board[b] && board[b] === board[c]) return board[a];
     }
-    const draw = board.every(cell => cell !== '');
-    if (draw) console.log('[AIPlayer.js] _checkWinner() empate');
-    return draw ? 'draw' : null;
+    return board.every(cell => cell !== '') ? 'draw' : null;
   }
 }
