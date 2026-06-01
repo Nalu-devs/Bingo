@@ -1,3 +1,4 @@
+console.log('[ScoreManager.test.js] Carregado');
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { ScoreManager } from '../core/ScoreManager.js';
 

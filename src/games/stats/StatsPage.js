@@ -1,3 +1,4 @@
+console.log('[StatsPage.js] Carregado');
 export class StatsPage {
   constructor(container, scoreManager) {
     this.container = container;
@@ -5,6 +6,7 @@ export class StatsPage {
   }
 
   mount() {
+    console.log('[StatsPage.js] mount()');
     const scores = this.scoreManager.getAll();
     this.container.innerHTML = `
       <div class="stats-page">
@@ -40,6 +42,7 @@ export class StatsPage {
     `;
 
     document.getElementById('resetAllStats')?.addEventListener('click', () => {
+      console.log('[StatsPage.js] Reset all stats');
       if (confirm('Tem certeza? Todas as estatisticas serao perdidas!')) {
         this.scoreManager.resetAll();
         this.mount();

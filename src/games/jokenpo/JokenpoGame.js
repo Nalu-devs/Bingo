@@ -1,3 +1,4 @@
+console.log('[JokenpoGame.js] Carregado');
 const MOVES = ['pedra', 'papel', 'tesoura'];
 const EMOJIS = { pedra: '🪨', papel: '📄', tesoura: '✂️' };
 
@@ -19,6 +20,7 @@ export class JokenpoGame {
   }
 
   mount() {
+    console.log('[JokenpoGame.js] mount()');
     const saved = this.scoreManager.get('jokenpo');
     this.container.innerHTML = `
       <div class="game-page">
@@ -84,13 +86,22 @@ export class JokenpoGame {
     this.roundsSelect.addEventListener('change', () => this._resetMatch());
     this.resetBtn.addEventListener('click', () => this._resetMatch());
 
+    this._handleKey = (e) => {
+      if (!this.isActive) return;
+      const map = { '1': 'pedra', '2': 'papel', '3': 'tesoura' };
+      if (map[e.key]) this._play(map[e.key]);
+    };
+    document.addEventListener('keydown', this._handleKey);
+
     this.isActive = true;
   }
 
   _play(playerMove) {
+    console.log('[JokenpoGame.js] _play() jogador:', playerMove);
     if (!this.isActive) return;
 
     const computerMove = MOVES[Math.floor(Math.random() * MOVES.length)];
+    console.log('[JokenpoGame.js] Computador:', computerMove);
     let result;
 
     if (playerMove === computerMove) {
@@ -100,6 +111,7 @@ export class JokenpoGame {
     } else {
       result = 'lose';
     }
+    console.log('[JokenpoGame.js] Resultado:', result);
 
     this.round++;
 
@@ -138,8 +150,10 @@ export class JokenpoGame {
   _checkMatchEnd() {
     const max = parseInt(this.roundsSelect.value);
     const half = Math.ceil(max / 2);
+    console.log('[JokenpoGame.js] _checkMatchEnd()', this.playerScore, 'x', this.computerScore, 'max:', max);
 
     if (this.playerScore >= half || this.computerScore >= half) {
+      console.log('[JokenpoGame.js] Partida encerrada');
       this.isActive = false;
       this.container.querySelectorAll('.jp-btn').forEach(b => b.disabled = true);
 
@@ -152,6 +166,7 @@ export class JokenpoGame {
   }
 
   _resetMatch() {
+    console.log('[JokenpoGame.js] _resetMatch()');
     this.isActive = true;
     this.round = 0;
     this.playerScore = 0;
@@ -167,6 +182,10 @@ export class JokenpoGame {
   }
 
   onLeave() {
+    console.log('[JokenpoGame.js] onLeave()');
     this.isActive = false;
+    if (this._handleKey) {
+      document.removeEventListener('keydown', this._handleKey);
+    }
   }
 }

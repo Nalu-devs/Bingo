@@ -1,15 +1,21 @@
+console.log('[ScoreManager.js] Carregado');
 const STORAGE_KEY = 'arcadehub_scores';
 
 export class ScoreManager {
   constructor() {
+    console.log('[ScoreManager.js] Construtor');
     this.data = this._load();
+    console.log('[ScoreManager.js] Dados carregados:', this.data);
   }
 
   _load() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
+      console.log('[ScoreManager.js] _load() raw:', raw ? 'encontrado' : 'nenhum');
       if (raw) return JSON.parse(raw);
-    } catch {}
+    } catch {
+      console.log('[ScoreManager.js] _load() erro ao parsear');
+    }
     return this._defaults();
   }
 
@@ -33,17 +39,20 @@ export class ScoreManager {
   }
 
   update(game, updates) {
+    console.log('[ScoreManager.js] update()', game, updates);
     if (!this.data[game]) this.data[game] = this._defaults()[game];
     Object.assign(this.data[game], updates);
     this._save();
   }
 
   reset(game) {
+    console.log('[ScoreManager.js] reset()', game);
     this.data[game] = this._defaults()[game];
     this._save();
   }
 
   resetAll() {
+    console.log('[ScoreManager.js] resetAll()');
     this.data = this._defaults();
     this._save();
   }

@@ -1,3 +1,4 @@
+console.log('[AIPlayer.test.js] Carregado');
 import { describe, it, expect } from 'vitest';
 import { AIPlayer } from '../game/AIPlayer.js';
 

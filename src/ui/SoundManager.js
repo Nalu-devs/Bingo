@@ -1,31 +1,41 @@
+console.log('[SoundManager.js] Carregado');
 export class SoundManager {
   constructor() {
+    console.log('[SoundManager.js] Construtor');
     this.enabled = true;
     this.audioContext = null;
     this._init();
   }
 
   _init() {
+    console.log('[SoundManager.js] _init()');
     try {
       this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      console.log('[SoundManager.js] AudioContext criado');
     } catch {
+      console.log('[SoundManager.js] Erro ao criar AudioContext');
       this.enabled = false;
     }
   }
 
   toggle() {
     this.enabled = !this.enabled;
+    console.log('[SoundManager.js] toggle()', this.enabled ? 'ativado' : 'desativado');
     return this.enabled;
   }
 
   _ensureResumed() {
     if (this.audioContext && this.audioContext.state === 'suspended') {
+      console.log('[SoundManager.js] _ensureResumed() retomando contexto');
       this.audioContext.resume();
     }
   }
 
   _playTone(frequency, duration, type = 'sine', volume = 0.3) {
-    if (!this.enabled || !this.audioContext) return;
+    if (!this.enabled || !this.audioContext) {
+      console.log('[SoundManager.js] _playTone() ignorado - disabled ou sem context');
+      return;
+    }
     this._ensureResumed();
 
     const oscillator = this.audioContext.createOscillator();
@@ -45,7 +55,10 @@ export class SoundManager {
   }
 
   _playSequence(notes, volume = 0.3) {
-    if (!this.enabled || !this.audioContext) return;
+    if (!this.enabled || !this.audioContext) {
+      console.log('[SoundManager.js] _playSequence() ignorado - disabled ou sem context');
+      return;
+    }
     this._ensureResumed();
 
     const now = this.audioContext.currentTime;
@@ -69,10 +82,12 @@ export class SoundManager {
   }
 
   move() {
+    console.log('[SoundManager.js] move()');
     this._playTone(660, 0.12, 'sine', 0.2);
   }
 
   win() {
+    console.log('[SoundManager.js] win()');
     this._playSequence([
       [523, 0, 0.15],
       [659, 0.1, 0.15],
@@ -81,6 +96,7 @@ export class SoundManager {
   }
 
   lose() {
+    console.log('[SoundManager.js] lose()');
     this._playSequence([
       [200, 0, 0.15],
       [150, 0.1, 0.15],
@@ -89,6 +105,7 @@ export class SoundManager {
   }
 
   draw() {
+    console.log('[SoundManager.js] draw()');
     this._playSequence([
       [330, 0, 0.12],
       [330, 0.12, 0.12],
@@ -97,6 +114,7 @@ export class SoundManager {
   }
 
   undo() {
+    console.log('[SoundManager.js] undo()');
     this._playSequence([
       [400, 0, 0.08],
       [300, 0.08, 0.1],

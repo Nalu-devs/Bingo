@@ -1,3 +1,4 @@
+console.log('[AIPlayer.js] Carregado');
 import { WINNING_COMBOS, BOARD_SIZE, DIFFICULTIES } from './constants.js';
 
 export class AIPlayer {
@@ -6,24 +7,31 @@ export class AIPlayer {
   }
 
   setDifficulty(difficulty) {
+    console.log('[AIPlayer.js] setDifficulty()', difficulty);
     this.difficulty = difficulty;
   }
 
   getMove(board, aiSymbol = 'O', playerSymbol = 'X') {
     const available = this._getAvailableMoves(board);
+    console.log('[AIPlayer.js] getMove() dificuldade:', this.difficulty, 'movimentos disponiveis:', available.length);
     if (available.length === 0) return -1;
 
+    let move;
     switch (this.difficulty) {
       case DIFFICULTIES.HARD:
-        return this._getBestMove(board, aiSymbol, playerSymbol);
+        move = this._getBestMove(board, aiSymbol, playerSymbol);
+        break;
       case DIFFICULTIES.MEDIUM:
-        return Math.random() < 0.5
+        move = Math.random() < 0.5
           ? this._getBestMove(board, aiSymbol, playerSymbol)
           : available[Math.floor(Math.random() * available.length)];
+        break;
       case DIFFICULTIES.EASY:
       default:
-        return available[Math.floor(Math.random() * available.length)];
+        move = available[Math.floor(Math.random() * available.length)];
     }
+    console.log('[AIPlayer.js] getMove() escolheu:', move);
+    return move;
   }
 
   _getAvailableMoves(board) {
@@ -34,6 +42,7 @@ export class AIPlayer {
   }
 
   _getBestMove(board, aiSymbol, playerSymbol) {
+    console.log('[AIPlayer.js] _getBestMove()');
     let bestScore = -Infinity;
     let bestMove = -1;
 
@@ -50,6 +59,7 @@ export class AIPlayer {
       }
     }
 
+    console.log('[AIPlayer.js] _getBestMove() retornando:', bestMove, 'score:', bestScore);
     return bestMove;
   }
 
@@ -84,9 +94,7 @@ export class AIPlayer {
   _checkWinner(board) {
     for (const combo of WINNING_COMBOS) {
       const [a, b, c] = combo;
-      if (board[a] && board[a] === board[b] && board[b] === board[c]) {
-        return board[a];
-      }
+      if (board[a] && board[a] === board[b] && board[b] === board[c]) return board[a];
     }
     return board.every(cell => cell !== '') ? 'draw' : null;
   }

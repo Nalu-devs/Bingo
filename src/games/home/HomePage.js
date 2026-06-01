@@ -1,3 +1,4 @@
+console.log('[HomePage.js] Carregado');
 export class HomePage {
   constructor(container, scoreManager) {
     this.container = container;
@@ -5,6 +6,7 @@ export class HomePage {
   }
 
   mount() {
+    console.log('[HomePage.js] mount()');
     const scores = this.scoreManager.getAll();
     this.container.innerHTML = `
       <div class="home-page">

@@ -1,6 +1,8 @@
+console.log('[confetti.js] Carregado');
 const COLORS = ['#c9a84c', '#c1694f', '#5a9e7e', '#d4af37', '#2ecc71', '#e74c3c', '#3498db'];
 
 export function fireConfetti(count = 80) {
+  console.log('[confetti.js] fireConfetti() count:', count);
   const container = document.createElement('div');
   container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;';
   document.body.appendChild(container);

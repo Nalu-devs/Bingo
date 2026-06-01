@@ -1,3 +1,4 @@
+console.log('[GameController.js] Carregado');
 import { GameState } from '../../game/GameState.js';
 import { AIPlayer } from '../../game/AIPlayer.js';
 import { Board } from '../../ui/Board.js';
@@ -14,6 +15,7 @@ import {
 
 export class GameController {
   constructor(scoreManager) {
+    console.log('[GameController.js] Construtor');
     this.scoreManager = scoreManager;
     this.state = new GameState();
     this.ai = new AIPlayer(this.state.difficulty);
@@ -43,37 +45,16 @@ export class GameController {
   }
 
   _setupButtons() {
+    console.log('[GameController.js] _setupButtons()');
     document.getElementById('undoBtn')?.addEventListener('click', () => this._undo());
     document.getElementById('resetBtn')?.addEventListener('click', () => this._resetGame());
     document.getElementById('clearScoresBtn')?.addEventListener('click', () => this.resetScores());
   }
 
-  _setupControls() {
-    const modeSelect = document.getElementById('modoJogo');
-    const diffSelect = document.getElementById('dificuldade');
-
-    if (modeSelect) {
-      modeSelect.addEventListener('change', () => {
-        this.state.mode = modeSelect.value;
-        this.ai.setDifficulty(this.state.difficulty);
-        if (this.state.mode === GAME_MODES.PVP3) {
-          this.state.currentPlayer = 'X';
-        }
-        this._resetGame();
-      });
-    }
-
-    if (diffSelect) {
-      diffSelect.addEventListener('change', () => {
-        this.state.difficulty = diffSelect.value;
-        this.ai.setDifficulty(this.state.difficulty);
-        this._resetGame();
-      });
-    }
-  }
-
   _setupKeyboard() {
+    console.log('[GameController.js] _setupKeyboard()');
     document.addEventListener('keydown', (e) => {
+      console.log('[GameController.js] Tecla pressionada:', e.key);
       if (e.key >= '1' && e.key <= '9') {
         this.handleCellClick(parseInt(e.key) - 1);
       } else if (e.key.toLowerCase() === 'u') {
@@ -85,6 +66,7 @@ export class GameController {
   }
 
   _setupSoundToggle() {
+    console.log('[GameController.js] _setupSoundToggle()');
     const btn = document.getElementById('soundToggle');
     if (btn) {
       btn.addEventListener('click', () => {
@@ -95,7 +77,34 @@ export class GameController {
     }
   }
 
+  _setupControls() {
+    const modeSelect = document.getElementById('modoJogo');
+    const diffSelect = document.getElementById('dificuldade');
+
+    if (modeSelect) {
+      modeSelect.addEventListener('change', () => {
+        console.log('[GameController.js] Modo alterado:', modeSelect.value);
+        this.state.mode = modeSelect.value;
+        this.ai.setDifficulty(this.state.difficulty);
+        if (this.state.mode === GAME_MODES.PVP3) {
+          this.state.currentPlayer = 'X';
+        }
+        this._resetGame();
+      });
+    }
+
+    if (diffSelect) {
+      diffSelect.addEventListener('change', () => {
+        console.log('[GameController.js] Dificuldade alterada:', diffSelect.value);
+        this.state.difficulty = diffSelect.value;
+        this.ai.setDifficulty(this.state.difficulty);
+        this._resetGame();
+      });
+    }
+  }
+
   _getResult() {
+    console.log('[GameController.js] _getResult()');
     for (const combo of WINNING_COMBOS) {
       const [a, b, c] = combo;
       if (
@@ -113,17 +122,20 @@ export class GameController {
   }
 
   _handleGameEnd(result) {
+    console.log('[GameController.js] _handleGameEnd()', result);
     this.state.isActive = false;
     this.timer.stop();
     this._totalGameTime += this.timer.time;
     this._gameCount++;
 
     if (result.winner === 'draw') {
+      console.log('[GameController.js] Empate');
       this.display.showDraw();
       this.state.incrementDraws();
       this.board.animateDraw();
       this.sound.draw();
     } else {
+      console.log('[GameController.js] Vencedor:', result.winner);
       if (this.state.mode === GAME_MODES.PVE && result.winner === 'O') {
         this.display.showComputerWin();
         this.sound.lose();
@@ -144,6 +156,7 @@ export class GameController {
   }
 
   _persistScores() {
+    console.log('[GameController.js] _persistScores()');
     this.scoreManager.update('velha', {
       X: this.state.scores.X,
       O: this.state.scores.O,
@@ -153,6 +166,7 @@ export class GameController {
   }
 
   _switchTurn() {
+    console.log('[GameController.js] _switchTurn()');
     this.state.switchPlayer();
     this.display.showPlayerTurn(this.state.currentPlayer);
 
@@ -160,6 +174,7 @@ export class GameController {
       this.state.mode === GAME_MODES.PVE &&
       this.state.currentPlayer === 'O'
     ) {
+      console.log('[GameController.js] Vez do computador');
       this._isAIThinking = true;
       this.display.showComputerTurn();
       setTimeout(() => this._doAIMove(), AI_DELAY_MS);
@@ -167,6 +182,7 @@ export class GameController {
   }
 
   _doAIMove() {
+    console.log('[GameController.js] _doAIMove()');
     this._isAIThinking = false;
     if (!this.state.isActive) return;
 
@@ -191,6 +207,7 @@ export class GameController {
   }
 
   handleCellClick(index) {
+    console.log('[GameController.js] handleCellClick()', index);
     if (!this.state.isActive || this._isAIThinking) return;
 
     if (
@@ -200,7 +217,10 @@ export class GameController {
       return;
     }
 
-    if (this.state.board[index] !== '') return;
+    if (this.state.board[index] !== '') {
+      console.log('[GameController.js] Celula ocupada:', index);
+      return;
+    }
 
     if (this.timer.elapsed === 0) this.timer.start();
 
@@ -219,6 +239,7 @@ export class GameController {
   }
 
   _undo() {
+    console.log('[GameController.js] _undo()');
     if (!this.state.isActive || this._isAIThinking) return;
 
     if (this.state.boardSnapshots.length === 0) {
@@ -244,6 +265,7 @@ export class GameController {
   }
 
   _resetGame() {
+    console.log('[GameController.js] _resetGame()');
     this._isAIThinking = false;
     this.display.stopCountdown();
     this.timer.reset();
@@ -262,6 +284,7 @@ export class GameController {
   }
 
   resetScores() {
+    console.log('[GameController.js] resetScores()');
     this.state.resetScores();
     this.scoreManager.reset('velha');
     this._totalGameTime = 0;
@@ -272,6 +295,7 @@ export class GameController {
   }
 
   _onTimerTick(elapsed) {
+    console.log('[GameController.js] _onTimerTick()', elapsed);
     this._updateTimerValue(elapsed);
   }
 
@@ -286,6 +310,7 @@ export class GameController {
   }
 
   _updateTimerValue(seconds) {
+    console.log('[GameController.js] _updateTimerValue()', seconds);
     const el = document.getElementById('gameTimer');
     if (el) el.textContent = this.timer.format(seconds);
   }

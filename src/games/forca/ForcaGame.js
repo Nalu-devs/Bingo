@@ -1,3 +1,4 @@
+console.log('[ForcaGame.js] Carregado');
 const WORDS = [
   'ABACATE', 'BANANA', 'CAVALO', 'DINHEIRO', 'ELEFANTE',
   'FLORESTA', 'GIRAFa', 'HOSPITAL', 'IGREJA', 'JANELA',
@@ -30,6 +31,7 @@ export class ForcaGame {
   }
 
   mount() {
+    console.log('[ForcaGame.js] mount()');
     this.container.innerHTML = `
       <div class="game-page">
         <div class="game-header">
@@ -64,6 +66,7 @@ export class ForcaGame {
   }
 
   _startGame() {
+    console.log('[ForcaGame.js] _startGame()');
     const raw = WORDS[Math.floor(Math.random() * WORDS.length)];
     this.word = raw.toUpperCase();
     this.guessed = new Set();
@@ -76,6 +79,7 @@ export class ForcaGame {
   }
 
   _buildKeyboard() {
+    console.log('[ForcaGame.js] _buildKeyboard()');
     this.tecladoEl.innerHTML = '';
     const linhas = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
     linhas.forEach(linha => {
@@ -94,6 +98,7 @@ export class ForcaGame {
   }
 
   _updateKeyboard() {
+    console.log('[ForcaGame.js] _updateKeyboard()');
     this.tecladoEl.querySelectorAll('.tecla').forEach(btn => {
       const letra = btn.dataset.letra;
       btn.classList.remove('correct', 'wrong');
@@ -113,17 +118,20 @@ export class ForcaGame {
   }
 
   _guess(letra) {
+    console.log('[ForcaGame.js] _guess()', letra);
     if (!this.isActive || this.guessed.has(letra)) return;
 
     this.guessed.add(letra);
 
     if (this.word.includes(letra)) {
+      console.log('[ForcaGame.js] Letra correta!');
       for (let i = 0; i < this.word.length; i++) {
         if (this.word[i] === letra) {
           this.revealed[i] = true;
         }
       }
     } else {
+      console.log('[ForcaGame.js] Letra errada!');
       this.errors++;
     }
 
@@ -133,11 +141,13 @@ export class ForcaGame {
   }
 
   _render() {
+    console.log('[ForcaGame.js] _render() erros:', this.errors);
     const display = this.revealed.map((r, i) => {
       if (r) return this.word[i];
       return '_';
     }).join(' ');
 
+    console.log('[ForcaGame.js] Palavra:', display.replace(/ /g, ''));
     this.wordEl.textContent = display;
     this.bonecoEl.textContent = STAGES[Math.min(this.errors, STAGES.length - 1)];
 
@@ -150,7 +160,9 @@ export class ForcaGame {
   }
 
   _checkEnd() {
+    console.log('[ForcaGame.js] _checkEnd() erros:', this.errors, 'reveladas:', this.revealed.filter(r => r).length);
     if (this.errors >= 6) {
+      console.log('[ForcaGame.js] Jogador perdeu!');
       this.isActive = false;
       this.statusEl.innerHTML = `Você perdeu! A palavra era: <strong>${this.word}</strong>`;
       this.scoreManager.update('forca', { losses: (this.scoreManager.get('forca').losses ?? 0) + 1 });
@@ -158,6 +170,7 @@ export class ForcaGame {
     }
 
     if (this.revealed.every(r => r)) {
+      console.log('[ForcaGame.js] Jogador venceu!');
       this.isActive = false;
       this.statusEl.innerHTML = `Parabéns! Você acertou: <strong>${this.word}</strong>`;
       this.scoreManager.update('forca', { wins: (this.scoreManager.get('forca').wins ?? 0) + 1 });
@@ -166,6 +179,7 @@ export class ForcaGame {
 
   _handleKey(e) {
     if (!this.isActive) return;
+    console.log('[ForcaGame.js] _handleKey()', e.key);
     const key = e.key.toUpperCase();
     if (/^[A-Z]$/.test(key) && key.length === 1) {
       this._guess(key);
@@ -173,6 +187,7 @@ export class ForcaGame {
   }
 
   onLeave() {
+    console.log('[ForcaGame.js] onLeave()');
     document.removeEventListener('keydown', this._handleKey);
   }
 }

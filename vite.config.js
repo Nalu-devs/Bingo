@@ -1,3 +1,4 @@
+console.log('[vite.config.js] Carregado');
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -11,3 +12,4 @@ export default defineConfig({
     open: true,
   },
 });
+console.log('[vite.config.js] Config exportada');
