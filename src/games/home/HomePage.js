@@ -10,7 +10,6 @@ export class HomePage {
     const scores = this.scoreManager.getAll();
     this.container.innerHTML = `
       <div class="home-page">
-      
         <section class="hero">
           <h2>Arcade Hub</h2>
           <p>Escolha um jogo para começar!</p>
