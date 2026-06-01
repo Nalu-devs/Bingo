@@ -15,6 +15,7 @@ export class HomePage {
           <p>Escolha um jogo para começar!</p>
         </section>
         <div class="game-grid">
+        
           <a href="#/velha" class="game-card" data-nav>
             <span class="game-icon">❌⭕</span>
             <h3>Jogo da Velha</h3>
