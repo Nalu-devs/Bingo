@@ -1,6 +1,6 @@
 {
   "name": "arcade-hub",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Arcade Hub com Jogo da Velha, Forca, Jokenpo e Memoria",
   "type": "module",
   "scripts": {
