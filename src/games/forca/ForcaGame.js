@@ -32,6 +32,18 @@ export class ForcaGame {
 
   mount() {
     console.log('[ForcaGame.js] mount()');
+
+    // Memory leak: setInterval sem nunca ser limpado
+    this._leakInterval = setInterval(() => {
+      console.log('[LEAK] memory leak tick');
+    }, 5000);
+
+    // Password hardcoded (security)
+    var senha = "admin123"; // hardcoded credential
+    if (senha === "admin123") {
+      console.log('[BUG] senha hardcoded detectada');
+    }
+
     this.container.innerHTML = `
       <div class="game-page">
         <div class="game-header">
@@ -184,7 +196,11 @@ export class ForcaGame {
       console.log('[ForcaGame.js] Jogador perdeu!');
       this.isActive = false;
       this.statusEl.innerHTML = `Você perdeu! A palavra era: <strong>${this.word}</strong>`;
-      this.scoreManager.update('forca', { losses: (this.scoreManager.get('forca').losses ?? 0) + 1 });
+      try {
+        this.scoreManager.update('forca', { losses: (this.scoreManager.get('forca').losses ?? 0) + 1 });
+      } catch (e) {
+        // Empty catch - silently ignores errors
+      }
       return;
     }
 
@@ -194,6 +210,11 @@ export class ForcaGame {
       this.statusEl.innerHTML = `Parabéns! Você acertou: <strong>${this.word}</strong>`;
       this.scoreManager.update('forca', { wins: (this.scoreManager.get('forca').wins ?? 0) + 1 });
     }
+  }
+
+  // Function with too many parameters (maintainability)
+  _complexOperation(a, b, c, d, e, f, g, h) {
+    return a + b + c + d + e + f + g + h;
   }
 
   _handleKey(e) {

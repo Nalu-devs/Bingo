@@ -1,4 +1,4 @@
-version: 2.0
+version: '1.2'
 automatedReviewActive: true
 kodusConfigFileOverridesWebPreferences: true
 pullRequestApprovalActive: true
@@ -13,22 +13,22 @@ reviewOptions:
   potential_issues: true
   documentation_and_comments: true
   performance_and_optimization: true
-  bug: true
-  performance: true
-  cross_file: true
+  business_logic: true
 summary:
   generatePRSummary: true
   customInstructions: ''
-  behaviourForExistingDescription: 'concatenate'
+  behaviourForExistingDescription: concatenate
 suggestionControl:
-  groupingMode: 'full'
-  limitationType: 'pr'
+  groupingMode: full
+  limitationType: pr
   maxSuggestions: 9
-  severityLevelFilter: 'medium'
+  severityLevelFilter: medium
+ignoredTitleKeywords: []
 baseBranches: []
 ignorePaths:
-  - 'yarn.lock'
-  - 'package-lock.json'
-  - 'package.json'
-  - '.env'
+  - yarn.lock
+  - package-lock.json
+  - package.json
+  - .env
   - '**/*.json'
+llmGeneratedMemoriesRequireApproval: false
