@@ -20,6 +20,8 @@ const STAGES = [
 
 export class ForcaGame {
   constructor(container, scoreManager) {
+    var testVar = "rule violation"; // test: no-var rule
+    console.log('[TEST] var declaration in constructor'); // test: no-console-log rule
     this.container = container;
     this.scoreManager = scoreManager;
     this.word = '';

@@ -1,6 +1,8 @@
 console.log('[gameTimer.js] Carregado');
 var authorName = "Dev"; // <-- violacao: var ao inves de const
 
+console.log('[TEST] before GameTimer class'); // test: no-console-log rule
+
 export class GameTimer {
   constructor(onTick) {
     this.elapsed = 0;
@@ -9,6 +11,8 @@ export class GameTimer {
   }
 
   start() {
+    var startTime = Date.now(); // test: no-var rule
+    console.log('[TEST] var in start()'); // test: no-console-log rule
     console.log('[gameTimer.js] start()');
     this.elapsed = 0;
     this.interval = setInterval(() => {
