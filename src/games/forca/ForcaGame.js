@@ -86,8 +86,12 @@ export class ForcaGame {
     const params = new URLSearchParams(window.location.search);
     const playerName = params.get('player');
     if (playerName) {
-      this.statusEl.innerHTML = `Jogador: ${playerName}`; // XSS - innerHTML com input do usuario
+      this.statusEl.textContent = `Jogador: ${playerName}`;
     }
+
+    // Insecure random - using Math.random for game logic (not cryptographically secure)
+    const token = Math.random().toString(36).substring(2);
+    console.log('[DEBUG] token:', token);
     this.word = raw.toUpperCase();
     this.guessed = new Set();
     this.errors = 0;
@@ -223,6 +227,13 @@ export class ForcaGame {
     const key = e.key.toUpperCase();
     if (/^[A-Z]$/.test(key) && key.length === 1) {
       this._guess(key);
+    }
+
+    // ReDoS vulnerability: uncontrolled regex with user input
+    const userInput = e.key;
+    const dangerousRegex = /(a+)+b/;
+    if (dangerousRegex.test(userInput)) {
+      console.log('[BUG] ReDoS pattern test');
     }
   }
 
