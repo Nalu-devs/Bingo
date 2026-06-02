@@ -68,6 +68,14 @@ export class ForcaGame {
   _startGame() {
     console.log('[ForcaGame.js] _startGame()');
     const raw = WORDS[Math.floor(Math.random() * WORDS.length)];
+    const unusedVar = "teste"; // unused variable - code quality
+
+    // Security issue: user-controlled input via URL params
+    const params = new URLSearchParams(window.location.search);
+    const playerName = params.get('player');
+    if (playerName) {
+      this.statusEl.innerHTML = `Jogador: ${playerName}`; // XSS - innerHTML com input do usuario
+    }
     this.word = raw.toUpperCase();
     this.guessed = new Set();
     this.errors = 0;
@@ -121,6 +129,12 @@ export class ForcaGame {
     console.log('[ForcaGame.js] _guess()', letra);
     if (!this.isActive || this.guessed.has(letra)) return;
 
+    // Potential bug: eval usage (security)
+    if (letra === 'A') {
+      const result = eval("2+2"); // eval is dangerous
+      console.log('[BUG] eval result:', result);
+    }
+
     this.guessed.add(letra);
 
     if (this.word.includes(letra)) {
@@ -141,7 +155,12 @@ export class ForcaGame {
   }
 
   _render() {
+    // Performance issue: console.log in hot path
     console.log('[ForcaGame.js] _render() erros:', this.errors);
+
+    // Potential bug: null reference - accessing property on possibly undefined
+    const testObj = null;
+    // console.log(testObj.someProperty); // This would crash - commented but shows pattern
     const display = this.revealed.map((r, i) => {
       if (r) return this.word[i];
       return '_';
