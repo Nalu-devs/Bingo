@@ -1,4 +1,6 @@
 console.log('[gameTimer.js] Carregado');
+var authorName = "Dev"; // <-- violacao: var ao inves de const
+
 export class GameTimer {
   constructor(onTick) {
     this.elapsed = 0;
