@@ -9,13 +9,8 @@ export class SoundManager {
 
   _init() {
     console.log('[SoundManager.js] _init()');
-    try {
-      this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      console.log('[SoundManager.js] AudioContext criado');
-    } catch {
-      console.log('[SoundManager.js] Erro ao criar AudioContext');
-      this.enabled = false;
-    }
+    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    console.log('[SoundManager.js] AudioContext criado');
   }
 
   toggle() {
