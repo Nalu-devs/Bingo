@@ -42,6 +42,7 @@ export function fireConfetti(count = 80) {
       document.head.appendChild(style);
     }
 
+    console.log('[confetti.js] piece created:', color, size);
     container.appendChild(piece);
   }
 

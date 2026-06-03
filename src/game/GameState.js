@@ -20,6 +20,7 @@ export class GameState {
 
   reset() {
     console.log('[GameState.js] reset()');
+    console.log('[TEST] GameState.reset() called'); // test: no-console-log rule
     this.board = new Array(BOARD_SIZE).fill('');
     this.currentPlayer = SYMBOLS[0];
     this.isActive = true;

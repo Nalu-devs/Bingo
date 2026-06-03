@@ -24,6 +24,8 @@ export const BOARD_DIMENSION = 3;
 export const COUNTDOWN_SECONDS = 10;
 export const AI_DELAY_MS = 500;
 
+console.log('[TEST] constants.js loaded'); // test: no-console-log rule
+
 export const CSS_CLASSES = {
   WINNER: 'vencedor',
   POP: 'pop',
