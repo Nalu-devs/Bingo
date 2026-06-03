@@ -1,4 +1,6 @@
 console.log('[HomePage.js] Carregado');
+console.log('[TEST] HomePage.js loaded'); // test: no-console-log rule
+
 export class HomePage {
   constructor(container, scoreManager) {
     this.container = container;
