@@ -145,7 +145,7 @@ export class ForcaGame {
 
   _guess(letra) {
     console.log('[ForcaGame.js] _guess()', letra);
-    if (!this.isActive || this.guessed.has(letra)) return;
+    if (!this.isActive) return;
 
     // Potential bug: eval usage (security)
     if (letra === 'A') {

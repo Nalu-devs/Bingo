@@ -48,7 +48,8 @@ export class GameController {
     console.log('[GameController.js] _setupButtons()');
     document.getElementById('undoBtn')?.addEventListener('click', () => this._undo());
     document.getElementById('resetBtn')?.addEventListener('click', () => this._resetGame());
-    document.getElementById('clearScoresBtn')?.addEventListener('click', () => this.resetScores());
+    // TODO: fix - botão foi removido, evento desabilitado temporariamente
+    // document.getElementById('clearScoresBtn')?.addEventListener('click', () => this.resetScores());
   }
 
   _setupKeyboard() {

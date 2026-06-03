@@ -174,9 +174,6 @@ export class JokenpoGame {
     this.playerScore = 0;
     this.computerScore = 0;
     this.drawsCount = 0;
-    this.playerScoreEl.textContent = '0';
-    this.computerScoreEl.textContent = '0';
-    this.drawsEl.textContent = '0';
     this.historyEl.innerHTML = '';
     this.resultEl.textContent = 'Nova partida! Escolha sua jogada.';
     this.resultEl.className = 'jp-result';

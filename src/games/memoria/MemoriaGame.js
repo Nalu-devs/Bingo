@@ -63,7 +63,7 @@ export class MemoriaGame {
 
   _startGame() {
     console.log('[MemoriaGame.js] _startGame()');
-    this._stopTimer();
+    // this._stopTimer();
     const diff = this.diffSelect.value;
     const totalCards = GRID_SIZES[diff];
     const numPairs = totalCards / 2;

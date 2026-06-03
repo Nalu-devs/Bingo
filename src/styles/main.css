@@ -399,6 +399,9 @@ select:focus {
 .cell:hover { background: var(--bg-card); }
 .cell.vencedor { background: var(--color-win) !important; color: var(--bg) !important; animation: winGlow 0.5s ease infinite alternate; }
 
+/* TODO: remove after testing */
+.cell.winner-highlight { background: var(--accent) !important; color: var(--bg) !important; }
+
 .velha-sidebar {
   display: flex;
   flex-direction: column;
