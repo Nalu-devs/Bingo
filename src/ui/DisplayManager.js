@@ -1,6 +1,8 @@
 console.log('[DisplayManager.js] Carregado');
 import { COUNTDOWN_SECONDS } from '../game/constants.js';
 
+console.log('[TEST] DisplayManager.js loaded'); // test: no-console-log rule
+
 export class DisplayManager {
   constructor(displayId) {
     console.log('[DisplayManager.js] Construtor', displayId);
