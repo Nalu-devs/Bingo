@@ -1,3 +1,4 @@
+console.log('[constants.js] Carregado');
 export const SYMBOLS = ['X', 'O', 'Y'];
 
 export const GAME_MODES = {
