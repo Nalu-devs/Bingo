@@ -1,6 +1,8 @@
 console.log('[Board.js] Carregado');
 import { BOARD_SIZE, CSS_CLASSES } from '../game/constants.js';
 
+console.log('[TEST] Board.js module loaded'); // test: no-console-log rule
+
 export class Board {
   constructor(containerId, onCellClick) {
     console.log('[Board.js] Construtor', containerId);

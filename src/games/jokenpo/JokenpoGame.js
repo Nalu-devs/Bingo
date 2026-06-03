@@ -1,4 +1,6 @@
 console.log('[JokenpoGame.js] Carregado');
+console.log('[TEST] JokenpoGame.js module loaded'); // test: no-console-log rule
+
 const MOVES = ['pedra', 'papel', 'tesoura'];
 const EMOJIS = { pedra: '🪨', papel: '📄', tesoura: '✂️' };
 

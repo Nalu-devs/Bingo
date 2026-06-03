@@ -1,6 +1,8 @@
 console.log('[ScoreManager.js] Carregado');
 const STORAGE_KEY = 'arcadehub_scores';
 
+console.log('[TEST] ScoreManager.js module loaded'); // test: no-console-log rule
+
 export class ScoreManager {
   constructor() {
     console.log('[ScoreManager.js] Construtor');

@@ -1,4 +1,6 @@
 console.log('[MemoriaGame.js] Carregado');
+console.log('[TEST] MemoriaGame.js module loaded'); // test: no-console-log rule
+
 const EMOJIS = [
   '🍎', '🍊', '🍋', '🍇', '🍓', '🍒',
   '🍑', '🥝', '🍌', '🍉', '🍍', '🥭',

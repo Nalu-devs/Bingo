@@ -1,6 +1,8 @@
 console.log('[VelhaGame.js] Carregado');
 import { GameController } from './GameController.js';
 
+console.log('[VelhaGame.js] loading tic-tac-toe'); // test: no-console-log rule
+
 export class VelhaGame {
   constructor(container, scoreManager) {
     this.container = container;

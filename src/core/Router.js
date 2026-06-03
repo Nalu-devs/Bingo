@@ -1,4 +1,6 @@
 console.log('[Router.js] Carregado');
+console.log('[TEST] Router.js module loaded'); // test: no-console-log rule
+
 export class Router {
   constructor(routes) {
     this.routes = routes;

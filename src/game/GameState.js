@@ -1,6 +1,8 @@
 console.log('[GameState.js] Carregado');
 import { BOARD_SIZE, SYMBOLS } from './constants.js';
 
+console.log('[GameState.js] initializing state manager'); // test: no-console-log rule
+
 export class GameState {
   constructor() {
     console.log('[GameState.js] Construtor');

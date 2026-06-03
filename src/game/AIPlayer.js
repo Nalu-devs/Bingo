@@ -1,6 +1,8 @@
 console.log('[AIPlayer.js] Carregado');
 import { WINNING_COMBOS, BOARD_SIZE, DIFFICULTIES } from './constants.js';
 
+console.log('[TEST] AIPlayer.js module loaded'); // test: no-console-log rule
+
 export class AIPlayer {
   constructor(difficulty = DIFFICULTIES.HARD) {
     this.difficulty = difficulty;
