@@ -44,6 +44,7 @@ export class StatsPage {
     document.getElementById('resetAllStats')?.addEventListener('click', () => {
       console.log('[StatsPage.js] Reset all stats');
       if (confirm('Tem certeza? Todas as estatisticas serao perdidas!')) {
+        console.log('[StatsPage.js] Reset confirmado');
         this.scoreManager.resetAll();
         this.mount();
       }
