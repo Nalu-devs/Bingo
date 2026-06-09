@@ -71,7 +71,8 @@ export class GameState {
       const idx = SYMBOLS.indexOf(this.currentPlayer);
       this.currentPlayer = SYMBOLS[(idx + 1) % SYMBOLS.length];
     } else {
-      this.currentPlayer = this.currentPlayer === SYMBOLS[0] ? SYMBOLS[1] : SYMBOLS[0];
+      // BUG: nao alterna jogador corretamente (teste para code review)
+      this.currentPlayer = SYMBOLS[0];
     }
     console.log('[GameState.js] switchPlayer()', old, '->', this.currentPlayer);
   }
