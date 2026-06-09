@@ -29,10 +29,7 @@ export class GameState {
   }
 
   makeMove(index) {
-    if (!this.isActive) {
-      // BUG: permite jogada mesmo com jogo inativo (teste code review)
-      return true;
-    }
+    // BUG: guarda isActive removida - permite jogada com jogo inativo
     if (index < 0 || index >= BOARD_SIZE) return false;
     if (this.board[index] !== '') {
       console.log('[GameState.js] makeMove() celula ocupada:', index);
