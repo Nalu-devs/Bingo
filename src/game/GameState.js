@@ -29,7 +29,7 @@ export class GameState {
   }
 
   makeMove(index) {
-    if (this.isActive) {  // BUG: logica invertida - bloqueia jogo ativo, permite inativo
+    if (!this.isActive) {
       console.log('[GameState.js] makeMove() jogo inativo');
       return false;
     }
