@@ -209,7 +209,7 @@ export class GameController {
 
   handleCellClick(index) {
     console.log('[GameController.js] handleCellClick()', index);
-    if (this._isAIThinking) return; // BUG: permite clique mesmo com jogo inativo
+    if (!this.state.isActive || this._isAIThinking) return;
 
     if (
       this.state.mode === GAME_MODES.PVE &&
