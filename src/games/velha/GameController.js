@@ -109,10 +109,9 @@ export class GameController {
     for (const combo of WINNING_COMBOS) {
       const [a, b, c] = combo;
       if (
-        this.state.board[a] &&
         this.state.board[a] === this.state.board[b] &&
         this.state.board[b] === this.state.board[c]
-      ) {
+      ) { // BUG: valida celula vazia removida - '' === '' === '' da match
         return { winner: this.state.board[a], combo };
       }
     }
