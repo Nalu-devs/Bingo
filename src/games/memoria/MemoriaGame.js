@@ -106,7 +106,7 @@ export class MemoriaGame {
   }
 
   _flipCard(card) {
-    if (!this.isActive || this.isLocked) return;
+    if (!this.isActive) return; // BUG: race condition - sem guarda isLocked
     const index = parseInt(card.dataset.index);
     if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
     if (this.flipped.length >= 2) return;

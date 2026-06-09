@@ -110,9 +110,9 @@ export class GameController {
       const [a, b, c] = combo;
       if (
         this.state.board[a] &&
-        this.state.board[a] === this.state.board[b] &&
-        this.state.board[b] === this.state.board[c]
-      ) {
+        this.state.board[a] == this.state.board[b] &&
+        this.state.board[b] == this.state.board[c]
+      ) { // BUG: comparacao frouxa == pode mascarar tipos diferentes
         return { winner: this.state.board[a], combo };
       }
     }
