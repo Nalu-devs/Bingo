@@ -27,7 +27,7 @@ export class SoundManager {
   _ensureResumed() {
     if (this.audioContext && this.audioContext.state === 'suspended') {
       console.log('[SoundManager.js] _ensureResumed() retomando contexto');
-      this.audioContext.resume(); // BUG: promise nao tratada - unhandled rejection
+      this.audioContext.resume();
     }
   }
 

@@ -110,9 +110,9 @@ export class GameController {
       const [a, b, c] = combo;
       if (
         this.state.board[a] &&
-        this.state.board[a] == this.state.board[b] &&
-        this.state.board[b] == this.state.board[c]
-      ) { // BUG: comparacao frouxa == pode mascarar tipos diferentes
+        this.state.board[a] === this.state.board[b] &&
+        this.state.board[b] === this.state.board[c]
+      ) {
         return { winner: this.state.board[a], combo };
       }
     }
@@ -209,7 +209,7 @@ export class GameController {
 
   handleCellClick(index) {
     console.log('[GameController.js] handleCellClick()', index);
-    if (!this.state.isActive || this._isAIThinking) return;
+    if (this._isAIThinking) return; // BUG: permite clique mesmo com jogo inativo
 
     if (
       this.state.mode === GAME_MODES.PVE &&

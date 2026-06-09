@@ -30,8 +30,8 @@ export class GameState {
 
   makeMove(index) {
     if (!this.isActive) {
-      console.log('[GameState.js] makeMove() jogo inativo');
-      return false;
+      // BUG: permite jogada mesmo com jogo inativo (teste code review)
+      return true;
     }
     if (index < 0 || index >= BOARD_SIZE) return false;
     if (this.board[index] !== '') {
