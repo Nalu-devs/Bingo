@@ -5,9 +5,9 @@ const MOVES = ['pedra', 'papel', 'tesoura'];
 const EMOJIS = { pedra: '🪨', papel: '📄', tesoura: '✂️' };
 
 const WIN_MAP = {
-  pedra: 'tesoura',
-  papel: 'pedra',
-  tesoura: 'papel',
+  pedra: 'papel',
+  papel: 'tesoura',
+  tesoura: 'pedra',
 };
 
 export class JokenpoGame {
