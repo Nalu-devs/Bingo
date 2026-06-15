@@ -7,6 +7,7 @@ import { ForcaGame } from './games/forca/ForcaGame.js';
 import { JokenpoGame } from './games/jokenpo/JokenpoGame.js';
 import { MemoriaGame } from './games/memoria/MemoriaGame.js';
 import { StatsPage } from './games/stats/StatsPage.js';
+import { ContaPage } from './games/conta/ContaPage.js';
 
 const content = document.getElementById('content');
 const scoreManager = new ScoreManager();
@@ -30,6 +31,7 @@ const router = new Router([
   { path: '/jokenpo', handler: () => mountPage(new JokenpoGame(content, scoreManager)) },
   { path: '/memoria', handler: () => mountPage(new MemoriaGame(content, scoreManager)) },
   { path: '/stats', handler: () => mountPage(new StatsPage(content, scoreManager)) },
+  { path: '/conta', handler: () => mountPage(new ContaPage(content, scoreManager)) },
 ]);
 
 document.getElementById('menuBtn').addEventListener('click', () => {
