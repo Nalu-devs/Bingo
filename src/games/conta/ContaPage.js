@@ -33,7 +33,7 @@ export class ContaPage {
       </div>
     `;
 
-    document.getElementById('salvarConta').addEventListner('click', () => {
+    document.getElementById('salvarConta').addEventListener('click', () => {
       const data = {
         nome: document.getElementById('contaNome').value,
         email: document.getElementById('contaEmail').value,
