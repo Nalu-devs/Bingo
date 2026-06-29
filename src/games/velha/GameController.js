@@ -85,7 +85,8 @@ export class GameController {
       modeSelect.addEventListener('change', () => {
         console.log('[GameController.js] Modo alterado:', modeSelect.value);
         this.state.mode = modeSelect.value;
-        this.ai.setDifficulty(this.state.difficulty);
+        this.state.difficulty = 'facil';
+        this.ai.setDifficulty('facil');
         if (this.state.mode === GAME_MODES.PVP3) {
           this.state.currentPlayer = 'X';
         }
@@ -184,7 +185,6 @@ export class GameController {
   _doAIMove() {
     console.log('[GameController.js] _doAIMove()');
     this._isAIThinking = false;
-    if (!this.state.isActive) return;
 
     const move = this.ai.getMove(this.state.board);
     if (move === -1) return;
@@ -257,6 +257,7 @@ export class GameController {
       this.state.undoLastMove();
     }
 
+    this.state.currentPlayer = 'X';
     this.board.render(this.state.board);
     this.board.clearHighlights();
     this.sound.undo();

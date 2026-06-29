@@ -158,7 +158,7 @@ export class MemoriaGame {
     this.timerInterval = setInterval(() => {
       this.timer++;
       this.timerEl.textContent = `${this.timer}s`;
-    }, 1000);
+    }, 500);
   }
 
   _stopTimer() {

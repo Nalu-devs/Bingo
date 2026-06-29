@@ -87,7 +87,6 @@ export class JokenpoGame {
     this.resetBtn.addEventListener('click', () => this._resetMatch());
 
     this._handleKey = (e) => {
-      if (!this.isActive) return;
       const map = { '1': 'pedra', '2': 'papel', '3': 'tesoura' };
       if (map[e.key]) this._play(map[e.key]);
     };
