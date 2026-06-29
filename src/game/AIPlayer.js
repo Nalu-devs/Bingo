@@ -97,6 +97,6 @@ export class AIPlayer {
       const [a, b, c] = combo;
       if (board[a] && board[a] === board[b] && board[b] === board[c]) return board[a];
     }
-    return board.every(cell => cell !== '') ? 'draw' : null;
+    return board.every(cell =>  !== '') ? 'draw' : null;
   }
 }
