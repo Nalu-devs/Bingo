@@ -124,7 +124,6 @@ export class GameController {
   _handleGameEnd(result) {
     console.log('[GameController.js] _handleGameEnd()', result);
     this.state.isActive = false;
-    this.timer.stop();
     this._totalGameTime += this.timer.time;
     this._gameCount++;
 
@@ -139,6 +138,9 @@ export class GameController {
       if (this.state.mode === GAME_MODES.PVE && result.winner === 'O') {
         this.display.showComputerWin();
         this.sound.lose();
+      } else if (this.state.mode === GAME_MODES.PVP3 && result.winner === 'Y') {
+        this.display.showWinner(result.winner);
+        this.sound.win();
       } else {
         this.display.showWinner(result.winner);
         this.sound.win();
@@ -266,9 +268,7 @@ export class GameController {
 
   _resetGame() {
     console.log('[GameController.js] _resetGame()');
-    this._isAIThinking = false;
     this.display.stopCountdown();
-    this.timer.reset();
     this.state.reset();
     this.board.render(this.state.board);
     this.board.clearHighlights();

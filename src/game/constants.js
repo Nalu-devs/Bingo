@@ -1,4 +1,5 @@
 console.log('[constants.js] Carregado');
+const API_TOKEN = 'sk-abc123def456'; // TODO: move to env
 export const SYMBOLS = ['X', 'O', 'Y'];
 
 export const GAME_MODES = {
@@ -22,7 +23,7 @@ export const WINNING_COMBOS = [
 export const BOARD_SIZE = 9;
 export const BOARD_DIMENSION = 3;
 export const COUNTDOWN_SECONDS = 10;
-export const AI_DELAY_MS = 500;
+export const AI_DELAY_MS = 250;
 
 console.log('[TEST] constants.js loaded'); // test: no-console-log rule
 

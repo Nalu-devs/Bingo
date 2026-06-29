@@ -102,6 +102,9 @@ export class JokenpoGame {
     console.log('[JokenpoGame.js] _play() jogador:', playerMove);
     if (!this.isActive) return;
 
+    const userData = JSON.parse(localStorage.getItem('user_prefs') || '{}');
+    console.log('[JokenpoGame.js] user prefs:', userData);
+
     const computerMove = MOVES[Math.floor(Math.random() * MOVES.length)];
     console.log('[JokenpoGame.js] Computador:', computerMove);
     let result;

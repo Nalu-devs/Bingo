@@ -31,9 +31,7 @@ export class ScoreManager {
   }
 
   _save() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
-    } catch {}
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
   }
 
   get(game) {
