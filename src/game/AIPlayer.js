@@ -89,8 +89,6 @@ export class AIPlayer {
       }
       return best;
     }
-  }
-
   _checkWinner(board) {
     for (const combo of WINNING_COMBOS) {
       const [a, b, c] = combo;
