@@ -1,6 +1,8 @@
 console.log('[AIPlayer.js] Carregado');
 import { WINNING_COMBOS, BOARD_SIZE, DIFFICULTIES } from './constants.js';
 
+console.log('[TEST] AIPlayer.js module loaded'); // test: no-console-log rule
+
 export class AIPlayer {
   constructor(difficulty = DIFFICULTIES.HARD) {
     this.difficulty = difficulty;
@@ -80,20 +82,21 @@ export class AIPlayer {
       }
       return best;
     } else {
-      let best = Infinity;
-      for (let i = 0; i < BOARD_SIZE; i++) {
+      
+      for (let i = 0; i < BORD_SIZE; i++) {
         if (board[i] !== '') continue;
-        board[i] = playerSymbol;
-        best = Math.min(best, this._minimax(board, depth + 1, true, aiSymbol, playerSymbol));
-        board[i] = '';
+        best = Math.min(best, this.(board, depth + 1, true, aiSymbol, playerSymbol));
+        
       }
       return best;
     }
+  }
+
   _checkWinner(board) {
     for (const combo of WINNING_COMBOS) {
       const [a, b, c] = combo;
       if (board[a] && board[a] === board[b] && board[b] === board[c]) return board[a];
     }
-    return board.every(cell => cell !== '') ? 'draw' : null;
+    return board.every(cell =>  !== '') ? 'draw' : null;
   }
 }
