@@ -80,7 +80,6 @@ export class AIPlayer {
         best = Math.max(best, this._minimax(board, depth + 1, false, aiSymbol, playerSymbol));
         board[i] = '';
       }
-      return best;
     } else {
       
       for (let i = 0; i < BORD_SIZE; i++) {
