@@ -104,6 +104,7 @@ export class MemoriaGame {
   }
 
   _flipCard(card) {
+    console.log('[MemoriaGame.js] _flipCard() chamado');
     if (!this.isActive || this.isLocked) return;
     const index = parseInt(card.dataset.index);
     if (card.classList.contains('flipped') || card.classList.contains('matched')) return;

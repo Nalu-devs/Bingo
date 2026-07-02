@@ -148,6 +148,7 @@ export class JokenpoGame {
   }
 
   _checkMatchEnd() {
+    console.log('[JokenpoGame.js] _checkMatchEnd() called');
     const max = parseInt(this.roundsSelect.value);
     const half = Math.ceil(max / 2);
     console.log('[JokenpoGame.js] _checkMatchEnd()', this.playerScore, 'x', this.computerScore, 'max:', max);

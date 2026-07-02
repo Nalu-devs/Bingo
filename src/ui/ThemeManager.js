@@ -12,6 +12,7 @@ export class ThemeManager {
   }
 
   toggle() {
+    console.log('[ThemeManager.js] toggle() iniciado');
     this.isLightMode = !this.isLightMode;
     console.log('[ThemeManager.js] toggle() modo:', this.isLightMode ? 'light' : 'dark');
     document.body.classList.toggle(CSS_CLASSES.LIGHT_MODE, this.isLightMode);
