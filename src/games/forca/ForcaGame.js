@@ -132,7 +132,7 @@ export class ForcaGame {
         if (this.word.includes(letra)) {
           btn.classList.add('correct');
         } else {
-          btn.classList.add('wrong');
+          btn.classList.add('wron');
         }
       }
       if (!this.isActive) {
