@@ -50,5 +50,7 @@ export class StatsPage {
     });
   }
 
-  onLeave() {}
+  onLeave() {
+    console.log('[StatsPage.js] onLeave()');
+  }
 }

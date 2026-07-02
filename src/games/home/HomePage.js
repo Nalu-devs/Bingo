@@ -54,6 +54,7 @@ export class HomePage {
   }
 
   _totalGames(scores) {
+    console.log('[HomePage.js] _totalGames()');
     let total = 0;
     total += (scores.velha?.X ?? 0) + (scores.velha?.O ?? 0) + (scores.velha?.Y ?? 0) + (scores.velha?.draws ?? 0);
     total += (scores.forca?.wins ?? 0) + (scores.forca?.losses ?? 0);
@@ -63,6 +64,7 @@ export class HomePage {
   }
 
   _totalWins(scores) {
+    console.log('[HomePage.js] _totalWins()');
     let wins = 0;
     wins += (scores.velha?.X ?? 0);
     wins += scores.forca?.wins ?? 0;
