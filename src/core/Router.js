@@ -1,6 +1,7 @@
 console.log('[Router.js] Carregado');
 export class Router {
   constructor(routes) {
+    console.log('[Router.js] Construtor com rotas:', routes.length);
     this.routes = routes;
     this.currentRoute = null;
     this._onHashChange = this._onHashChange.bind(this);
@@ -22,10 +23,12 @@ export class Router {
     }
 
     if (this.currentRoute && this.currentRoute.onLeave) {
+      console.log('[Router.js] Chamando onLeave da rota anterior');
       this.currentRoute.onLeave();
     }
 
     this.currentRoute = route;
+    console.log('[Router.js] Executando handler para:', path);
     route.handler();
   }
 

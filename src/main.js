@@ -8,7 +8,9 @@ import { JokenpoGame } from './games/jokenpo/JokenpoGame.js';
 import { MemoriaGame } from './games/memoria/MemoriaGame.js';
 import { StatsPage } from './games/stats/StatsPage.js';
 
+console.log('[main.js] Inicializando dependencias');
 const content = document.getElementById('content');
+console.log('[main.js] Elemento content:', content ? 'encontrado' : 'nao encontrado');
 const scoreManager = new ScoreManager();
 let currentPage = null;
 
@@ -49,6 +51,7 @@ document.getElementById('sidebar-overlay').addEventListener('click', () => {
 
 document.querySelectorAll('[data-nav]').forEach(el => {
   el.addEventListener('click', () => {
+    console.log('[main.js] Navegando via data-nav');
     document.getElementById('sidebar').classList.add('hidden');
     document.getElementById('sidebar-overlay').classList.add('hidden');
   });
@@ -70,12 +73,15 @@ document.getElementById('themeToggle').addEventListener('click', () => {
 });
 
 document.addEventListener('keydown', (e) => {
+  console.log('[main.js] Tecla pressionada:', e.key);
   if (e.key === 'Escape') {
     const sidebar = document.getElementById('sidebar');
     if (!sidebar.classList.contains('hidden')) {
+      console.log('[main.js] Fechando sidebar via Escape');
       sidebar.classList.add('hidden');
       document.getElementById('sidebar-overlay').classList.add('hidden');
     } else {
+      console.log('[main.js] Navegando para home via Escape');
       window.location.hash = '#/';
     }
   }
