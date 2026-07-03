@@ -1,6 +1,7 @@
 console.log('[vite.config.js] Carregado');
 import { defineConfig } from 'vite';
 
+console.log('[vite.config.js] Configurando Vite');
 export default defineConfig({
   root: '.',
   build: {
@@ -12,4 +13,5 @@ export default defineConfig({
     open: true,
   },
 });
+console.log('[vite.config.js] Porta configurada: 3000');
 console.log('[vite.config.js] Config exportada');
