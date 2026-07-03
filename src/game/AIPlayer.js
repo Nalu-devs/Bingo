@@ -12,6 +12,7 @@ export class AIPlayer {
   }
 
   getMove(board, aiSymbol = 'O', playerSymbol = 'X') {
+    console.log('[AIPlayer.js] getMove()', aiSymbol, playerSymbol);
     const available = this._getAvailableMoves(board);
     console.log('[AIPlayer.js] getMove() dificuldade:', this.difficulty, 'movimentos disponiveis:', available.length);
     if (available.length === 0) return -1;
