@@ -19,6 +19,7 @@ export class ThemeManager {
   }
 
   get currentTheme() {
+    console.log('[ThemeManager.js] currentTheme getter:', this.isLightMode ? 'light' : 'dark');
     return this.isLightMode ? 'light' : 'dark';
   }
 }

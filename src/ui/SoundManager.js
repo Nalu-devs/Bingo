@@ -32,6 +32,7 @@ export class SoundManager {
   }
 
   _playTone(frequency, duration, type = 'sine', volume = 0.3) {
+    console.log('[SoundManager.js] _playTone() freq:', frequency, 'dur:', duration, 'type:', type, 'vol:', volume);
     if (!this.enabled || !this.audioContext) {
       console.log('[SoundManager.js] _playTone() ignorado - disabled ou sem context');
       return;
@@ -52,9 +53,11 @@ export class SoundManager {
     oscillator.frequency.setValueAtTime(frequency, now);
     oscillator.start(now);
     oscillator.stop(now + duration);
+    console.log('[SoundManager.js] _playTone() executado com sucesso');
   }
 
   _playSequence(notes, volume = 0.3) {
+    console.log('[SoundManager.js] _playSequence() notas:', notes.length, 'volume:', volume);
     if (!this.enabled || !this.audioContext) {
       console.log('[SoundManager.js] _playSequence() ignorado - disabled ou sem context');
       return;
@@ -64,6 +67,7 @@ export class SoundManager {
     const now = this.audioContext.currentTime;
 
     notes.forEach(([frequency, startOffset, duration]) => {
+      console.log('[SoundManager.js] Nota - freq:', frequency, 'start:', startOffset, 'dur:', duration);
       const oscillator = this.audioContext.createOscillator();
       const gainNode = this.audioContext.createGain();
 
@@ -79,6 +83,7 @@ export class SoundManager {
       oscillator.start(startTime);
       oscillator.stop(startTime + duration);
     });
+    console.log('[SoundManager.js] _playSequence() executado');
   }
 
   move() {

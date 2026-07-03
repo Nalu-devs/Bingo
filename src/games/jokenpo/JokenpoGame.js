@@ -10,6 +10,7 @@ const WIN_MAP = {
 
 export class JokenpoGame {
   constructor(container, scoreManager) {
+    console.log('[JokenpoGame.js] Construtor');
     this.container = container;
     this.scoreManager = scoreManager;
     this.playerScore = 0;
@@ -78,6 +79,7 @@ export class JokenpoGame {
     this.playerScore = saved.wins ?? 0;
     this.computerScore = saved.losses ?? 0;
     this.drawsCount = saved.draws ?? 0;
+    console.log('[JokenpoGame.js] Scores carregados:', this.playerScore, 'x', this.computerScore, 'empates:', this.drawsCount);
 
     this.container.querySelectorAll('.jp-btn').forEach(btn => {
       btn.addEventListener('click', () => this._play(btn.dataset.move));
@@ -87,18 +89,30 @@ export class JokenpoGame {
     this.resetBtn.addEventListener('click', () => this._resetMatch());
 
     this._handleKey = (e) => {
-      if (!this.isActive) return;
+      console.log('[JokenpoGame.js] Tecla pressionada:', e.key);
+      if (!this.isActive) {
+        console.log('[JokenpoGame.js] Jogo inativo, ignorando tecla');
+        return;
+      }
       const map = { '1': 'pedra', '2': 'papel', '3': 'tesoura' };
-      if (map[e.key]) this._play(map[e.key]);
+      if (map[e.key]) {
+        console.log('[JokenpoGame.js] Mapeando tecla para jogada:', map[e.key]);
+        this._play(map[e.key]);
+      }
     };
     document.addEventListener('keydown', this._handleKey);
 
     this.isActive = true;
+    console.log('[JokenpoGame.js] Jogo ativado');
   }
 
   _play(playerMove) {
     console.log('[JokenpoGame.js] _play() jogador:', playerMove);
-    if (!this.isActive) return;
+    if (!this.isActive) {
+      console.log('[JokenpoGame.js] _play() jogo inativo');
+      return;
+    }
+    console.log('[JokenpoGame.js] Rodada atual:', this.round + 1);
 
     const computerMove = MOVES[Math.floor(Math.random() * MOVES.length)];
     console.log('[JokenpoGame.js] Computador:', computerMove);
@@ -151,10 +165,11 @@ export class JokenpoGame {
     console.log('[JokenpoGame.js] _checkMatchEnd() called');
     const max = parseInt(this.roundsSelect.value);
     const half = Math.ceil(max / 2);
-    console.log('[JokenpoGame.js] _checkMatchEnd()', this.playerScore, 'x', this.computerScore, 'max:', max);
+    console.log('[JokenpoGame.js] _checkMatchEnd()', this.playerScore, 'x', this.computerScore, 'max:', max, 'half:', half);
 
     if (this.playerScore >= half || this.computerScore >= half) {
       console.log('[JokenpoGame.js] Partida encerrada');
+      console.log('[JokenpoGame.js] Vencedor:', this.playerScore > this.computerScore ? 'Jogador' : 'Computador');
       this.isActive = false;
       this.container.querySelectorAll('.jp-btn').forEach(b => b.disabled = true);
 
@@ -163,11 +178,14 @@ export class JokenpoGame {
       } else {
         this.resultEl.innerHTML = '💻 Computador venceu a partida!';
       }
+    } else {
+      console.log('[JokenpoGame.js] Partida continua...');
     }
   }
 
   _resetMatch() {
     console.log('[JokenpoGame.js] _resetMatch()');
+    console.log('[JokenpoGame.js] Scores antes do reset:', this.playerScore, 'x', this.computerScore);
     this.isActive = true;
     this.round = 0;
     this.playerScore = 0;
@@ -180,6 +198,7 @@ export class JokenpoGame {
     this.resultEl.textContent = 'Nova partida! Escolha sua jogada.';
     this.resultEl.className = 'jp-result';
     this.container.querySelectorAll('.jp-btn').forEach(b => b.disabled = false);
+    console.log('[JokenpoGame.js] Partida resetada com sucesso');
   }
 
   onLeave() {

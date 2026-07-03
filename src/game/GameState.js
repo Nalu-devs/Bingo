@@ -30,7 +30,10 @@ export class GameState {
       console.log('[GameState.js] makeMove() jogo inativo');
       return false;
     }
-    if (index < 0 || index >= BOARD_SIZE) return false;
+    if (index < 0 || index >= BOARD_SIZE) {
+      console.log('[GameState.js] makeMove() indice invalido:', index);
+      return false;
+    }
     if (this.board[index] !== '') {
       console.log('[GameState.js] makeMove() celula ocupada:', index);
       return false;
@@ -89,7 +92,9 @@ export class GameState {
 
   resetScores() {
     console.log('[GameState.js] resetScores()');
+    console.log('[GameState.js] Scores antes do reset:', JSON.stringify(this.scores));
     this.scores = { X: 0, O: 0, Y: 0 };
     this.statistics = { total: 0, draws: 0 };
+    console.log('[GameState.js] Scores apos reset:', JSON.stringify(this.scores));
   }
 }

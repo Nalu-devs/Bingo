@@ -3,9 +3,11 @@ const COLORS = ['#c9a84c', '#c1694f', '#5a9e7e', '#d4af37', '#2ecc71', '#e74c3c'
 
 export function fireConfetti(count = 80) {
   console.log('[confetti.js] fireConfetti() count:', count);
+  console.log('[confetti.js] Cores disponiveis:', COLORS.length);
   const container = document.createElement('div');
   container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;';
   document.body.appendChild(container);
+  console.log('[confetti.js] Container criado e adicionado ao body');
 
   for (let i = 0; i < count; i++) {
     const piece = document.createElement('div');
@@ -40,10 +42,15 @@ export function fireConfetti(count = 80) {
         }
       `;
       document.head.appendChild(style);
+      console.log('[confetti.js] Keyframes adicionados ao head');
     }
 
     container.appendChild(piece);
   }
+  console.log('[confetti.js]', count, 'confetes criados');
 
-  setTimeout(() => container.remove(), 5000);
+  setTimeout(() => {
+    container.remove();
+    console.log('[confetti.js] Container removido apos 5s');
+  }, 5000);
 }

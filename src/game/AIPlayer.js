@@ -36,10 +36,13 @@ export class AIPlayer {
   }
 
   _getAvailableMoves(board) {
-    return board.reduce((moves, cell, index) => {
+    console.log('[AIPlayer.js] _getAvailableMoves()');
+    const moves = board.reduce((moves, cell, index) => {
       if (cell === '') moves.push(index);
       return moves;
     }, []);
+    console.log('[AIPlayer.js] _getAvailableMoves() encontrados:', moves.length);
+    return moves;
   }
 
   _getBestMove(board, aiSymbol, playerSymbol) {
@@ -94,10 +97,16 @@ export class AIPlayer {
   }
 
   _checkWinner(board) {
+    console.log('[AIPlayer.js] _checkWinner()');
     for (const combo of WINNING_COMBOS) {
       const [a, b, c] = combo;
-      if (board[a] && board[a] === board[b] && board[b] === board[c]) return board[a];
+      if (board[a] && board[a] === board[b] && board[b] === board[c]) {
+        console.log('[AIPlayer.js] _checkWinner() vencedor:', board[a]);
+        return board[a];
+      }
     }
-    return board.every(cell => cell !== '') ? 'draw' : null;
+    const isDraw = board.every(cell => cell !== '');
+    console.log('[AIPlayer.js] _checkWinner() empate:', isDraw);
+    return isDraw ? 'draw' : null;
   }
 }

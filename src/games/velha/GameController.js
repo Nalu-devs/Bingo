@@ -78,28 +78,38 @@ export class GameController {
   }
 
   _setupControls() {
+    console.log('[GameController.js] _setupControls()');
     const modeSelect = document.getElementById('modoJogo');
     const diffSelect = document.getElementById('dificuldade');
 
     if (modeSelect) {
+      console.log('[GameController.js] modeSelect encontrado');
       modeSelect.addEventListener('change', () => {
         console.log('[GameController.js] Modo alterado:', modeSelect.value);
+        console.log('[GameController.js] Modo anterior:', this.state.mode);
         this.state.mode = modeSelect.value;
         this.ai.setDifficulty(this.state.difficulty);
         if (this.state.mode === GAME_MODES.PVP3) {
+          console.log('[GameController.js] Modo 3 jogadores ativado');
           this.state.currentPlayer = 'X';
         }
         this._resetGame();
       });
+    } else {
+      console.log('[GameController.js] modeSelect nao encontrado');
     }
 
     if (diffSelect) {
+      console.log('[GameController.js] diffSelect encontrado');
       diffSelect.addEventListener('change', () => {
         console.log('[GameController.js] Dificuldade alterada:', diffSelect.value);
+        console.log('[GameController.js] Dificuldade anterior:', this.state.difficulty);
         this.state.difficulty = diffSelect.value;
         this.ai.setDifficulty(this.state.difficulty);
         this._resetGame();
       });
+    } else {
+      console.log('[GameController.js] diffSelect nao encontrado');
     }
   }
 
@@ -184,10 +194,16 @@ export class GameController {
   _doAIMove() {
     console.log('[GameController.js] _doAIMove()');
     this._isAIThinking = false;
-    if (!this.state.isActive) return;
+    if (!this.state.isActive) {
+      console.log('[GameController.js] _doAIMove() jogo inativo, ignorando');
+      return;
+    }
 
     const move = this.ai.getMove(this.state.board);
-    if (move === -1) return;
+    if (move === -1) {
+      console.log('[GameController.js] _doAIMove() nenhum movimento disponivel');
+      return;
+    }
 
     if (this.timer.elapsed === 0) this.timer.start();
 
@@ -202,18 +218,24 @@ export class GameController {
       return;
     }
 
+    console.log('[GameController.js] _doAIMove() retornando turno para X');
     this.state.currentPlayer = 'X';
     this.display.showPlayerTurn('X');
   }
 
   handleCellClick(index) {
     console.log('[GameController.js] handleCellClick()', index);
-    if (!this.state.isActive || this._isAIThinking) return;
+    console.log('[GameController.js] isActive:', this.state.isActive, 'isAIThinking:', this._isAIThinking);
+    if (!this.state.isActive || this._isAIThinking) {
+      console.log('[GameController.js] handleCellClick() ignorado - estado bloqueado');
+      return;
+    }
 
     if (
       this.state.mode === GAME_MODES.PVE &&
       this.state.currentPlayer === 'O'
     ) {
+      console.log('[GameController.js] handleCellClick() ignorado - vez do computador');
       return;
     }
 
@@ -285,6 +307,8 @@ export class GameController {
 
   resetScores() {
     console.log('[GameController.js] resetScores()');
+    console.log('[GameController.js] Scores antes do reset:', JSON.stringify(this.state.scores));
+    console.log('[GameController.js] Total de partidas antes:', this._gameCount);
     this.state.resetScores();
     this.scoreManager.reset('velha');
     this._totalGameTime = 0;
@@ -292,6 +316,7 @@ export class GameController {
     this.display.updateScores(this.state.scores);
     this.display.updateStatistics(this.state.statistics, this.state.scores);
     this._updateTimerDisplay();
+    console.log('[GameController.js] Scores apos reset:', JSON.stringify(this.state.scores));
   }
 
   _onTimerTick(elapsed) {
@@ -300,12 +325,17 @@ export class GameController {
   }
 
   _updateTimerDisplay() {
+    console.log('[GameController.js] _updateTimerDisplay()');
+    console.log('[GameController.js] _totalGameTime:', this._totalGameTime, '_gameCount:', this._gameCount);
     const avg = this._gameCount > 0 ? Math.round(this._totalGameTime / this._gameCount) : 0;
     const label = document.getElementById('timerLabel');
     if (label) {
       label.textContent = this._gameCount > 0
         ? `Media: ${this.timer.format(avg)} por partida`
         : 'Tempo medio: -';
+      console.log('[GameController.js] Timer label atualizado:', label.textContent);
+    } else {
+      console.log('[GameController.js] timerLabel nao encontrado');
     }
   }
 

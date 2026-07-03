@@ -1,13 +1,16 @@
 console.log('[StatsPage.js] Carregado');
 export class StatsPage {
   constructor(container, scoreManager) {
+    console.log('[StatsPage.js] Construtor');
     this.container = container;
     this.scoreManager = scoreManager;
   }
 
   mount() {
     console.log('[StatsPage.js] mount()');
+    console.log('[StatsPage.js] Container:', this.container ? 'existe' : 'null');
     const scores = this.scoreManager.getAll();
+    console.log('[StatsPage.js] Scores carregados:', JSON.stringify(scores));
     this.container.innerHTML = `
       <div class="stats-page">
         <h2>Estatisticas Globais</h2>

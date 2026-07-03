@@ -1,4 +1,5 @@
 console.log('[constants.js] Carregado');
+console.log('[constants.js] Definindo simbolos, modos e dificuldades');
 export const SYMBOLS = ['X', 'O', 'Y'];
 
 export const GAME_MODES = {
@@ -13,6 +14,7 @@ export const DIFFICULTIES = {
   HARD: 'dificil',
 };
 
+console.log('[constants.js] Definindo combinacoes vencedoras');
 export const WINNING_COMBOS = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8],
   [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -25,6 +27,7 @@ export const COUNTDOWN_SECONDS = 10;
 export const AI_DELAY_MS = 500;
 
 console.log('[constants.js] Inicializando constantes');
+console.log('[constants.js] BOARD_SIZE:', BOARD_SIZE, 'COUNTDOWN:', COUNTDOWN_SECONDS);
 export const CSS_CLASSES = {
   WINNER: 'vencedor',
   POP: 'pop',

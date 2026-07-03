@@ -1,6 +1,7 @@
 console.log('[HomePage.js] Carregado');
 export class HomePage {
   constructor(container, scoreManager) {
+    console.log('[HomePage.js] Construtor');
     this.container = container;
     this.scoreManager = scoreManager;
   }
@@ -73,5 +74,7 @@ export class HomePage {
     return wins;
   }
 
-  onLeave() {}
+  onLeave() {
+    console.log('[HomePage.js] onLeave()');
+  }
 }

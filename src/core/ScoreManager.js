@@ -31,10 +31,14 @@ export class ScoreManager {
   _save() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
-    } catch {}
+      console.log('[ScoreManager.js] _save() salvo com sucesso');
+    } catch (e) {
+      console.log('[ScoreManager.js] _save() erro ao salvar:', e.message);
+    }
   }
 
   get(game) {
+    console.log('[ScoreManager.js] get()', game);
     return this.data[game] || { X: 0, O: 0, Y: 0, draws: 0, wins: 0, losses: 0, bestScore: Infinity };
   }
 
@@ -58,6 +62,7 @@ export class ScoreManager {
   }
 
   getAll() {
+    console.log('[ScoreManager.js] getAll()');
     return { ...this.data };
   }
 }

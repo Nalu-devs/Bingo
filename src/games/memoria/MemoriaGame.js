@@ -8,6 +8,7 @@ const GRID_SIZES = { facil: 12, medio: 16, dificil: 20 };
 
 export class MemoriaGame {
   constructor(container, scoreManager) {
+    console.log('[MemoriaGame.js] Construtor');
     this.container = container;
     this.scoreManager = scoreManager;
     this.cards = [];
@@ -53,25 +54,37 @@ export class MemoriaGame {
     this.diffSelect = document.getElementById('memoriaDifficulty');
     this.newGameBtn = document.getElementById('memoriaNewGame');
 
-    this.newGameBtn.addEventListener('click', () => this._startGame());
-    this.diffSelect.addEventListener('change', () => this._startGame());
+    this.newGameBtn.addEventListener('click', () => {
+      console.log('[MemoriaGame.js] Botao Nova Partida clicado');
+      this._startGame();
+    });
+    this.diffSelect.addEventListener('change', () => {
+      console.log('[MemoriaGame.js] Dificuldade alterada para:', this.diffSelect.value);
+      this._startGame();
+    });
 
     this._startGame();
   }
 
   _startGame() {
     console.log('[MemoriaGame.js] _startGame()');
+    console.log('[MemoriaGame.js] Dificuldade:', this.diffSelect.value);
     this._stopTimer();
     const diff = this.diffSelect.value;
     const totalCards = GRID_SIZES[diff];
     const numPairs = totalCards / 2;
+    console.log('[MemoriaGame.js] Total de cartas:', totalCards, 'pares:', numPairs);
     const selected = EMOJIS.slice(0, numPairs);
+    console.log('[MemoriaGame.js] Emojis selecionados:', selected);
     const deck = [...selected, ...selected];
+    console.log('[MemoriaGame.js] Deck antes de embaralhar:', deck.length, 'cartas');
 
+    console.log('[MemoriaGame.js] Embaralhando deck...');
     for (let i = deck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [deck[i], deck[j]] = [deck[j], deck[i]];
     }
+    console.log('[MemoriaGame.js] Deck apos embaralhar:', deck);
 
     this.cards = deck;
     this.flipped = [];
@@ -97,7 +110,10 @@ export class MemoriaGame {
     `).join('');
 
     this.gridEl.querySelectorAll('.memoria-card').forEach(card => {
-      card.addEventListener('click', () => this._flipCard(card));
+      card.addEventListener('click', () => {
+        console.log('[MemoriaGame.js] Card clicado, index:', card.dataset.index);
+        this._flipCard(card);
+      });
     });
 
     this._startTimer();
@@ -105,10 +121,20 @@ export class MemoriaGame {
 
   _flipCard(card) {
     console.log('[MemoriaGame.js] _flipCard() chamado');
-    if (!this.isActive || this.isLocked) return;
+    console.log('[MemoriaGame.js] isActive:', this.isActive, 'isLocked:', this.isLocked, 'flipped:', this.flipped.length);
+    if (!this.isActive || this.isLocked) {
+      console.log('[MemoriaGame.js] _flipCard() ignorado - bloqueado');
+      return;
+    }
     const index = parseInt(card.dataset.index);
-    if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
-    if (this.flipped.length >= 2) return;
+    if (card.classList.contains('flipped') || card.classList.contains('matched')) {
+      console.log('[MemoriaGame.js] _flipCard() carta ja virada ou encontrada');
+      return;
+    }
+    if (this.flipped.length >= 2) {
+      console.log('[MemoriaGame.js] _flipCard() ja existem 2 cartas viradas');
+      return;
+    }
 
     card.classList.add('flipped');
     this.flipped.push(index);
@@ -172,19 +198,23 @@ export class MemoriaGame {
 
   _endGame(won) {
     console.log('[MemoriaGame.js] _endGame() venceu:', won);
+    console.log('[MemoriaGame.js] Estatisticas finais - movimentos:', this.moves, 'tempo:', this.timer, 'pares:', this.matched);
     this.isActive = false;
     this._stopTimer();
 
     const saved = this.scoreManager.get('memoria');
+    console.log('[MemoriaGame.js] Scores salvos anteriores:', JSON.stringify(saved));
 
     if (won) {
       const bestScore = saved.bestScore ?? Infinity;
       const isNewBest = this.moves < bestScore;
+      console.log('[MemoriaGame.js] Melhor pontuacao anterior:', bestScore, 'novo recorde:', isNewBest);
 
       this.scoreManager.update('memoria', {
         wins: (saved.wins ?? 0) + 1,
         bestScore: isNewBest ? this.moves : bestScore,
       });
+      console.log('[MemoriaGame.js] Vitoria registrada');
 
       this.statusEl.innerHTML = `
         <span class="win">Parabens! Voce encontrou todos os pares em ${this.moves} movimentos (${this.timer}s)!</span>
@@ -194,6 +224,7 @@ export class MemoriaGame {
       this.scoreManager.update('memoria', {
         losses: (saved.losses ?? 0) + 1,
       });
+      console.log('[MemoriaGame.js] Derrota registrada');
       this.statusEl.textContent = 'Fim de jogo!';
     }
   }

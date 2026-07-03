@@ -3,6 +3,7 @@ import { GameController } from './GameController.js';
 
 export class VelhaGame {
   constructor(container, scoreManager) {
+    console.log('[VelhaGame.js] Construtor');
     this.container = container;
     this.scoreManager = scoreManager;
     this.controller = null;

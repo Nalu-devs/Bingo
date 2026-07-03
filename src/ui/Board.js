@@ -11,6 +11,7 @@ export class Board {
   }
 
   _init() {
+    console.log('[Board.js] _init()');
     this.cells = [];
     for (let i = 0; i < BOARD_SIZE; i++) {
       const cell = document.getElementById(`c${i}`);
@@ -18,13 +19,17 @@ export class Board {
         cell.addEventListener('click', () => this.onCellClick(i));
         cell.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
+            console.log('[Board.js] Tecla no celula', i, ':', e.key);
             e.preventDefault();
             this.onCellClick(i);
           }
         });
         this.cells.push(cell);
+      } else {
+        console.log('[Board.js] Celula c' + i + ' nao encontrada');
       }
     }
+    console.log('[Board.js] Celulas inicializadas:', this.cells.length);
   }
 
   render(board) {

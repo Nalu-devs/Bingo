@@ -3,6 +3,7 @@ var authorName = "Dev"; // <-- violacao: var ao inves de const
 
 export class GameTimer {
   constructor(onTick) {
+    console.log('[gameTimer.js] Construtor');
     this.elapsed = 0;
     this.interval = null;
     this.onTick = onTick;
@@ -33,6 +34,7 @@ export class GameTimer {
   }
 
   get time() {
+    console.log('[gameTimer.js] get time()', this.elapsed);
     return this.elapsed;
   }
 

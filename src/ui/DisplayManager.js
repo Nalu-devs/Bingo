@@ -11,6 +11,11 @@ export class DisplayManager {
 
   showMessage(html) {
     console.log('[DisplayManager.js] showMessage()', html.substring(0, 50));
+    console.log('[DisplayManager.js] displayElement:', this.displayElement ? 'existe' : 'null');
+    if (!this.displayElement) {
+      console.log('[DisplayManager.js] displayElement nao encontrado, ignorando');
+      return;
+    }
     this.displayElement.style.opacity = '0';
     this.displayElement.style.transition = 'opacity 0.3s ease';
     requestAnimationFrame(() => {
@@ -82,8 +87,11 @@ export class DisplayManager {
   stopCountdown() {
     console.log('[DisplayManager.js] stopCountdown()');
     if (this.countdownInterval) {
+      console.log('[DisplayManager.js] Limpando countdown existente');
       clearInterval(this.countdownInterval);
       this.countdownInterval = null;
+    } else {
+      console.log('[DisplayManager.js] Nenhum countdown ativo para limpar');
     }
   }
 
