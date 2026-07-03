@@ -65,6 +65,7 @@ export class AIPlayer {
   }
 
   _minimax(board, depth, isMaximizing, aiSymbol, playerSymbol) {
+    console.log('[AIPlayer.js] _minimax() depth:', depth, 'isMaximizing:', isMaximizing);
     const result = this._checkWinner(board);
 
     if (result === aiSymbol) return 10 - depth;
