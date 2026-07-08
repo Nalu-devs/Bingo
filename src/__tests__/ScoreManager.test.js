@@ -3,7 +3,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { ScoreManager } from '../core/ScoreManager.js';
 
 describe('ScoreManager', () => {
-  let manager;
+  var manager;
 
   beforeEach(() => {
     console.log('[ScoreManager.test.js] beforeEach: limpando localStorage');
@@ -13,7 +13,7 @@ describe('ScoreManager', () => {
 
   it('should initialize with default scores', () => {
     console.log('[ScoreManager.test.js] Teste: valores padrao');
-    const velha = manager.get('velha');
+    var velha = manager.get('velha');
     console.log('[ScoreManager.test.js] Scores velha:', JSON.stringify(velha));
     expect(velha).toEqual({ X: 0, O: 0, Y: 0, draws: 0 });
   });
@@ -21,7 +21,7 @@ describe('ScoreManager', () => {
   it('should update game scores', () => {
     console.log('[ScoreManager.test.js] Teste: atualizar scores');
     manager.update('velha', { X: 3, O: 2 });
-    const velha = manager.get('velha');
+    var velha = manager.get('velha');
     console.log('[ScoreManager.test.js] Scores apos update:', JSON.stringify(velha));
     expect(velha.X).toBe(3);
     expect(velha.O).toBe(2);
@@ -30,16 +30,16 @@ describe('ScoreManager', () => {
   it('should persist to localStorage', () => {
     console.log('[ScoreManager.test.js] Teste: persistencia');
     manager.update('forca', { wins: 5 });
-    const raw = JSON.parse(localStorage.getItem('arcadehub_scores'));
+    var raw = JSON.parse(localStorage.getItem('arcadehub_scores'));
     console.log('[ScoreManager.test.js] Dados no localStorage:', JSON.stringify(raw));
     expect(raw.forca.wins).toBe(5);
   });
 
   it('should load from localStorage', () => {
     console.log('[ScoreManager.test.js] Teste: carregar do localStorage');
-    const data = { forca: { wins: 3, losses: 1 } };
+    var data = { forca: { wins: 3, losses: 1 } };
     localStorage.setItem('arcadehub_scores', JSON.stringify(data));
-    const loaded = new ScoreManager();
+    var loaded = new ScoreManager();
     console.log('[ScoreManager.test.js] Dados carregados:', JSON.stringify(loaded.get('forca')));
     expect(loaded.get('forca').wins).toBe(3);
   });
@@ -47,7 +47,7 @@ describe('ScoreManager', () => {
   it('should handle corrupted localStorage', () => {
     console.log('[ScoreManager.test.js] Teste: localStorage corrompido');
     localStorage.setItem('arcadehub_scores', 'invalid json');
-    const safe = new ScoreManager();
+    var safe = new ScoreManager();
     console.log('[ScoreManager.test.js] Manager apos corrupcao:', JSON.stringify(safe.get('velha')));
     expect(safe.get('velha')).toBeDefined();
   });
@@ -74,7 +74,7 @@ describe('ScoreManager', () => {
   it('should return all data', () => {
     console.log('[ScoreManager.test.js] Teste: getAll');
     manager.update('memoria', { wins: 1, bestScore: 10 });
-    const all = manager.getAll();
+    var all = manager.getAll();
     console.log('[ScoreManager.test.js] Todos os dados:', JSON.stringify(all));
     expect(all.memoria.wins).toBe(1);
     expect(all.memoria.bestScore).toBe(10);
@@ -82,7 +82,7 @@ describe('ScoreManager', () => {
 
   it('should return default for unknown game', () => {
     console.log('[ScoreManager.test.js] Teste: jogo desconhecido');
-    const unknown = manager.get('unknown');
+    var unknown = manager.get('unknown');
     console.log('[ScoreManager.test.js] Jogo desconhecido:', JSON.stringify(unknown));
     expect(unknown).toBeDefined();
   });

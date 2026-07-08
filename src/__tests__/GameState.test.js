@@ -3,7 +3,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { GameState } from '../game/GameState.js';
 
 describe('GameState', () => {
-  let state;
+  var state;
 
   beforeEach(() => {
     console.log('[GameState.test.js] beforeEach: criando novo GameState');
@@ -30,7 +30,7 @@ describe('GameState', () => {
 
   it('should make a move and update board', () => {
     console.log('[GameState.test.js] Teste: fazer jogada');
-    const result = state.makeMove(0);
+    var result = state.makeMove(0);
     console.log('[GameState.test.js] Resultado da jogada:', result);
     expect(result).toBe(true);
     expect(state.board[0]).toBe('X');
@@ -39,15 +39,15 @@ describe('GameState', () => {
   it('should not allow move on occupied cell', () => {
     console.log('[GameState.test.js] Teste: celula ocupada');
     state.makeMove(0);
-    const result = state.makeMove(0);
+    var result = state.makeMove(0);
     console.log('[GameState.test.js] Tentativa em celula ocupada:', result);
     expect(result).toBe(false);
   });
 
   it('should not allow move out of bounds', () => {
     console.log('[GameState.test.js] Teste: indice invalido');
-    const r1 = state.makeMove(-1);
-    const r2 = state.makeMove(9);
+    var r1 = state.makeMove(-1);
+    var r2 = state.makeMove(9);
     console.log('[GameState.test.js] makeMove(-1):', r1, 'makeMove(9):', r2);
     expect(r1).toBe(false);
     expect(r2).toBe(false);
@@ -106,7 +106,7 @@ describe('GameState', () => {
 
   it('should return false on undo with no history', () => {
     console.log('[GameState.test.js] Teste: undo sem historico');
-    const result = state.undoLastMove();
+    var result = state.undoLastMove();
     console.log('[GameState.test.js] Resultado do undo:', result);
     expect(result).toBe(false);
   });

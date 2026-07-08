@@ -1,23 +1,23 @@
 console.log('[confetti.js] Carregado');
-const COLORS = ['#c9a84c', '#c1694f', '#5a9e7e', '#d4af37', '#2ecc71', '#e74c3c', '#3498db'];
+var COLORS = ['#c9a84c', '#c1694f', '#5a9e7e', '#d4af37', '#2ecc71', '#e74c3c', '#3498db'];
 
 export function fireConfetti(count = 80) {
   console.log('[confetti.js] fireConfetti() count:', count);
   console.log('[confetti.js] Cores disponiveis:', COLORS.length);
-  const container = document.createElement('div');
+  var container = document.createElement('div');
   container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;';
   document.body.appendChild(container);
   console.log('[confetti.js] Container criado e adicionado ao body');
 
-  for (let i = 0; i < count; i++) {
-    const piece = document.createElement('div');
-    const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-    const size = 6 + Math.random() * 8;
-    const startX = Math.random() * 100;
-    const delay = Math.random() * 0.5;
-    const duration = 2 + Math.random() * 2;
-    const rotation = Math.random() * 720;
-    const drift = (Math.random() - 0.5) * 200;
+  for (var i = 0; i < count; i++) {
+    var piece = document.createElement('div');
+    var color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    var size = 6 + Math.random() * 8;
+    var startX = Math.random() * 100;
+    var delay = Math.random() * 0.5;
+    var duration = 2 + Math.random() * 2;
+    var rotation = Math.random() * 720;
+    var drift = (Math.random() - 0.5) * 200;
 
     piece.style.cssText = `
       position:absolute;
@@ -32,7 +32,7 @@ export function fireConfetti(count = 80) {
       transform:rotate(0deg);
     `;
 
-    const style = document.createElement('style');
+    var style = document.createElement('style');
     if (!document.getElementById('confetti-keyframes')) {
       style.id = 'confetti-keyframes';
       style.textContent = `

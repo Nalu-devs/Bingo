@@ -56,7 +56,7 @@ export class GameState {
       return false;
     }
 
-    const snapshot = this.boardSnapshots.pop();
+    var snapshot = this.boardSnapshots.pop();
     this.board = snapshot.board;
     this.currentPlayer = snapshot.player;
     this.moveHistory.pop();
@@ -66,9 +66,9 @@ export class GameState {
   }
 
   switchPlayer() {
-    const old = this.currentPlayer;
+    var old = this.currentPlayer;
     if (this.mode === 'pvp3') {
-      const idx = SYMBOLS.indexOf(this.currentPlayer);
+      var idx = SYMBOLS.indexOf(this.currentPlayer);
       this.currentPlayer = SYMBOLS[(idx + 1) % SYMBOLS.length];
     } else {
       this.currentPlayer = this.currentPlayer === SYMBOLS[0] ? SYMBOLS[1] : SYMBOLS[0];

@@ -1,5 +1,5 @@
 console.log('[ScoreManager.js] Carregado');
-const STORAGE_KEY = 'arcadehub_scores';
+var STORAGE_KEY = 'arcadehub_scores';
 
 export class ScoreManager {
   constructor() {
@@ -10,7 +10,7 @@ export class ScoreManager {
 
   _load() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      var raw = localStorage.getItem(STORAGE_KEY);
       console.log('[ScoreManager.js] _load() raw:', raw ? 'encontrado' : 'nenhum');
       if (raw) return JSON.parse(raw);
     } catch {

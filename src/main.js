@@ -9,10 +9,10 @@ import { MemoriaGame } from './games/memoria/MemoriaGame.js';
 import { StatsPage } from './games/stats/StatsPage.js';
 
 console.log('[main.js] Inicializando dependencias');
-const content = document.getElementById('content');
+var content = document.getElementById('content');
 console.log('[main.js] Elemento content:', content ? 'encontrado' : 'nao encontrado');
-const scoreManager = new ScoreManager();
-let currentPage = null;
+var scoreManager = new ScoreManager();
+var currentPage = null;
 
 function mountPage(page) {
   console.log('[main.js] mountPage()', page.constructor.name);
@@ -25,7 +25,7 @@ function mountPage(page) {
   document.getElementById('sidebar-overlay').classList.add('hidden');
 }
 
-const router = new Router([
+var router = new Router([
   { path: '/', handler: () => mountPage(new HomePage(content, scoreManager)) },
   { path: '/velha', handler: () => mountPage(new VelhaGame(content, scoreManager)) },
   { path: '/forca', handler: () => mountPage(new ForcaGame(content, scoreManager)) },
@@ -37,8 +37,8 @@ const router = new Router([
 document.getElementById('menuBtn').addEventListener('click', () => {
   console.log('[main.js] Menu toggle');
   
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('sidebar-overlay');
+  var sidebar = document.getElementById('sidebar');
+  var overlay = document.getElementById('sidebar-overlay');
   sidebar.classList.toggle('hidden');
   overlay.classList.toggle('hidden');
 });
@@ -59,8 +59,8 @@ document.querySelectorAll('[data-nav]').forEach(el => {
 
 document.getElementById('soundToggle').addEventListener('click', () => {
   console.log('[main.js] Sound toggle');
-  const btn = document.getElementById('soundToggle');
-  const isMuted = btn.dataset.muted === 'true';
+  var btn = document.getElementById('soundToggle');
+  var isMuted = btn.dataset.muted === 'true';
   btn.dataset.muted = String(!isMuted);
   btn.textContent = isMuted ? '🔊' : '🔇';
 });
@@ -68,14 +68,14 @@ document.getElementById('soundToggle').addEventListener('click', () => {
 document.getElementById('themeToggle').addEventListener('click', () => {
   console.log('[main.js] Theme toggle');
   document.body.classList.toggle('light-mode');
-  const btn = document.getElementById('themeToggle');
+  var btn = document.getElementById('themeToggle');
   btn.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
 });
 
 document.addEventListener('keydown', (e) => {
   console.log('[main.js] Tecla pressionada:', e.key);
   if (e.key === 'Escape') {
-    const sidebar = document.getElementById('sidebar');
+    var sidebar = document.getElementById('sidebar');
     if (!sidebar.classList.contains('hidden')) {
       console.log('[main.js] Fechando sidebar via Escape');
       sidebar.classList.add('hidden');

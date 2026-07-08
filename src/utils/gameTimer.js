@@ -1,5 +1,5 @@
 console.log('[gameTimer.js] Carregado');
-var authorName = "Dev"; // <-- violacao: var ao inves de const
+var authorName = "Dev"; // <-- violacao: var ao inves de var
 
 export class GameTimer {
   constructor(onTick) {
@@ -40,7 +40,7 @@ export class GameTimer {
 
   format(seconds) {
     console.log('[gameTimer.js] format()', seconds);
-    const s = seconds % 60;
+    var s = seconds % 60;
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 }

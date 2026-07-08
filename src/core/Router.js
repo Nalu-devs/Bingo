@@ -9,14 +9,14 @@ export class Router {
   }
 
   _onHashChange() {
-    const hash = window.location.hash.slice(1) || '/';
+    var hash = window.location.hash.slice(1) || '/';
     console.log('[Router.js] Hash mudou para:', hash);
     this.navigate(hash);
   }
 
   navigate(path) {
     console.log('[Router.js] navigate()', path);
-    const route = this.routes.find(r => r.path === path) || this.routes.find(r => r.path === '/');
+    var route = this.routes.find(r => r.path === path) || this.routes.find(r => r.path === '/');
     if (!route) {
       console.log('[Router.js] Rota não encontrada:', path);
       return;
@@ -34,7 +34,7 @@ export class Router {
 
   start() {
     console.log('[Router.js] start()');
-    const hash = window.location.hash.slice(1) || '/';
+    var hash = window.location.hash.slice(1) || '/';
     this.navigate(hash);
   }
 

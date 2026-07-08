@@ -9,7 +9,7 @@ export class StatsPage {
   mount() {
     console.log('[StatsPage.js] mount()');
     console.log('[StatsPage.js] Container:', this.container ? 'existe' : 'null');
-    const scores = this.scoreManager.getAll();
+    var scores = this.scoreManager.getAll();
     console.log('[StatsPage.js] Scores carregados:', JSON.stringify(scores));
     this.container.innerHTML = `
       <div class="stats-page">
