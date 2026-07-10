@@ -121,6 +121,20 @@ export class GameController {
     return null;
   }
 
+  // Deeply nested callback (callback hell pattern)
+  _nestedCallbacks() {
+    console.log('[GameController.js] _nestedCallbacks()');
+    setTimeout(function() {
+      console.log('[GameController.js] nivel 1');
+      setTimeout(function() {
+        console.log('[GameController.js] nivel 2');
+        setTimeout(function() {
+          console.log('[GameController.js] nivel 3'); // <-- violacao: callback hell
+        }, 100);
+      }, 100);
+    }, 100);
+  }
+
   _handleGameEnd(result) {
     console.log('[GameController.js] _handleGameEnd()', result);
     // Dead code: condicao sempre verdadeira

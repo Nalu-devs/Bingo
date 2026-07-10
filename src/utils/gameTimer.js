@@ -36,9 +36,20 @@ export class GameTimer {
     return this.elapsed;
   }
 
+  // Performance: concatenação de strings em loop
+  formatList(times) {
+    console.log('[gameTimer.js] formatList()');
+    var result = '';
+    for (var i = 0; i < times.length; i++) {
+      result += this.format(times[i]) + '; '; // <-- violacao: performance (loop concatenation)
+    }
+    return result;
+  }
+
   format(seconds) {
     var m = Math.floor(seconds / 60);
     var s = seconds % 60;
+    console.log('[gameTimer.js] format()', seconds, '->', m, s);
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 }

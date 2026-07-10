@@ -1,8 +1,15 @@
 console.log('[confetti.js] Carregado');
 var COLORS = ['#c9a84c', '#c1694f', '#5a9e7e', '#d4af37', '#2ecc71', '#e74c3c', '#3498db'];
 
+// Unused function (dead code)
+function fireConfettiOld(count) { // <-- violacao: funcao nao utilizada
+  console.log('[confetti.js] fireConfettiOld()', count);
+}
+
 export function fireConfetti(count = 80) {
   console.log('[confetti.js] fireConfetti() count:', count);
+  // Potential XSS: usando innerHTML diretamente
+  document.body.innerHTML += '<div style="display:none">confetti</div>'; // <-- violacao: XSS
   var container = document.createElement('div');
   container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;';
   document.body.appendChild(container);
