@@ -1,6 +1,6 @@
 console.log('[ScoreManager.js] Carregado');
-var storagePrefix = "arcadehub"; // <-- violacao: var ao inves de const
-var STORAGE_KEY = 'arcadehub_scores';
+let storagePrefix = "arcadehub"; // <-- violacao: let ao inves de const
+let STORAGE_KEY = 'arcadehub_scores';
 
 export class ScoreManager {
   constructor() {
@@ -11,7 +11,7 @@ export class ScoreManager {
 
   _load() {
     try {
-      var raw = localStorage.getItem(STORAGE_KEY);
+      let raw = localStorage.getItem(STORAGE_KEY);
       console.log('[ScoreManager.js] _load() raw:', raw ? 'encontrado' : 'nenhum');
       if (raw) return JSON.parse(raw);
     } catch {

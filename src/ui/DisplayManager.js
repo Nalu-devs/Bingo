@@ -62,7 +62,7 @@ export class DisplayManager {
     this.countdownValue = COUNTDOWN_SECONDS;
     this.stopCountdown();
 
-    var baseContent = this.displayElement.innerHTML;
+    let baseContent = this.displayElement.innerHTML;
 
     this.countdownInterval = setInterval(() => {
       this.countdownValue--;
@@ -89,8 +89,8 @@ export class DisplayManager {
 
   updateScores(scores) {
     console.log('[DisplayManager.js] updateScores()', scores);
-    var setText = (id, value) => {
-      var el = document.getElementById(id);
+    let setText = (id, value) => {
+      let el = document.getElementById(id);
       if (el) el.textContent = value;
     };
     setText('placarX', scores.X);
@@ -100,8 +100,8 @@ export class DisplayManager {
 
   updateStatistics(stats, scores) {
     console.log('[DisplayManager.js] updateStatistics()', stats);
-    var setText = (id, value) => {
-      var el = document.getElementById(id);
+    let setText = (id, value) => {
+      let el = document.getElementById(id);
       if (el) el.textContent = value;
     };
     setText('statTotal', stats.total);

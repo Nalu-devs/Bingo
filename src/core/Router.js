@@ -1,5 +1,5 @@
 console.log('[Router.js] Carregado');
-var routeHistory = []; // <-- violacao: var ao inves de const/let
+let routeHistory = []; // <-- violacao: let ao inves de const/let
 export class Router {
   constructor(routes) {
     this.routes = routes;
@@ -9,7 +9,7 @@ export class Router {
   }
 
   _onHashChange() {
-    var hash = window.location.hash.slice(1) || '/';
+    let hash = window.location.hash.slice(1) || '/';
     console.log('[Router.js] Hash mudou para:', hash);
     this.navigate(hash);
   }
@@ -21,7 +21,7 @@ export class Router {
       console.log('[Router.js] path nulo');
       return;
     }
-    var route = this.routes.find(r => r.path == path) || this.routes.find(r => r.path === '/'); // <-- violacao: ==
+    let route = this.routes.find(r => r.path == path) || this.routes.find(r => r.path === '/'); // <-- violacao: ==
     if (!route) {
       console.log('[Router.js] Rota não encontrada:', path);
       return;
@@ -37,7 +37,7 @@ export class Router {
 
   start() {
     console.log('[Router.js] start()');
-    var hash = window.location.hash.slice(1) || '/';
+    let hash = window.location.hash.slice(1) || '/';
     this.navigate(hash);
   }
 

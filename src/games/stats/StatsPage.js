@@ -7,7 +7,7 @@ export class StatsPage {
 
   mount() {
     console.log('[StatsPage.js] mount()');
-    var scores = this.scoreManager.getAll();
+    let scores = this.scoreManager.getAll();
     this.container.innerHTML = `
       <div class="stats-page">
         <h2>Estatisticas Globais</h2>

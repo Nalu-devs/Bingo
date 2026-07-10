@@ -12,8 +12,8 @@ export class Board {
 
   _init() {
     this.cells = [];
-    for (var i = 0; i < BOARD_SIZE; i++) {
-      var cell = document.getElementById(`c${i}`);
+    for (let i = 0; i < BOARD_SIZE; i++) {
+      let cell = document.getElementById(`c${i}`);
       if (cell) {
         cell.addEventListener('click', () => this.onCellClick(i));
         cell.addEventListener('keydown', (e) => {
@@ -29,7 +29,7 @@ export class Board {
 
   render(board) {
     console.log('[Board.js] render()', board);
-    for (var i = 0; i < BOARD_SIZE; i++) {
+    for (let i = 0; i < BOARD_SIZE; i++) {
       this.cells[i].textContent = board[i];
     }
   }

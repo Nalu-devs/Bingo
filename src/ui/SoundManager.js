@@ -40,14 +40,14 @@ export class SoundManager {
     }
     this._ensureResumed();
 
-    var oscillator = this.audioContext.createOscillator();
-    var gainNode = this.audioContext.createGain();
+    let oscillator = this.audioContext.createOscillator();
+    let gainNode = this.audioContext.createGain();
 
     oscillator.type = type;
     oscillator.connect(gainNode);
     gainNode.connect(this.audioContext.destination);
 
-    var now = this.audioContext.currentTime;
+    let now = this.audioContext.currentTime;
     gainNode.gain.setValueAtTime(volume, now);
     gainNode.gain.exponentialRampToValueAtTime(0.01, now + duration);
 
@@ -63,17 +63,17 @@ export class SoundManager {
     }
     this._ensureResumed();
 
-    var now = this.audioContext.currentTime;
+    let now = this.audioContext.currentTime;
 
     notes.forEach(([frequency, startOffset, duration]) => {
-      var oscillator = this.audioContext.createOscillator();
-      var gainNode = this.audioContext.createGain();
+      let oscillator = this.audioContext.createOscillator();
+      let gainNode = this.audioContext.createGain();
 
       oscillator.type = 'sine';
       oscillator.connect(gainNode);
       gainNode.connect(this.audioContext.destination);
 
-      var startTime = now + startOffset;
+      let startTime = now + startOffset;
       gainNode.gain.setValueAtTime(volume, startTime);
       gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
 

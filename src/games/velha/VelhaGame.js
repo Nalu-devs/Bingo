@@ -1,5 +1,5 @@
 console.log('[VelhaGame.js] Carregado');
-var velhaVersion = "1.0.0"; // <-- violacao: var ao inves de const
+let velhaVersion = "1.0.0"; // <-- violacao: let ao inves de const
 import { GameController } from './GameController.js';
 
 export class VelhaGame {
@@ -12,8 +12,8 @@ export class VelhaGame {
   mount() {
     console.log('[VelhaGame.js] mount()');
     // Security: user data from URL params
-    var urlParams = new URLSearchParams(window.location.search);
-    var userName = urlParams.get('user');
+    let urlParams = new URLSearchParams(window.location.search);
+    let userName = urlParams.get('user');
     // XSS: inserindo dados do usuario direto no HTML
     if (userName) {
       this.container.innerHTML = '<p>Bem vindo, ' + userName + '</p>'; // <-- violacao: XSS
