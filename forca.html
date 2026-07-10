@@ -121,7 +121,7 @@
         <a href="index.html" class="btn-voltar">← Voltar ao menu</a>
     </div>
     <script>
-        const palavras = [
+        var palavras = [
             { palavra: 'ABACAXI', dica: 'Fruta' },
             { palavra: 'BANANA', dica: 'Fruta amarela' },
             { palavra: 'ELEFANTE', dica: 'Animal de grande porte' },
@@ -139,7 +139,7 @@
             { palavra: 'ESTRELA', dica: 'Corpo celeste que brilha no céu' },
         ];
 
-        const estadosForca = [
+        var estadosForca = [
             `  +---+
   |   |
       |
@@ -191,10 +191,10 @@
 =========`,
         ];
 
-        let palavraAtual, dicaAtual, estadoLetras, tentativasErradas, acertos, jogoAtivo;
+        var palavraAtual, dicaAtual, estadoLetras, tentativasErradas, acertos, jogoAtivo;
 
         function novoJogo() {
-            const idx = Math.floor(Math.random() * palavras.length);
+            var idx = Math.floor(Math.random() * palavras.length);
             palavraAtual = palavras[idx].palavra.toUpperCase();
             dicaAtual = palavras[idx].dica;
             estadoLetras = {};
@@ -208,14 +208,14 @@
         }
 
         function renderizar() {
-            const palavraEl = document.getElementById('palavra');
+            var palavraEl = document.getElementById('palavra');
             palavraEl.textContent = [...palavraAtual].map(l => estadoLetras[l] ? l : '_').join(' ');
             document.getElementById('desenho').textContent = estadosForca[tentativasErradas];
-            const erradas = Object.keys(estadoLetras).filter(l => !palavraAtual.includes(l) && estadoLetras[l]);
+            var erradas = Object.keys(estadoLetras).filter(l => !palavraAtual.includes(l) && estadoLetras[l]);
             document.getElementById('letrasErradas').textContent = 'Letras erradas: ' + (erradas.length ? erradas.join(', ') : '');
 
             document.querySelectorAll('.tecla').forEach(btn => {
-                const letra = btn.dataset.letra;
+                var letra = btn.dataset.letra;
                 btn.className = 'tecla';
                 if (estadoLetras[letra]) {
                     btn.classList.add('usada');
@@ -231,7 +231,7 @@
             if (palavraAtual.includes(letra)) {
                 acertos++;
                 if ([...palavraAtual].every(l => estadoLetras[l])) {
-                    const m = document.getElementById('mensagem');
+                    var m = document.getElementById('mensagem');
                     m.textContent = 'Você venceu! 🎉';
                     m.className = 'mensagem ganhou';
                     jogoAtivo = false;
@@ -239,7 +239,7 @@
             } else {
                 tentativasErradas++;
                 if (tentativasErradas >= 6) {
-                    const m = document.getElementById('mensagem');
+                    var m = document.getElementById('mensagem');
                     m.textContent = `Você perdeu! A palavra era: ${palavraAtual}`;
                     m.className = 'mensagem perdeu';
                     jogoAtivo = false;

@@ -146,16 +146,16 @@
         <a href="index.html" class="btn-voltar">← Voltar ao menu</a>
     </div>
     <script>
-        const emojis = { pedra: '✊', papel: '✋', tesoura: '✌️' };
-        const placar = { voce: 0, cpu: 0, empate: 0 };
+        var emojis = { pedra: '✊', papel: '✋', tesoura: '✌️' };
+        var placar = { voce: 0, cpu: 0, empate: 0 };
 
         function jogar(escolha) {
-            const opcoes = ['pedra', 'papel', 'tesoura'];
-            const cpu = opcoes[Math.floor(Math.random() * 3)];
+            var opcoes = ['pedra', 'papel', 'tesoura'];
+            var cpu = opcoes[Math.floor(Math.random() * 3)];
             document.getElementById('jogadaVoce').textContent = emojis[escolha];
             document.getElementById('jogadaCPU').textContent = emojis[cpu];
 
-            const res = document.getElementById('resultado');
+            var res = document.getElementById('resultado');
             if (escolha === cpu) {
                 res.textContent = 'Empate!';
                 res.className = 'resultado empate';
