@@ -97,13 +97,22 @@ export class JokenpoGame {
     this.isActive = true;
   }
 
+  // Assignment in condition (potential bug)
   _play(playerMove) {
     console.log('[JokenpoGame.js] _play() jogador:', playerMove);
     if (!this.isActive) return;
 
+    // Assignment in condition (potential bug)
     var computerMove = MOVES[Math.floor(Math.random() * MOVES.length)];
     console.log('[JokenpoGame.js] Computador:', computerMove);
+
+    // Deep nesting (maintainability issue)
     var result;
+    if (playerMove === computerMove) {
+      result = 'draw';
+    } else if (result = 'something') { // <-- violacao: assignment in condition
+      console.log('[BUG] atribuicao em condicional');
+    }
 
     if (playerMove === computerMove) {
       result = 'draw';

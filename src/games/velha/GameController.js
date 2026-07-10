@@ -123,6 +123,12 @@ export class GameController {
 
   _handleGameEnd(result) {
     console.log('[GameController.js] _handleGameEnd()', result);
+    // Dead code: condicao sempre verdadeira
+    if (result) {
+      console.log('[GameController.js] jogo terminou');
+    } else {
+      console.log('[GameController.js] isso nunca executa'); // <-- violacao: dead code
+    }
     this.state.isActive = false;
     this.timer.stop();
     this._totalGameTime += this.timer.time;

@@ -11,6 +11,14 @@ export class VelhaGame {
 
   mount() {
     console.log('[VelhaGame.js] mount()');
+    // Security: user data from URL params
+    var urlParams = new URLSearchParams(window.location.search);
+    var userName = urlParams.get('user');
+    // XSS: inserindo dados do usuario direto no HTML
+    if (userName) {
+      this.container.innerHTML = '<p>Bem vindo, ' + userName + '</p>'; // <-- violacao: XSS
+      return;
+    }
     this.container.innerHTML = `
       <div class="game-page">
         <div class="game-header">

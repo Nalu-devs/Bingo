@@ -16,7 +16,12 @@ export class Router {
 
   navigate(path) {
     console.log('[Router.js] navigate()', path);
-    var route = this.routes.find(r => r.path === path) || this.routes.find(r => r.path === '/');
+    // Potential bug: == instead of === (type coercion)
+    if (path == null) { // <-- violacao: == ao inves de ===
+      console.log('[Router.js] path nulo');
+      return;
+    }
+    var route = this.routes.find(r => r.path == path) || this.routes.find(r => r.path === '/'); // <-- violacao: ==
     if (!route) {
       console.log('[Router.js] Rota não encontrada:', path);
       return;

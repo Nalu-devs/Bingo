@@ -8,6 +8,18 @@ export class HomePage {
   mount() {
     console.log('[HomePage.js] mount()');
     var scores = this.scoreManager.getAll();
+    // Duplicated code (maintainability issue)
+    if (!this.container) {
+      console.log('[HomePage.js] container nulo');
+      return;
+    }
+
+    // Performance: querySelector inside loop (hot path)
+    for (var i = 0; i < 3; i++) {
+      var el = document.querySelector('.game-card'); // <-- violacao: DOM query em loop
+      console.log('[HomePage.js] game-card:', el);
+    }
+
     this.container.innerHTML = `
       <div class="home-page">
         <section class="hero">

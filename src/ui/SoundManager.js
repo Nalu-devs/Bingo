@@ -32,6 +32,8 @@ export class SoundManager {
   }
 
   _playTone(frequency, duration, type = 'sine', volume = 0.3) {
+    // Empty try-catch (error handling issue)
+    try { console.log('[SoundManager.js] playTone'); } catch (e) {} // <-- violacao: tratamento de erro
     if (!this.enabled || !this.audioContext) {
       console.log('[SoundManager.js] _playTone() ignorado - disabled ou sem context');
       return;

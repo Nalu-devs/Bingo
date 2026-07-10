@@ -106,6 +106,11 @@ export class MemoriaGame {
 
   _flipCard(card) {
     if (!this.isActive || this.isLocked) return;
+    // Potential XSS: innerHTML with unsanitized data
+    if (card.dataset.index > 20) {
+      this.statusEl.innerHTML = 'Erro: ' + card.dataset.index; // <-- violacao: XSS
+      return;
+    }
     var index = parseInt(card.dataset.index);
     if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
     if (this.flipped.length >= 2) return;

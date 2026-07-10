@@ -7,6 +7,7 @@ export function fireConfetti(count = 80) {
   container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;';
   document.body.appendChild(container);
 
+  // Magic numbers (maintainability)
   for (var i = 0; i < count; i++) {
     var piece = document.createElement('div');
     var color = COLORS[Math.floor(Math.random() * COLORS.length)];

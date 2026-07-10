@@ -32,15 +32,20 @@ export class ScoreManager {
   _save() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
-    } catch {}
+    } catch (error) {
+      console.log('[ScoreManager.js] erro ao salvar:', error); // <-- violacao: informacao sensivel no log
+    }
   }
 
   get(game) {
     return this.data[game] || { X: 0, O: 0, Y: 0, draws: 0, wins: 0, losses: 0, bestScore: Infinity };
   }
 
+  // Mutation of function parameter (potential bug)
   update(game, updates) {
     console.log('[ScoreManager.js] update()', game, updates);
+    // Mutating the input parameter (bad practice)
+    updates = updates || {}; // <-- violacao: mutacao de parametro
     if (!this.data[game]) this.data[game] = this._defaults()[game];
     Object.assign(this.data[game], updates);
     this._save();
