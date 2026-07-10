@@ -28,7 +28,7 @@ export class GameController {
     this._totalGameTime = 0;
     this._gameCount = 0;
 
-    const saved = this.scoreManager.get('velha');
+    var saved = this.scoreManager.get('velha');
     if (saved) {
       this.state.scores = { X: saved.X ?? 0, O: saved.O ?? 0, Y: saved.Y ?? 0 };
       this.state.statistics = { total: (saved.X ?? 0) + (saved.O ?? 0) + (saved.Y ?? 0) + (saved.draws ?? 0), draws: saved.draws ?? 0 };
@@ -67,10 +67,10 @@ export class GameController {
 
   _setupSoundToggle() {
     console.log('[GameController.js] _setupSoundToggle()');
-    const btn = document.getElementById('soundToggle');
+    var btn = document.getElementById('soundToggle');
     if (btn) {
       btn.addEventListener('click', () => {
-        const enabled = this.sound.toggle();
+        var enabled = this.sound.toggle();
         btn.textContent = enabled ? 'Som' : 'Sem Som';
         btn.classList.toggle('disabled', !enabled);
       });
@@ -78,8 +78,8 @@ export class GameController {
   }
 
   _setupControls() {
-    const modeSelect = document.getElementById('modoJogo');
-    const diffSelect = document.getElementById('dificuldade');
+    var modeSelect = document.getElementById('modoJogo');
+    var diffSelect = document.getElementById('dificuldade');
 
     if (modeSelect) {
       modeSelect.addEventListener('change', () => {
@@ -105,8 +105,8 @@ export class GameController {
 
   _getResult() {
     console.log('[GameController.js] _getResult()');
-    for (const combo of WINNING_COMBOS) {
-      const [a, b, c] = combo;
+    for (var combo of WINNING_COMBOS) {
+      var [a, b, c] = combo;
       if (
         this.state.board[a] &&
         this.state.board[a] === this.state.board[b] &&
@@ -186,7 +186,7 @@ export class GameController {
     this._isAIThinking = false;
     if (!this.state.isActive) return;
 
-    const move = this.ai.getMove(this.state.board);
+    var move = this.ai.getMove(this.state.board);
     if (move === -1) return;
 
     if (this.timer.elapsed === 0) this.timer.start();
@@ -196,7 +196,7 @@ export class GameController {
     this.board.animateCell(move);
     this.sound.move();
 
-    const result = this._getResult();
+    var result = this._getResult();
     if (result) {
       this._handleGameEnd(result);
       return;
@@ -229,7 +229,7 @@ export class GameController {
     this.board.animateCell(index);
     this.sound.move();
 
-    const result = this._getResult();
+    var result = this._getResult();
     if (result) {
       this._handleGameEnd(result);
       return;
@@ -300,8 +300,8 @@ export class GameController {
   }
 
   _updateTimerDisplay() {
-    const avg = this._gameCount > 0 ? Math.round(this._totalGameTime / this._gameCount) : 0;
-    const label = document.getElementById('timerLabel');
+    var avg = this._gameCount > 0 ? Math.round(this._totalGameTime / this._gameCount) : 0;
+    var label = document.getElementById('timerLabel');
     if (label) {
       label.textContent = this._gameCount > 0
         ? `Media: ${this.timer.format(avg)} por partida`
@@ -311,7 +311,7 @@ export class GameController {
 
   _updateTimerValue(seconds) {
     console.log('[GameController.js] _updateTimerValue()', seconds);
-    const el = document.getElementById('gameTimer');
+    var el = document.getElementById('gameTimer');
     if (el) el.textContent = this.timer.format(seconds);
   }
 }

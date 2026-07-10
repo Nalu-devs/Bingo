@@ -7,7 +7,7 @@ export class HomePage {
 
   mount() {
     console.log('[HomePage.js] mount()');
-    const scores = this.scoreManager.getAll();
+    var scores = this.scoreManager.getAll();
     this.container.innerHTML = `
       <div class="home-page">
         <section class="hero">
@@ -54,7 +54,7 @@ export class HomePage {
   }
 
   _totalGames(scores) {
-    let total = 0;
+    var total = 0;
     total += (scores.velha?.X ?? 0) + (scores.velha?.O ?? 0) + (scores.velha?.Y ?? 0) + (scores.velha?.draws ?? 0);
     total += (scores.forca?.wins ?? 0) + (scores.forca?.losses ?? 0);
     total += (scores.jokenpo?.wins ?? 0) + (scores.jokenpo?.losses ?? 0) + (scores.jokenpo?.draws ?? 0);
@@ -63,7 +63,7 @@ export class HomePage {
   }
 
   _totalWins(scores) {
-    let wins = 0;
+    var wins = 0;
     wins += (scores.velha?.X ?? 0);
     wins += scores.forca?.wins ?? 0;
     wins += scores.jokenpo?.wins ?? 0;

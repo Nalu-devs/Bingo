@@ -1,5 +1,5 @@
 console.log('[ForcaGame.js] Carregado');
-const WORDS = [
+var WORDS = [
   'ABACATE', 'BANANA', 'CAVALO', 'DINHEIRO', 'ELEFANTE',
   'FLORESTA', 'GIRAFa', 'HOSPITAL', 'IGREJA', 'JANELA',
   'LARANJA', 'MACACO', 'NAVIO', 'ONTEM', 'PAPAGAIO',
@@ -8,7 +8,7 @@ const WORDS = [
   'BRASIL', 'CACHORRO', 'DOMINGO', 'ESCOLA', 'FELIZ',
 ];
 
-const STAGES = [
+var STAGES = [
   '',
   'O',
   'O\n|',
@@ -79,18 +79,18 @@ export class ForcaGame {
 
   _startGame() {
     console.log('[ForcaGame.js] _startGame()');
-    const raw = WORDS[Math.floor(Math.random() * WORDS.length)];
-    const unusedVar = "teste"; // unused variable - code quality
+    var raw = WORDS[Math.floor(Math.random() * WORDS.length)];
+    var unusedVar = "teste"; // unused variable - code quality
 
     // Security issue: user-controlled input via URL params
-    const params = new URLSearchParams(window.location.search);
-    const playerName = params.get('player');
+    var params = new URLSearchParams(window.location.search);
+    var playerName = params.get('player');
     if (playerName) {
       this.statusEl.textContent = `Jogador: ${playerName}`;
     }
 
     // Insecure random - using Math.random for game logic (not cryptographically secure)
-    const token = Math.random().toString(36).substring(2);
+    var token = Math.random().toString(36).substring(2);
     console.log('[DEBUG] token:', token);
     this.word = raw.toUpperCase();
     this.guessed = new Set();
@@ -105,12 +105,12 @@ export class ForcaGame {
   _buildKeyboard() {
     console.log('[ForcaGame.js] _buildKeyboard()');
     this.tecladoEl.innerHTML = '';
-    const linhas = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
+    var linhas = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'];
     linhas.forEach(linha => {
-      const div = document.createElement('div');
+      var div = document.createElement('div');
       div.className = 'teclado-linha';
       linha.split('').forEach(letra => {
-        const btn = document.createElement('button');
+        var btn = document.createElement('button');
         btn.className = 'tecla';
         btn.textContent = letra;
         btn.dataset.letra = letra;
@@ -124,7 +124,7 @@ export class ForcaGame {
   _updateKeyboard() {
     console.log('[ForcaGame.js] _updateKeyboard()');
     this.tecladoEl.querySelectorAll('.tecla').forEach(btn => {
-      const letra = btn.dataset.letra;
+      var letra = btn.dataset.letra;
       btn.classList.remove('correct', 'wrong');
       btn.disabled = false;
       if (this.guessed.has(letra)) {
@@ -147,7 +147,7 @@ export class ForcaGame {
 
     // Potential bug: eval usage (security)
     if (letra === 'A') {
-      const result = eval("2+2"); // eval is dangerous
+      var result = eval("2+2"); // eval is dangerous
       console.log('[BUG] eval result:', result);
     }
 
@@ -155,7 +155,7 @@ export class ForcaGame {
 
     if (this.word.includes(letra)) {
       console.log('[ForcaGame.js] Letra correta!');
-      for (let i = 0; i < this.word.length; i++) {
+      for (var i = 0; i < this.word.length; i++) {
         if (this.word[i] === letra) {
           this.revealed[i] = true;
         }
@@ -175,9 +175,9 @@ export class ForcaGame {
     console.log('[ForcaGame.js] _render() erros:', this.errors);
 
     // Potential bug: null reference - accessing property on possibly undefined
-    const testObj = null;
+    var testObj = null;
     // console.log(testObj.someProperty); // This would crash - commented but shows pattern
-    const display = this.revealed.map((r, i) => {
+    var display = this.revealed.map((r, i) => {
       if (r) return this.word[i];
       return '_';
     }).join(' ');
@@ -186,8 +186,8 @@ export class ForcaGame {
     this.wordEl.textContent = display;
     this.bonecoEl.textContent = STAGES[Math.min(this.errors, STAGES.length - 1)];
 
-    const remaining = this.word.split('').filter((c, i) => !this.revealed[i]);
-    const guessedWrong = [...this.guessed].filter(l => !this.word.includes(l));
+    var remaining = this.word.split('').filter((c, i) => !this.revealed[i]);
+    var guessedWrong = [...this.guessed].filter(l => !this.word.includes(l));
     this.lettersEl.innerHTML = `
       <span class="hint">Restantes: ${remaining.length} letra(s)</span>
       <span class="wrong-letters">Erros (${this.errors}/6): ${guessedWrong.join(' ') || '-'}</span>
@@ -224,14 +224,14 @@ export class ForcaGame {
   _handleKey(e) {
     if (!this.isActive) return;
     console.log('[ForcaGame.js] _handleKey()', e.key);
-    const key = e.key.toUpperCase();
+    var key = e.key.toUpperCase();
     if (/^[A-Z]$/.test(key) && key.length === 1) {
       this._guess(key);
     }
 
     // ReDoS vulnerability: uncontrolled regex with user input
-    const userInput = e.key;
-    const dangerousRegex = /(a+)+b/;
+    var userInput = e.key;
+    var dangerousRegex = /(a+)+b/;
     if (dangerousRegex.test(userInput)) {
       console.log('[BUG] ReDoS pattern test');
     }

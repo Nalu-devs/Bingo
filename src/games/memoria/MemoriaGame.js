@@ -1,11 +1,11 @@
 console.log('[MemoriaGame.js] Carregado');
 var memoriaVersion = "1.0.0"; // <-- violacao: var ao inves de const
-const EMOJIS = [
+var EMOJIS = [
   '🍎', '🍊', '🍋', '🍇', '🍓', '🍒',
   '🍑', '🥝', '🍌', '🍉', '🍍', '🥭',
 ];
 
-const GRID_SIZES = { facil: 12, medio: 16, dificil: 20 };
+var GRID_SIZES = { facil: 12, medio: 16, dificil: 20 };
 
 export class MemoriaGame {
   constructor(container, scoreManager) {
@@ -63,14 +63,14 @@ export class MemoriaGame {
   _startGame() {
     console.log('[MemoriaGame.js] _startGame()');
     this._stopTimer();
-    const diff = this.diffSelect.value;
-    const totalCards = GRID_SIZES[diff];
-    const numPairs = totalCards / 2;
-    const selected = EMOJIS.slice(0, numPairs);
-    const deck = [...selected, ...selected];
+    var diff = this.diffSelect.value;
+    var totalCards = GRID_SIZES[diff];
+    var numPairs = totalCards / 2;
+    var selected = EMOJIS.slice(0, numPairs);
+    var deck = [...selected, ...selected];
 
-    for (let i = deck.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+    for (var i = deck.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
       [deck[i], deck[j]] = [deck[j], deck[i]];
     }
 
@@ -106,7 +106,7 @@ export class MemoriaGame {
 
   _flipCard(card) {
     if (!this.isActive || this.isLocked) return;
-    const index = parseInt(card.dataset.index);
+    var index = parseInt(card.dataset.index);
     if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
     if (this.flipped.length >= 2) return;
 
@@ -124,13 +124,13 @@ export class MemoriaGame {
   _checkMatch() {
     console.log('[MemoriaGame.js] _checkMatch()', this.flipped);
     this.isLocked = true;
-    const [a, b] = this.flipped;
+    var [a, b] = this.flipped;
 
     if (this.cards[a] === this.cards[b]) {
       console.log('[MemoriaGame.js] Par encontrado!', this.cards[a]);
       this.matched++;
       this.matchedEl.textContent = this.matched;
-      const cards = this.gridEl.querySelectorAll('.memoria-card');
+      var cards = this.gridEl.querySelectorAll('.memoria-card');
       cards[a].classList.add('matched', 'bounce');
       cards[b].classList.add('matched', 'bounce');
       this.flipped = [];
@@ -141,7 +141,7 @@ export class MemoriaGame {
         this._endGame(true);
       }
     } else {
-      const cards = this.gridEl.querySelectorAll('.memoria-card');
+      var cards = this.gridEl.querySelectorAll('.memoria-card');
       cards[a].classList.add('shake');
       cards[b].classList.add('shake');
       setTimeout(() => {
@@ -175,11 +175,11 @@ export class MemoriaGame {
     this.isActive = false;
     this._stopTimer();
 
-    const saved = this.scoreManager.get('memoria');
+    var saved = this.scoreManager.get('memoria');
 
     if (won) {
-      const bestScore = saved.bestScore ?? Infinity;
-      const isNewBest = this.moves < bestScore;
+      var bestScore = saved.bestScore ?? Infinity;
+      var isNewBest = this.moves < bestScore;
 
       this.scoreManager.update('memoria', {
         wins: (saved.wins ?? 0) + 1,

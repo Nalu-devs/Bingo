@@ -37,8 +37,8 @@ export class GameTimer {
   }
 
   format(seconds) {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
+    var m = Math.floor(seconds / 60);
+    var s = seconds % 60;
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 }

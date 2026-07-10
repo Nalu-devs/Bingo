@@ -1,9 +1,9 @@
 console.log('[JokenpoGame.js] Carregado');
 var jokenpoVersion = "1.0.0"; // <-- violacao: var ao inves de const
-const MOVES = ['pedra', 'papel', 'tesoura'];
-const EMOJIS = { pedra: '🪨', papel: '📄', tesoura: '✂️' };
+var MOVES = ['pedra', 'papel', 'tesoura'];
+var EMOJIS = { pedra: '🪨', papel: '📄', tesoura: '✂️' };
 
-const WIN_MAP = {
+var WIN_MAP = {
   pedra: 'tesoura',
   papel: 'pedra',
   tesoura: 'papel',
@@ -22,7 +22,7 @@ export class JokenpoGame {
 
   mount() {
     console.log('[JokenpoGame.js] mount()');
-    const saved = this.scoreManager.get('jokenpo');
+    var saved = this.scoreManager.get('jokenpo');
     this.container.innerHTML = `
       <div class="game-page">
         <div class="game-header">
@@ -89,7 +89,7 @@ export class JokenpoGame {
 
     this._handleKey = (e) => {
       if (!this.isActive) return;
-      const map = { '1': 'pedra', '2': 'papel', '3': 'tesoura' };
+      var map = { '1': 'pedra', '2': 'papel', '3': 'tesoura' };
       if (map[e.key]) this._play(map[e.key]);
     };
     document.addEventListener('keydown', this._handleKey);
@@ -101,9 +101,9 @@ export class JokenpoGame {
     console.log('[JokenpoGame.js] _play() jogador:', playerMove);
     if (!this.isActive) return;
 
-    const computerMove = MOVES[Math.floor(Math.random() * MOVES.length)];
+    var computerMove = MOVES[Math.floor(Math.random() * MOVES.length)];
     console.log('[JokenpoGame.js] Computador:', computerMove);
-    let result;
+    var result;
 
     if (playerMove === computerMove) {
       result = 'draw';
@@ -116,7 +116,7 @@ export class JokenpoGame {
 
     this.round++;
 
-    const roundHtml = document.createElement('div');
+    var roundHtml = document.createElement('div');
     roundHtml.className = `jp-round ${result}`;
 
     if (result === 'win') {
@@ -149,8 +149,8 @@ export class JokenpoGame {
   }
 
   _checkMatchEnd() {
-    const max = parseInt(this.roundsSelect.value);
-    const half = Math.ceil(max / 2);
+    var max = parseInt(this.roundsSelect.value);
+    var half = Math.ceil(max / 2);
     console.log('[JokenpoGame.js] _checkMatchEnd()', this.playerScore, 'x', this.computerScore, 'max:', max);
 
     if (this.playerScore >= half || this.computerScore >= half) {
