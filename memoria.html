@@ -109,20 +109,20 @@
         <a href="index.html" class="btn-voltar">← Voltar ao menu</a>
     </div>
     <script>
-        var emojis = ['🍎','🍊','🍋','🍇','🍓','🍒','🍑','🍍'];
+        let emojis = ['🍎','🍊','🍋','🍇','🍓','🍒','🍑','🍍'];
 
-        var cartas, primeira, segunda, bloqueado, paresEncontrados, tentativas;
+        let cartas, primeira, segunda, bloqueado, paresEncontrados, tentativas;
 
         function embaralhar(arr) {
-            for (var i = arr.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i + 1));
+            for (let i = arr.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
                 [arr[i], arr[j]] = [arr[j], arr[i]];
             }
             return arr;
         }
 
         function novoJogo() {
-            var duplas = [...emojis, ...emojis];
+            let duplas = [...emojis, ...emojis];
             cartas = embaralhar(duplas);
             primeira = null;
             segunda = null;
@@ -136,10 +136,10 @@
         }
 
         function renderizar() {
-            var grid = document.getElementById('grid');
+            let grid = document.getElementById('grid');
             grid.innerHTML = '';
             cartas.forEach((emoji, i) => {
-                var div = document.createElement('div');
+                let div = document.createElement('div');
                 div.className = 'carta';
                 div.dataset.index = i;
                 div.onclick = () => virar(i);
@@ -149,7 +149,7 @@
 
         function virar(i) {
             if (bloqueado) return;
-            var carta = document.querySelectorAll('.carta')[i];
+            let carta = document.querySelectorAll('.carta')[i];
             if (carta.classList.contains('virada') || carta.classList.contains('par')) return;
 
             carta.textContent = cartas[i];

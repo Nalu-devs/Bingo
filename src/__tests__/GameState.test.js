@@ -3,7 +3,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { GameState } from '../game/GameState.js';
 
 describe('GameState', () => {
-  var state;
+  let state;
 
   beforeEach(() => {
     state = new GameState();
@@ -23,14 +23,14 @@ describe('GameState', () => {
   });
 
   it('should make a move and update board', () => {
-    var result = state.makeMove(0);
+    let result = state.makeMove(0);
     expect(result).toBe(true);
     expect(state.board[0]).toBe('X');
   });
 
   it('should not allow move on occupied cell', () => {
     state.makeMove(0);
-    var result = state.makeMove(0);
+    let result = state.makeMove(0);
     expect(result).toBe(false);
   });
 

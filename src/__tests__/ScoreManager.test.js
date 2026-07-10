@@ -3,7 +3,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { ScoreManager } from '../core/ScoreManager.js';
 
 describe('ScoreManager', () => {
-  var manager;
+  let manager;
 
   beforeEach(() => {
     localStorage.clear();
@@ -11,33 +11,33 @@ describe('ScoreManager', () => {
   });
 
   it('should initialize with default scores', () => {
-    var velha = manager.get('velha');
+    let velha = manager.get('velha');
     expect(velha).toEqual({ X: 0, O: 0, Y: 0, draws: 0 });
   });
 
   it('should update game scores', () => {
     manager.update('velha', { X: 3, O: 2 });
-    var velha = manager.get('velha');
+    let velha = manager.get('velha');
     expect(velha.X).toBe(3);
     expect(velha.O).toBe(2);
   });
 
   it('should persist to localStorage', () => {
     manager.update('forca', { wins: 5 });
-    var raw = JSON.parse(localStorage.getItem('arcadehub_scores'));
+    let raw = JSON.parse(localStorage.getItem('arcadehub_scores'));
     expect(raw.forca.wins).toBe(5);
   });
 
   it('should load from localStorage', () => {
-    var data = { forca: { wins: 3, losses: 1 } };
+    let data = { forca: { wins: 3, losses: 1 } };
     localStorage.setItem('arcadehub_scores', JSON.stringify(data));
-    var loaded = new ScoreManager();
+    let loaded = new ScoreManager();
     expect(loaded.get('forca').wins).toBe(3);
   });
 
   it('should handle corrupted localStorage', () => {
     localStorage.setItem('arcadehub_scores', 'invalid json');
-    var safe = new ScoreManager();
+    let safe = new ScoreManager();
     expect(safe.get('velha')).toBeDefined();
   });
 
@@ -57,13 +57,13 @@ describe('ScoreManager', () => {
 
   it('should return all data', () => {
     manager.update('memoria', { wins: 1, bestScore: 10 });
-    var all = manager.getAll();
+    let all = manager.getAll();
     expect(all.memoria.wins).toBe(1);
     expect(all.memoria.bestScore).toBe(10);
   });
 
   it('should return default for unknown game', () => {
-    var unknown = manager.get('unknown');
+    let unknown = manager.get('unknown');
     expect(unknown).toBeDefined();
   });
 });

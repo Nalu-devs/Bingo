@@ -106,20 +106,20 @@
         <a href="index.html" class="btn-voltar">← Voltar ao menu</a>
     </div>
     <script>
-        var tabuleiroEl = document.getElementById('tabuleiro');
-        var statusEl = document.getElementById('status');
-        var pontoX = document.getElementById('pontoX');
-        var pontoO = document.getElementById('pontoO');
-        var pontoE = document.getElementById('pontoE');
+        let tabuleiroEl = document.getElementById('tabuleiro');
+        let statusEl = document.getElementById('status');
+        let pontoX = document.getElementById('pontoX');
+        let pontoO = document.getElementById('pontoO');
+        let pontoE = document.getElementById('pontoE');
 
-        var estado = Array(9).fill(null);
-        var vezX = true;
-        var placar = { X: 0, O: 0, E: 0 };
+        let estado = Array(9).fill(null);
+        let vezX = true;
+        let placar = { X: 0, O: 0, E: 0 };
 
         function renderizar() {
             tabuleiroEl.innerHTML = '';
             estado.forEach((val, i) => {
-                var cel = document.createElement('div');
+                let cel = document.createElement('div');
                 cel.className = 'celula' + (val === 'X' ? ' x' : val === 'O' ? ' o' : '');
                 cel.textContent = val || '';
                 cel.onclick = () => jogar(i);
@@ -130,7 +130,7 @@
         function jogar(i) {
             if (estado[i] || verificarVencedor()) return;
             estado[i] = vezX ? 'X' : 'O';
-            var vencedor = verificarVencedor();
+            let vencedor = verificarVencedor();
             if (vencedor) {
                 finalizar(vencedor);
             } else if (!estado.includes(null)) {
@@ -145,12 +145,12 @@
         }
 
         function verificarVencedor() {
-            var lines = [
+            let lines = [
                 [0,1,2],[3,4,5],[6,7,8],
                 [0,3,6],[1,4,7],[2,5,8],
                 [0,4,8],[2,4,6]
             ];
-            for (var [a,b,c] of lines) {
+            for (let [a,b,c] of lines) {
                 if (estado[a] && estado[a] === estado[b] && estado[a] === estado[c]) {
                     return estado[a];
                 }
@@ -163,9 +163,9 @@
             placar[v]++;
             if (v === 'X') pontoX.textContent = placar.X;
             else pontoO.textContent = placar.O;
-            var lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            var celulas = tabuleiroEl.children;
-            for (var [a,b,c] of lines) {
+            let lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            let celulas = tabuleiroEl.children;
+            for (let [a,b,c] of lines) {
                 if (estado[a] && estado[a] === estado[b] && estado[a] === estado[c]) {
                     celulas[a].classList.add('vencedora');
                     celulas[b].classList.add('vencedora');
