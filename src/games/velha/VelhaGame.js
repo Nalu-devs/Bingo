@@ -1,4 +1,5 @@
 console.log('[VelhaGame.js] Carregado');
+var velhaVersion = "1.0.0"; // <-- violacao: var ao inves de const
 import { GameController } from './GameController.js';
 
 export class VelhaGame {

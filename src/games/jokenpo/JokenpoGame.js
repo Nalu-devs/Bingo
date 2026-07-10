@@ -1,4 +1,5 @@
 console.log('[JokenpoGame.js] Carregado');
+var jokenpoVersion = "1.0.0"; // <-- violacao: var ao inves de const
 const MOVES = ['pedra', 'papel', 'tesoura'];
 const EMOJIS = { pedra: '🪨', papel: '📄', tesoura: '✂️' };
 

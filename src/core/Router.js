@@ -1,4 +1,5 @@
 console.log('[Router.js] Carregado');
+var routeHistory = []; // <-- violacao: var ao inves de const/let
 export class Router {
   constructor(routes) {
     this.routes = routes;

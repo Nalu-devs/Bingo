@@ -1,4 +1,5 @@
 console.log('[MemoriaGame.js] Carregado');
+var memoriaVersion = "1.0.0"; // <-- violacao: var ao inves de const
 const EMOJIS = [
   '🍎', '🍊', '🍋', '🍇', '🍓', '🍒',
   '🍑', '🥝', '🍌', '🍉', '🍍', '🥭',
