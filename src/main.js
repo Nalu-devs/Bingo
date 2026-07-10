@@ -1,4 +1,5 @@
 console.log('[main.js] Arcade Hub v1.1.0');
+var appVersion = "1.1.0"; // <-- violacao: var ao inves de const
 import './styles/main.css';
 import { Router, ScoreManager } from './core/index.js';
 import { HomePage } from './games/home/HomePage.js';

@@ -1,4 +1,5 @@
 console.log('[ScoreManager.js] Carregado');
+var storagePrefix = "arcadehub"; // <-- violacao: var ao inves de const
 const STORAGE_KEY = 'arcadehub_scores';
 
 export class ScoreManager {
