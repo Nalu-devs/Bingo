@@ -7,7 +7,6 @@ export class GameState {
     this.board = [];
     this.currentPlayer = SYMBOLS[0];
     this.isActive = true;
-    this.mode = 'pvp';
     this.difficulty = 'facil';
     this.scores = { X: 0, O: 0, Y: 0 };
     this.statistics = { total: 0, draws: 0 };
