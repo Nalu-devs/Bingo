@@ -5,8 +5,6 @@ export class GameState {
   constructor() {
     console.log('[GameState.js] Construtor');
     this.board = [];
-    this.currentPlayer = SYMBOLS[0];
-    this.isActive = true;
     this.difficulty = 'facil';
     this.scores = { X: 0, O: 0, Y: 0 };
     this.statistics = { total: 0, draws: 0 };
