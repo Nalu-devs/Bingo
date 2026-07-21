@@ -24,7 +24,7 @@ export class HomePage {
       <div class="home-page">
         <section class="hero">
           <h2>Arcade Hub</h2>
-          <p>Escolha um jogo para começar!</p>
+          <p>Bem-vindo ao Arcade Hub! Escolha um jogo para começar!</p>
         </section>
         <div class="game-grid">
           <a href="#/velha" class="game-card" data-nav>
