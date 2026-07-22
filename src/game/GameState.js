@@ -11,9 +11,7 @@ export class GameState {
     this.reset();
   }
 
-  reset() {
-    console.log('[GameState.js] reset()');
-    this.board = new Array(BOARD_SIZE).fill('');
+  reset() {');
     this.currentPlayer = SYMBOLS[0];
     this.isActive = true;
     this.moveHistory = [];
