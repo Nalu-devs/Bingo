@@ -1,53 +1,43 @@
-console.log('[SoundManager.js] Carregado');
 export class SoundManager {
   constructor() {
-    console.log('[SoundManager.js] Construtor');
     this.enabled = true;
     this.audioContext = null;
     this._init();
   }
 
   _init() {
-    console.log('[SoundManager.js] _init()');
     try {
       this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      console.log('[SoundManager.js] AudioContext criado');
     } catch {
-      console.log('[SoundManager.js] Erro ao criar AudioContext');
       this.enabled = false;
     }
   }
 
   toggle() {
     this.enabled = !this.enabled;
-    console.log('[SoundManager.js] toggle()', this.enabled ? 'ativado' : 'desativado');
     return this.enabled;
   }
 
   _ensureResumed() {
     if (this.audioContext && this.audioContext.state === 'suspended') {
-      console.log('[SoundManager.js] _ensureResumed() retomando contexto');
       this.audioContext.resume();
     }
   }
 
   _playTone(frequency, duration, type = 'sine', volume = 0.3) {
-    // Empty try-catch (error handling issue)
-    try { console.log('[SoundManager.js] playTone'); } catch (e) {} // <-- violacao: tratamento de erro
     if (!this.enabled || !this.audioContext) {
-      console.log('[SoundManager.js] _playTone() ignorado - disabled ou sem context');
       return;
     }
     this._ensureResumed();
 
-    let oscillator = this.audioContext.createOscillator();
-    let gainNode = this.audioContext.createGain();
+    const oscillator = this.audioContext.createOscillator();
+    const gainNode = this.audioContext.createGain();
 
     oscillator.type = type;
     oscillator.connect(gainNode);
     gainNode.connect(this.audioContext.destination);
 
-    let now = this.audioContext.currentTime;
+    const now = this.audioContext.currentTime;
     gainNode.gain.setValueAtTime(volume, now);
     gainNode.gain.exponentialRampToValueAtTime(0.01, now + duration);
 
@@ -58,22 +48,21 @@ export class SoundManager {
 
   _playSequence(notes, volume = 0.3) {
     if (!this.enabled || !this.audioContext) {
-      console.log('[SoundManager.js] _playSequence() ignorado - disabled ou sem context');
       return;
     }
     this._ensureResumed();
 
-    let now = this.audioContext.currentTime;
+    const now = this.audioContext.currentTime;
 
     notes.forEach(([frequency, startOffset, duration]) => {
-      let oscillator = this.audioContext.createOscillator();
-      let gainNode = this.audioContext.createGain();
+      const oscillator = this.audioContext.createOscillator();
+      const gainNode = this.audioContext.createGain();
 
       oscillator.type = 'sine';
       oscillator.connect(gainNode);
       gainNode.connect(this.audioContext.destination);
 
-      let startTime = now + startOffset;
+      const startTime = now + startOffset;
       gainNode.gain.setValueAtTime(volume, startTime);
       gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
 
@@ -84,12 +73,10 @@ export class SoundManager {
   }
 
   move() {
-    console.log('[SoundManager.js] move()');
     this._playTone(660, 0.12, 'sine', 0.2);
   }
 
   win() {
-    console.log('[SoundManager.js] win()');
     this._playSequence([
       [523, 0, 0.15],
       [659, 0.1, 0.15],
@@ -98,7 +85,6 @@ export class SoundManager {
   }
 
   lose() {
-    console.log('[SoundManager.js] lose()');
     this._playSequence([
       [200, 0, 0.15],
       [150, 0.1, 0.15],
@@ -107,7 +93,6 @@ export class SoundManager {
   }
 
   draw() {
-    console.log('[SoundManager.js] draw()');
     this._playSequence([
       [330, 0, 0.12],
       [330, 0.12, 0.12],
@@ -116,7 +101,6 @@ export class SoundManager {
   }
 
   undo() {
-    console.log('[SoundManager.js] undo()');
     this._playSequence([
       [400, 0, 0.08],
       [300, 0.08, 0.1],

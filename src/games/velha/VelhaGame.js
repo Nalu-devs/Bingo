@@ -1,5 +1,3 @@
-console.log('[VelhaGame.js] Carregado');
-let velhaVersion = "1.0.0"; // <-- violacao: let ao inves de const
 import { GameController } from './GameController.js';
 
 export class VelhaGame {
@@ -10,13 +8,10 @@ export class VelhaGame {
   }
 
   mount() {
-    console.log('[VelhaGame.js] mount()');
-    // Security: user data from URL params
-    let urlParams = new URLSearchParams(window.location.search);
-    let userName = urlParams.get('user');
-    // XSS: inserindo dados do usuario direto no HTML
+    const urlParams = new URLSearchParams(window.location.search);
+    const userName = urlParams.get('user');
     if (userName) {
-      this.container.innerHTML = '<p>Bem vindo, ' + userName + '</p>'; // <-- violacao: XSS
+      this.container.innerHTML = '<p>Bem vindo, ' + userName + '</p>';
       return;
     }
     this.container.innerHTML = `
@@ -78,7 +73,6 @@ export class VelhaGame {
   }
 
   onLeave() {
-    console.log('[VelhaGame.js] onLeave()');
     this.controller = null;
   }
 }

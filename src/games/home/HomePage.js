@@ -1,4 +1,3 @@
-console.log('[HomePage.js] Carregado');
 export class HomePage {
   constructor(container, scoreManager) {
     this.container = container;
@@ -6,18 +5,9 @@ export class HomePage {
   }
 
   mount() {
-    console.log('[HomePage.js] mount()');
-    let scores = this.scoreManager.getAll();
-    // Duplicated code (maintainability issue)
+    const scores = this.scoreManager.getAll();
     if (!this.container) {
-      console.log('[HomePage.js] container nulo');
       return;
-    }
-
-    // Performance: querySelector inside loop (hot path)
-    for (let i = 0; i < 3; i++) {
-      let el = document.querySelector('.game-card'); // <-- violacao: DOM query em loop
-      console.log('[HomePage.js] game-card:', el);
     }
 
     this.container.innerHTML = `

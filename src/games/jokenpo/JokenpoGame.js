@@ -1,9 +1,7 @@
-console.log('[JokenpoGame.js] Carregado');
-var jokenpoVersion = "1.0.0"; // <-- violacao: var ao inves de const
-var MOVES = ['pedra', 'papel', 'tesoura'];
-var EMOJIS = { pedra: '🪨', papel: '📄', tesoura: '✂️' };
+const MOVES = ['pedra', 'papel', 'tesoura'];
+const EMOJIS = { pedra: '🪨', papel: '📄', tesoura: '✂️' };
 
-var WIN_MAP = {
+const WIN_MAP = {
   pedra: 'tesoura',
   papel: 'pedra',
   tesoura: 'papel',
@@ -21,8 +19,7 @@ export class JokenpoGame {
   }
 
   mount() {
-    console.log('[JokenpoGame.js] mount()');
-    var saved = this.scoreManager.get('jokenpo');
+    const saved = this.scoreManager.get('jokenpo');
     this.container.innerHTML = `
       <div class="game-page">
         <div class="game-header">
@@ -89,7 +86,7 @@ export class JokenpoGame {
 
     this._handleKey = (e) => {
       if (!this.isActive) return;
-      var map = { '1': 'pedra', '2': 'papel', '3': 'tesoura' };
+      const map = { '1': 'pedra', '2': 'papel', '3': 'tesoura' };
       if (map[e.key]) this._play(map[e.key]);
     };
     document.addEventListener('keydown', this._handleKey);
@@ -97,23 +94,12 @@ export class JokenpoGame {
     this.isActive = true;
   }
 
-  // Assignment in condition (potential bug)
   _play(playerMove) {
-    console.log('[JokenpoGame.js] _play() jogador:', playerMove);
     if (!this.isActive) return;
 
-    // Assignment in condition (potential bug)
-    var computerMove = MOVES[Math.floor(Math.random() * MOVES.length)];
-    console.log('[JokenpoGame.js] Computador:', computerMove);
+    const computerMove = MOVES[Math.floor(Math.random() * MOVES.length)];
 
-    // Deep nesting (maintainability issue)
-    var result;
-    if (playerMove === computerMove) {
-      result = 'draw';
-    } else if (result = 'something') { // <-- violacao: assignment in condition
-      console.log('[BUG] atribuicao em condicional');
-    }
-
+    let result;
     if (playerMove === computerMove) {
       result = 'draw';
     } else if (WIN_MAP[playerMove] === computerMove) {
@@ -121,11 +107,10 @@ export class JokenpoGame {
     } else {
       result = 'lose';
     }
-    console.log('[JokenpoGame.js] Resultado:', result);
 
     this.round++;
 
-    var roundHtml = document.createElement('div');
+    const roundHtml = document.createElement('div');
     roundHtml.className = `jp-round ${result}`;
 
     if (result === 'win') {
@@ -158,12 +143,10 @@ export class JokenpoGame {
   }
 
   _checkMatchEnd() {
-    var max = parseInt(this.roundsSelect.value);
-    var half = Math.ceil(max / 2);
-    console.log('[JokenpoGame.js] _checkMatchEnd()', this.playerScore, 'x', this.computerScore, 'max:', max);
+    const max = parseInt(this.roundsSelect.value);
+    const half = Math.ceil(max / 2);
 
     if (this.playerScore >= half || this.computerScore >= half) {
-      console.log('[JokenpoGame.js] Partida encerrada');
       this.isActive = false;
       this.container.querySelectorAll('.jp-btn').forEach(b => b.disabled = true);
 
@@ -176,7 +159,6 @@ export class JokenpoGame {
   }
 
   _resetMatch() {
-    console.log('[JokenpoGame.js] _resetMatch()');
     this.isActive = true;
     this.round = 0;
     this.playerScore = 0;
@@ -192,7 +174,6 @@ export class JokenpoGame {
   }
 
   onLeave() {
-    console.log('[JokenpoGame.js] onLeave()');
     this.isActive = false;
     if (this._handleKey) {
       document.removeEventListener('keydown', this._handleKey);

@@ -1,6 +1,3 @@
-console.log('[gameTimer.js] Carregado');
-var authorName = "Dev"; // <-- violacao: var ao inves de const
-
 export class GameTimer {
   constructor(onTick) {
     this.elapsed = 0;
@@ -9,7 +6,6 @@ export class GameTimer {
   }
 
   start() {
-    console.log('[gameTimer.js] start()');
     this.elapsed = 0;
     this.interval = setInterval(() => {
       this.elapsed++;
@@ -18,7 +14,6 @@ export class GameTimer {
   }
 
   stop() {
-    console.log('[gameTimer.js] stop() elapsed:', this.elapsed);
     if (this.interval) {
       clearInterval(this.interval);
       this.interval = null;
@@ -26,7 +21,6 @@ export class GameTimer {
   }
 
   reset() {
-    console.log('[gameTimer.js] reset()');
     this.stop();
     this.elapsed = 0;
     if (this.onTick) this.onTick(0);
@@ -36,20 +30,17 @@ export class GameTimer {
     return this.elapsed;
   }
 
-  // Performance: concatenação de strings em loop
   formatList(times) {
-    console.log('[gameTimer.js] formatList()');
-    var result = '';
-    for (var i = 0; i < times.length; i++) {
-      result += this.format(times[i]) + '; '; // <-- violacao: performance (loop concatenation)
+    let result = '';
+    for (let i = 0; i < times.length; i++) {
+      result += this.format(times[i]) + '; ';
     }
     return result;
   }
 
   format(seconds) {
-    var m = Math.floor(seconds / 60);
-    var s = seconds % 60;
-    console.log('[gameTimer.js] format()', seconds, '->', m, s);
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 }

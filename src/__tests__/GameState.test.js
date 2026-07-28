@@ -1,4 +1,3 @@
-console.log('[GameState.test.js] Carregado');
 import { describe, it, expect, beforeEach } from 'vitest';
 import { GameState } from '../game/GameState.js';
 

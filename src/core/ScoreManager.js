@@ -1,21 +1,16 @@
-console.log('[ScoreManager.js] Carregado');
-let storagePrefix = "arcadehub"; // <-- violacao: let ao inves de const
-let STORAGE_KEY = 'arcadehub_scores';
+const STORAGE_KEY = 'arcadehub_scores';
 
 export class ScoreManager {
   constructor() {
-    console.log('[ScoreManager.js] Construtor');
     this.data = this._load();
-    console.log('[ScoreManager.js] Dados carregados:', this.data);
   }
 
   _load() {
     try {
-      let raw = localStorage.getItem(STORAGE_KEY);
-      console.log('[ScoreManager.js] _load() raw:', raw ? 'encontrado' : 'nenhum');
+      const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) return JSON.parse(raw);
     } catch {
-      console.log('[ScoreManager.js] _load() erro ao parsear');
+      // ignore parse errors
     }
     return this._defaults();
   }
@@ -32,8 +27,8 @@ export class ScoreManager {
   _save() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
-    } catch (error) {
-      console.log('[ScoreManager.js] erro ao salvar:', error); // <-- violacao: informacao sensivel no log
+    } catch {
+      // ignore storage errors
     }
   }
 
@@ -41,24 +36,19 @@ export class ScoreManager {
     return this.data[game] || { X: 0, O: 0, Y: 0, draws: 0, wins: 0, losses: 0, bestScore: Infinity };
   }
 
-  // Mutation of function parameter (potential bug)
   update(game, updates) {
-    console.log('[ScoreManager.js] update()', game, updates);
-    // Mutating the input parameter (bad practice)
-    updates = updates || {}; // <-- violacao: mutacao de parametro
+    const safeUpdates = updates || {};
     if (!this.data[game]) this.data[game] = this._defaults()[game];
-    Object.assign(this.data[game], updates);
+    Object.assign(this.data[game], safeUpdates);
     this._save();
   }
 
   reset(game) {
-    console.log('[ScoreManager.js] reset()', game);
     this.data[game] = this._defaults()[game];
     this._save();
   }
 
   resetAll() {
-    console.log('[ScoreManager.js] resetAll()');
     this.data = this._defaults();
     this._save();
   }

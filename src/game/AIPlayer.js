@@ -1,4 +1,3 @@
-console.log('[AIPlayer.js] Carregado');
 import { WINNING_COMBOS, BOARD_SIZE, DIFFICULTIES } from './constants.js';
 
 export class AIPlayer {
@@ -7,13 +6,11 @@ export class AIPlayer {
   }
 
   setDifficulty(difficulty) {
-    console.log('[AIPlayer.js] setDifficulty()', difficulty);
     this.difficulty = difficulty;
   }
 
   getMove(board, aiSymbol = 'O', playerSymbol = 'X') {
-    let available = this._getAvailableMoves(board);
-    console.log('[AIPlayer.js] getMove() dificuldade:', this.difficulty, 'movimentos disponiveis:', available.length);
+    const available = this._getAvailableMoves(board);
     if (available.length === 0) return -1;
 
     let move;
@@ -30,7 +27,6 @@ export class AIPlayer {
       default:
         move = available[Math.floor(Math.random() * available.length)];
     }
-    console.log('[AIPlayer.js] getMove() escolheu:', move);
     return move;
   }
 
@@ -42,7 +38,6 @@ export class AIPlayer {
   }
 
   _getBestMove(board, aiSymbol, playerSymbol) {
-    console.log('[AIPlayer.js] _getBestMove()');
     let bestScore = -Infinity;
     let bestMove = -1;
 
@@ -50,7 +45,7 @@ export class AIPlayer {
       if (board[i] !== '') continue;
 
       board[i] = aiSymbol;
-      let score = this._minimax(board, 0, false, aiSymbol, playerSymbol);
+      const score = this._minimax(board, 0, false, aiSymbol, playerSymbol);
       board[i] = '';
 
       if (score > bestScore) {
@@ -59,12 +54,11 @@ export class AIPlayer {
       }
     }
 
-    console.log('[AIPlayer.js] _getBestMove() retornando:', bestMove, 'score:', bestScore);
     return bestMove;
   }
 
   _minimax(board, depth, isMaximizing, aiSymbol, playerSymbol) {
-    let result = this._checkWinner(board);
+    const result = this._checkWinner(board);
 
     if (result === aiSymbol) return 10 - depth;
     if (result === playerSymbol) return depth - 10;
@@ -92,8 +86,8 @@ export class AIPlayer {
   }
 
   _checkWinner(board) {
-    for (let combo of WINNING_COMBOS) {
-      let [a, b, c] = combo;
+    for (const combo of WINNING_COMBOS) {
+      const [a, b, c] = combo;
       if (board[a] && board[a] === board[b] && board[b] === board[c]) return board[a];
     }
     return board.every(cell => cell !== '') ? 'draw' : null;
