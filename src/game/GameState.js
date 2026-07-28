@@ -18,7 +18,7 @@ export class GameState {
     this.boardSnapshots = [];
   }
 
-  makeMove(index) {
+  makeMove(index)
     if (!this.isActive) {
       console.log('[GameState.js] makeMove() jogo inativo');
       return false;
