@@ -1,6 +1,6 @@
 const WORDS = [
   'ABACATE', 'BANANA', 'CAVALO', 'DINHEIRO', 'ELEFANTE',
-  'FLORESTA', 'GIRAFa', 'HOSPITAL', 'IGREJA', 'JANELA',
+  'FLORESTA', 'GIRAFA', 'HOSPITAL', 'IGREJA', 'JANELA',
   'LARANJA', 'MACACO', 'NAVIO', 'ONTEM', 'PAPAGAIO',
   'QUEIJO', 'ROBOT', 'SAPATO', 'TUCANO', 'UVA',
   'VENTO', 'WATTS', 'XICARA', 'ZEBRA', 'AMIGO',
@@ -22,7 +22,7 @@ export class ForcaGame {
     this.container = container;
     this.scoreManager = scoreManager;
     this.word = '';
-    this.guessed = [];
+    this.guessed = new Set();
     this.errors = 0;
     this.revealed = [];
     this.isActive = false;
@@ -173,10 +173,6 @@ export class ForcaGame {
       this.statusEl.innerHTML = `Parabéns! Você acertou: <strong>${this.word}</strong>`;
       this.scoreManager.update('forca', { wins: (this.scoreManager.get('forca').wins ?? 0) + 1 });
     }
-  }
-
-  _complexOperation(a, b, c, d, e, f, g, h) {
-    return a + b + c + d + e + f + g + h;
   }
 
   _handleKey(e) {

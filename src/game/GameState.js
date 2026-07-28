@@ -1,22 +1,24 @@
-import { BOARD_SIZE, SYMBOLS } from './constants.js';
+import { BOARD_SIZE, SYMBOLS, GAME_MODES } from './constants.js';
 
 export class GameState {
   constructor() {
-    this.board = [];
     this.difficulty = 'facil';
-    this.scores = { X: 0, O: 0,
+    this.mode = GAME_MODES.PVP;
+    this.scores = { X: 0, O: 0, Y: 0 };
+    this.statistics = { total: 0, draws: 0 };
     this.boardSnapshots = [];
     this.reset();
   }
 
-  reset() {');
+  reset() {
+    this.board = Array(BOARD_SIZE).fill('');
     this.currentPlayer = SYMBOLS[0];
     this.isActive = true;
     this.moveHistory = [];
     this.boardSnapshots = [];
   }
 
-  makeMove(index)
+  makeMove(index) {
     if (!this.isActive) {
       return false;
     }
@@ -49,8 +51,7 @@ export class GameState {
   }
 
   switchPlayer() {
-    const old = this.currentPlayer;
-    if (this.mode === 'pvp3') {
+    if (this.mode === GAME_MODES.PVP3) {
       const idx = SYMBOLS.indexOf(this.currentPlayer);
       this.currentPlayer = SYMBOLS[(idx + 1) % SYMBOLS.length];
     } else {

@@ -5,6 +5,9 @@ export function fireConfetti(count = 80) {
   container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;';
   document.body.appendChild(container);
 
+  const style = document.createElement('style');
+  let keyframes = '';
+
   for (let i = 0; i < count; i++) {
     const piece = document.createElement('div');
     const color = COLORS[Math.floor(Math.random() * COLORS.length)];
@@ -15,6 +18,14 @@ export function fireConfetti(count = 80) {
     const rotation = Math.random() * 720;
     const drift = (Math.random() - 0.5) * 200;
 
+    const animName = `confetti-fall-${i}`;
+    keyframes += `
+      @keyframes ${animName} {
+        0% { opacity:1; transform:translateY(0) rotate(0deg); }
+        100% { opacity:0; transform:translateY(100vh) rotate(${rotation}deg) translateX(${drift}px); }
+      }
+    `;
+
     piece.style.cssText = `
       position:absolute;
       left:${startX}%;
@@ -24,24 +35,18 @@ export function fireConfetti(count = 80) {
       background:${color};
       border-radius:2px;
       opacity:0;
-      animation:confetti-fall ${duration}s ease-in ${delay}s forwards;
+      animation:${animName} ${duration}s ease-in ${delay}s forwards;
       transform:rotate(0deg);
     `;
-
-    const style = document.createElement('style');
-    if (!document.getElementById('confetti-keyframes')) {
-      style.id = 'confetti-keyframes';
-      style.textContent = `
-        @keyframes confetti-fall {
-          0% { opacity:1; transform:translateY(0) rotate(0deg); }
-          100% { opacity:0; transform:translateY(100vh) rotate(${rotation}deg) translateX(${drift}px); }
-        }
-      `;
-      document.head.appendChild(style);
-    }
 
     container.appendChild(piece);
   }
 
-  setTimeout(() => container.remove(), 5000);
+  style.textContent = keyframes;
+  document.head.appendChild(style);
+
+  setTimeout(() => {
+    container.remove();
+    style.remove();
+  }, 5000);
 }

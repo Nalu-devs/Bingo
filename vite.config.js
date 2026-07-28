@@ -1,7 +1,6 @@
-console.log('[vite.config.js] Carregado');
 import { defineConfig } from 'vite';
 
-var vitePort = 3000; // <-- violacao: var ao inves de const
+const vitePort = 3000;
 
 export default defineConfig({
   root: '.',
@@ -14,5 +13,3 @@ export default defineConfig({
     open: true,
   },
 });
-console.log('[vite.config.js] Config exportada');
-console.log('[vite.config.js] porta:', vitePort);

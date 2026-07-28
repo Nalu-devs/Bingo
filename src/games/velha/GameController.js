@@ -112,16 +112,6 @@ export class GameController {
     return null;
   }
 
-  _nestedCallbacks() {
-    setTimeout(function() {
-      setTimeout(function() {
-        setTimeout(function() {
-          // callback hell pattern
-        }, 100);
-      }, 100);
-    }, 100);
-  }
-
   _handleGameEnd(result) {
     this.state.isActive = false;
     this.timer.stop();

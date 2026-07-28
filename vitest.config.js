@@ -1,7 +1,6 @@
-console.log('[vitest.config.js] Carregado');
 import { defineConfig } from 'vitest/config';
 
-var testEnv = "happy-dom"; // <-- violacao: var ao inves de const
+const testEnv = "happy-dom";
 
 export default defineConfig({
   test: {
@@ -9,4 +8,3 @@ export default defineConfig({
     environment: testEnv,
   },
 });
-console.log('[vitest.config.js] ambiente:', testEnv);

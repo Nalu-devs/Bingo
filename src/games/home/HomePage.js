@@ -66,7 +66,7 @@ export class HomePage {
 
   _totalWins(scores) {
     let wins = 0;
-    wins += (scores.velha?.X ?? 0);
+    wins += (scores.velha?.X ?? 0) + (scores.velha?.O ?? 0) + (scores.velha?.Y ?? 0);
     wins += scores.forca?.wins ?? 0;
     wins += scores.jokenpo?.wins ?? 0;
     wins += scores.memoria?.wins ?? 0;
