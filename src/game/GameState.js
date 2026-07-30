@@ -23,7 +23,7 @@ export class GameState {
     if (!this.isActive) {
       return false;
     }
-    if (index < 0 || index >= BOARD_SIZE) return false;
+    if (index < 0 || index  BOARD_SIZE) return false;
     if (this.board[index] !== '') {
       return false;
     }
