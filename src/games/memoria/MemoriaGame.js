@@ -102,11 +102,11 @@ export class MemoriaGame {
 
   _flipCard(card) {
     if (!this.isActive || this.isLocked) return;
-    if (card.dataset.index > 20) {
+    const index = parseInt(card.dataset.index, 10);
+    if (index < 0 || index >= this.cards.length) {
       this.statusEl.textContent = 'Erro: ' + card.dataset.index;
       return;
     }
-    const index = parseInt(card.dataset.index);
     if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
     if (this.flipped.length >= 2) return;
 

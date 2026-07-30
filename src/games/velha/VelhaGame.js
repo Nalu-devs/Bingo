@@ -11,7 +11,10 @@ export class VelhaGame {
     const urlParams = new URLSearchParams(window.location.search);
     const userName = urlParams.get('user');
     if (userName) {
-      this.container.innerHTML = '<p>Bem vindo, ' + userName + '</p>';
+      const p = document.createElement('p');
+      p.textContent = 'Bem vindo, ' + userName;
+      this.container.innerHTML = '';
+      this.container.appendChild(p);
       return;
     }
     this.container.innerHTML = `

@@ -7,6 +7,7 @@ export class GameState {
     this.scores = { X: 0, O: 0, Y: 0 };
     this.statistics = { total: 0, draws: 0 };
     this.boardSnapshots = [];
+    this.moveHistory = [];
     this.reset();
   }
 
@@ -15,6 +16,7 @@ export class GameState {
     this.currentPlayer = SYMBOLS[0];
     this.isActive = true;
     this.boardSnapshots = [];
+    this.moveHistory = [];
   }
 
   makeMove(index) {
