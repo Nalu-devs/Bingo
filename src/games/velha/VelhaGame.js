@@ -13,65 +13,158 @@ export class VelhaGame {
     if (userName) {
       const p = document.createElement('p');
       p.textContent = 'Bem vindo, ' + userName;
-      this.container.innerHTML = '';
+      this.container.replaceChildren();
       this.container.appendChild(p);
       return;
     }
-    this.container.innerHTML = `
-      <div class="game-page">
-        <div class="game-header">
-          <h2>Jogo da Velha</h2>
-          <div class="game-controls">
-            <select id="modoJogo">
-              <option value="pvp">Jogador vs Jogador</option>
-              <option value="pve">Jogador vs Computador</option>
-              <option value="pvp3">3 Jogadores</option>
-            </select>
-            <select id="dificuldade">
-              <option value="facil">Facil</option>
-              <option value="medio">Medio</option>
-              <option value="dificil">Dificil</option>
-            </select>
-          </div>
-        </div>
-        <div class="velha-layout">
-          <div class="velha-board-container">
-            <div id="display" class="display"></div>
-            <div id="tabuleiro" class="tabuleiro">
-              ${Array.from({ length: 9 }, (_, i) => `<div id="c${i}" class="cell" tabindex="0" role="button"></div>`).join('')}
-            </div>
-            <div class="game-actions">
-              <button id="undoBtn" class="btn">Desfazer (U)</button>
-              <button id="resetBtn" class="btn">Reiniciar (R)</button>
-              <button id="clearScoresBtn" class="btn">Zerar Placar</button>
-            </div>
-          </div>
-          <div class="velha-sidebar">
-            <div class="score-card">
-              <h3>Placar</h3>
-              <div class="scores">
-                <div class="score-row"><span class="symbol X">X</span><span id="placarX">0</span></div>
-                <div class="score-row"><span class="symbol O">O</span><span id="placarO">0</span></div>
-                <div class="score-row"><span class="symbol Y">Y</span><span id="placarY">0</span></div>
-              </div>
-            </div>
-            <div class="stats-card">
-              <h3>Estatisticas</h3>
-              <p>Total: <span id="statTotal">0</span></p>
-              <p>Vitorias X: <span id="statVitoriasX">0</span></p>
-              <p>Vitorias O: <span id="statVitoriasO">0</span></p>
-              <p>Vitorias Y: <span id="statVitoriasY">0</span></p>
-              <p>Empates: <span id="statEmpates">0</span></p>
-            </div>
-            <div class="timer-card">
-              <h3>Tempo</h3>
-              <span id="gameTimer" class="timer-value">00:00</span>
-              <p id="timerLabel" class="timer-label">Tempo medio: -</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
+
+    const gamePage = document.createElement('div');
+    gamePage.className = 'game-page';
+
+    const gameHeader = document.createElement('div');
+    gameHeader.className = 'game-header';
+    const h2 = document.createElement('h2');
+    h2.textContent = 'Jogo da Velha';
+    gameHeader.appendChild(h2);
+
+    const gameControls = document.createElement('div');
+    gameControls.className = 'game-controls';
+
+    const modoJogo = document.createElement('select');
+    modoJogo.id = 'modoJogo';
+    for (const [value, text] of [['pvp', 'Jogador vs Jogador'], ['pve', 'Jogador vs Computador'], ['pvp3', '3 Jogadores']]) {
+      const opt = document.createElement('option');
+      opt.value = value;
+      opt.textContent = text;
+      modoJogo.appendChild(opt);
+    }
+    gameControls.appendChild(modoJogo);
+
+    const dificuldade = document.createElement('select');
+    dificuldade.id = 'dificuldade';
+    for (const [value, text] of [['facil', 'Facil'], ['medio', 'Medio'], ['dificil', 'Dificil']]) {
+      const opt = document.createElement('option');
+      opt.value = value;
+      opt.textContent = text;
+      dificuldade.appendChild(opt);
+    }
+    gameControls.appendChild(dificuldade);
+
+    gameHeader.appendChild(gameControls);
+    gamePage.appendChild(gameHeader);
+
+    const velhaLayout = document.createElement('div');
+    velhaLayout.className = 'velha-layout';
+
+    const boardContainer = document.createElement('div');
+    boardContainer.className = 'velha-board-container';
+
+    const display = document.createElement('div');
+    display.id = 'display';
+    display.className = 'display';
+    boardContainer.appendChild(display);
+
+    const tabuleiro = document.createElement('div');
+    tabuleiro.id = 'tabuleiro';
+    tabuleiro.className = 'tabuleiro';
+    for (let i = 0; i < 9; i++) {
+      const cell = document.createElement('div');
+      cell.id = 'c' + i;
+      cell.className = 'cell';
+      cell.tabIndex = 0;
+      cell.role = 'button';
+      tabuleiro.appendChild(cell);
+    }
+    boardContainer.appendChild(tabuleiro);
+
+    const gameActions = document.createElement('div');
+    gameActions.className = 'game-actions';
+
+    const undoBtn = document.createElement('button');
+    undoBtn.id = 'undoBtn';
+    undoBtn.className = 'btn';
+    undoBtn.textContent = 'Desfazer (U)';
+    gameActions.appendChild(undoBtn);
+
+    const resetBtn = document.createElement('button');
+    resetBtn.id = 'resetBtn';
+    resetBtn.className = 'btn';
+    resetBtn.textContent = 'Reiniciar (R)';
+    gameActions.appendChild(resetBtn);
+
+    const clearScoresBtn = document.createElement('button');
+    clearScoresBtn.id = 'clearScoresBtn';
+    clearScoresBtn.className = 'btn';
+    clearScoresBtn.textContent = 'Zerar Placar';
+    gameActions.appendChild(clearScoresBtn);
+
+    boardContainer.appendChild(gameActions);
+    velhaLayout.appendChild(boardContainer);
+
+    const sidebar = document.createElement('div');
+    sidebar.className = 'velha-sidebar';
+
+    const scoreCard = document.createElement('div');
+    scoreCard.className = 'score-card';
+    const h3Score = document.createElement('h3');
+    h3Score.textContent = 'Placar';
+    scoreCard.appendChild(h3Score);
+
+    const scores = document.createElement('div');
+    scores.className = 'scores';
+    for (const [symbol, id] of [['X', 'placarX'], ['O', 'placarO'], ['Y', 'placarY']]) {
+      const row = document.createElement('div');
+      row.className = 'score-row';
+      const span = document.createElement('span');
+      span.className = 'symbol ' + symbol;
+      span.textContent = symbol;
+      row.appendChild(span);
+      const value = document.createElement('span');
+      value.id = id;
+      value.textContent = '0';
+      row.appendChild(value);
+      scores.appendChild(row);
+    }
+    scoreCard.appendChild(scores);
+    sidebar.appendChild(scoreCard);
+
+    const statsCard = document.createElement('div');
+    statsCard.className = 'stats-card';
+    const h3Stats = document.createElement('h3');
+    h3Stats.textContent = 'Estatisticas';
+    statsCard.appendChild(h3Stats);
+    for (const [label, id] of [['Total', 'statTotal'], ['Vitorias X', 'statVitoriasX'], ['Vitorias O', 'statVitoriasO'], ['Vitorias Y', 'statVitoriasY'], ['Empates', 'statEmpates']]) {
+      const p = document.createElement('p');
+      p.textContent = label + ': ';
+      const span = document.createElement('span');
+      span.id = id;
+      span.textContent = '0';
+      p.appendChild(span);
+      statsCard.appendChild(p);
+    }
+    sidebar.appendChild(statsCard);
+
+    const timerCard = document.createElement('div');
+    timerCard.className = 'timer-card';
+    const h3Timer = document.createElement('h3');
+    h3Timer.textContent = 'Tempo';
+    timerCard.appendChild(h3Timer);
+    const timerValue = document.createElement('span');
+    timerValue.id = 'gameTimer';
+    timerValue.className = 'timer-value';
+    timerValue.textContent = '00:00';
+    timerCard.appendChild(timerValue);
+    const timerLabel = document.createElement('p');
+    timerLabel.id = 'timerLabel';
+    timerLabel.className = 'timer-label';
+    timerLabel.textContent = 'Tempo medio: -';
+    timerCard.appendChild(timerLabel);
+    sidebar.appendChild(timerCard);
+
+    velhaLayout.appendChild(sidebar);
+    gamePage.appendChild(velhaLayout);
+
+    this.container.replaceChildren(gamePage);
     this.controller = new GameController(this.scoreManager);
   }
 
