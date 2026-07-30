@@ -159,6 +159,7 @@ export class JokenpoGame {
   }
 
   _resetMatch() {
+    this.scoreManager.reset('jokenpo');
     this.isActive = true;
     this.round = 0;
     this.playerScore = 0;
