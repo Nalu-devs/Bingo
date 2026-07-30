@@ -14,7 +14,6 @@ export class GameState {
     this.board = Array(BOARD_SIZE).fill('');
     this.currentPlayer = SYMBOLS[0];
     this.isActive = true;
-    this.moveHistory = [];
     this.boardSnapshots = [];
   }
 
