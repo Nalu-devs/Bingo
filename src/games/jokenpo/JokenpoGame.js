@@ -179,6 +179,12 @@ export class JokenpoGame {
     this.resultEl.textContent = 'Nova partida! Escolha sua jogada.';
     this.resultEl.className = 'jp-result';
     this.container.querySelectorAll('.jp-btn').forEach(b => b.disabled = false);
+
+    this.scoreManager.update('jokenpo', {
+      wins: this.playerScore,
+      losses: this.computerScore,
+      draws: this.drawsCount,
+    });
   }
 
   onLeave() {
