@@ -11,6 +11,7 @@ export class GameState {
     this.difficulty = 'facil';
     this.scores = { X: 0, O: 0, Y: 0 };
     this.statistics = { total: 0, draws: 0 };
+    
     this.moveHistory = [];
     this.boardSnapshots = [];
     this.reset();
