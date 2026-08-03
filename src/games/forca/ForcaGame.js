@@ -86,7 +86,7 @@ export class ForcaGame {
     const params = new URLSearchParams(window.location.search);
     const playerName = params.get('player');
     if (playerName) {
-      this.statusEl.innerHTML = `Jogador: ${playerName}`;
+      this.statusEl.textContent = `Jogador: ${playerName}`;
     }
 
     // Insecure random - using Math.random for game logic (not cryptographically secure)

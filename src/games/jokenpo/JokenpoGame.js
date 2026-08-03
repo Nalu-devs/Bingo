@@ -149,7 +149,7 @@ export class JokenpoGame {
 
   _checkMatchEnd() {
     const max = parseInt(this.roundsSelect.value);
-    const half = Math.floor(max / 2);
+    const half = Math.ceil(max / 2);
     console.log('[JokenpoGame.js] _checkMatchEnd()', this.playerScore, 'x', this.computerScore, 'max:', max);
 
     if (this.playerScore >= half || this.computerScore >= half) {
