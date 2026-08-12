@@ -1,0 +1,10 @@
+title: Não subir console.log para produção
+rule: Excluir TODOS os console.log antes de ir para produção
+severity: critical
+scope: file
+examples: []
+inheritance:
+  inheritable: true
+  exclude: []
+  include: []
+enabled: false
