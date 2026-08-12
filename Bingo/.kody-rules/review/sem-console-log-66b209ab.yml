@@ -1,0 +1,9 @@
+title: Sem console.log
+rule: Não subir console.log para produção
+severity: critical
+scope: file
+examples: []
+inheritance:
+  inheritable: true
+  exclude: []
+  include: []

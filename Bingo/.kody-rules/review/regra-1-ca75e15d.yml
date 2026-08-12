@@ -1,0 +1,9 @@
+title: regra 1
+rule: regra 1
+severity: high
+scope: file
+examples: []
+inheritance:
+  inheritable: true
+  exclude: []
+  include: []
