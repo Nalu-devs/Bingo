@@ -5,12 +5,16 @@ export class StatsPage {
     this.scoreManager = scoreManager;
   }
 
-  mount() {
+  async mount() {
     console.log('[StatsPage.js] mount()');
     const scores = this.scoreManager.getAll();
+    const contract = await fetch('/api/stats').then((r) => r.json());
+    const totalGames = contract.games.totalGames;
+    const streak = contract.games.streak;
     this.container.innerHTML = `
       <div class="stats-page">
         <h2>Estatisticas Globais</h2>
+        <p class="stats-summary">Total de partidas: <strong>${totalGames}</strong> — Sequencia atual: <strong>${streak}</strong></p>
         <div class="stats-cards">
           <div class="stat-block">
             <h3>Jogo da Velha</h3>
