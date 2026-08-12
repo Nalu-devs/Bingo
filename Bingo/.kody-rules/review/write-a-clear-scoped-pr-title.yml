@@ -1,0 +1,15 @@
+title: Write a clear, scoped PR title
+rule: >-
+  PR titles must follow the pattern: <scope>: <concise change summary>. Keep it
+  under 72 characters and avoid vague words like 'stuff' or 'minor tweaks'.
+severity: high
+scope: file
+examples:
+  - snippet: 'feat: add things'
+    isCorrect: false
+  - snippet: 'auth: enforce 2FA on password reset'
+    isCorrect: true
+inheritance:
+  inheritable: true
+  exclude: []
+  include: []

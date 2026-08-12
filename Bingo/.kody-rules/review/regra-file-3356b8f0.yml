@@ -1,0 +1,11 @@
+title: regra file
+rule: >-
+  Todo endpoint chamado no frontend deve respeitar o contrato em
+  @file:API_CONTRACT.md. Verifique se os campos usados existem nele
+severity: high
+scope: file
+examples: []
+inheritance:
+  inheritable: true
+  exclude: []
+  include: []
