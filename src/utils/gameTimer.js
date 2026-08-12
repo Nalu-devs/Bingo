@@ -42,3 +42,6 @@ export class GameTimer {
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 }
+
+console.log("teste plano pago");
+var total = 0;
