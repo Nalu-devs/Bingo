@@ -17,9 +17,6 @@ export class GameState {
   }
 
   reset() {
-    console.log("Essa mensagem é apenas para teste de log no construtor do GameState.js");
-    console.log("esse ela tem que pegar")
-    console.log('[GameState.js] reset()');
     this.board = new Array(BOARD_SIZE).fill('');
     this.currentPlayer = SYMBOLS[0];
     this.isActive = true;
