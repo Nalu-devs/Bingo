@@ -38,6 +38,7 @@ export class PokedexGame {
   async _buscar() {
     const term = this.searchInput.value.trim();
     if (!term) return;
+    this.searchBtn.disabled = true;
     this.resultEl.innerHTML = '<p>Carregando...</p>';
     try {
       const url = `https://pokeapi.co/api/v3/pokemon/${term}`;
@@ -49,6 +50,8 @@ export class PokedexGame {
       this._render(dados);
     } catch (error) {
       this.resultEl.innerHTML = '<p class="pokedex-erro">Pokemon nao encontrado ou API indisponivel.</p>';
+    } finally {
+      this.searchBtn.disabled = false;
     }
   }
 
