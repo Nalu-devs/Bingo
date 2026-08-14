@@ -1,0 +1,21 @@
+title: Avoid innerHTML += for DOM updates
+rule: >-
+  Using innerHTML += to append content causes the browser to serialize and
+  re-parse the entire innerHTML of the element, leading to performance
+  degradation and potential loss of event listeners or references. Use
+  insertAdjacentHTML() or createElement() and appendChild() instead.
+severity: Medium
+examples:
+  - snippet: >-
+      const container = document.getElementById('list');
+
+      container.innerHTML += '<div class="item">New item</div>'; //
+      Noncompliant: re-parses entire container
+    isCorrect: false
+  - snippet: |-
+      const container = document.getElementById('list');
+      const newItem = document.createElement('div');
+      newItem.className = 'item';
+      newItem.textContent = 'New item';
+      container.appendChild(newItem); // Compliant: efficient and safe
+    isCorrect: true
