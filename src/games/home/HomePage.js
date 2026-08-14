@@ -35,6 +35,11 @@ export class HomePage {
             <h3>Memoria</h3>
             <p>Teste sua memoria encontrando os pares!</p>
           </a>
+          <a href="#/pokedex" class="game-card" data-nav>
+            <span class="game-icon">🔍</span>
+            <h3>Pokedex</h3>
+            <p>Busque Pokemon pela PokeAPI — mesmo contrato do projeto Pokedex!</p>
+          </a>
         </div>
         <div class="quick-stats">
           <h3>Suas Estatisticas</h3>

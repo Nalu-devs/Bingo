@@ -32,3 +32,13 @@ ignorePaths:
   - .env
   - '**/*.json'
 llmGeneratedMemoriesRequireApproval: false
+linkedRepositories:
+  - repository: 'Nalu-devs/Pokedex'
+    instructions: >-
+      O jogo Pokedex deste repo consome a mesma PokeAPI e shape de dados que o
+      repo Nalu-devs/Pokedex (arquivo javascrip.js): endpoint
+      https://pokeapi.co/api/v2/pokemon/ e campos dados.types[].type.name,
+      dados.sprites.front_default, dados.sprites.other.dream_world.front_default,
+      dados.height, dados.weight. Valide que mudancas aqui nao divergem do
+      contrato usado la.
+    ref: main

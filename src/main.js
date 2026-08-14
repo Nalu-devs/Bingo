@@ -6,6 +6,7 @@ import { VelhaGame } from './games/velha/VelhaGame.js';
 import { ForcaGame } from './games/forca/ForcaGame.js';
 import { JokenpoGame } from './games/jokenpo/JokenpoGame.js';
 import { MemoriaGame } from './games/memoria/MemoriaGame.js';
+import { PokedexGame } from './games/pokedex/PokedexGame.js';
 import { StatsPage } from './games/stats/StatsPage.js';
 
 const content = document.getElementById('content');
@@ -29,6 +30,7 @@ const router = new Router([
   { path: '/forca', handler: () => mountPage(new ForcaGame(content, scoreManager)) },
   { path: '/jokenpo', handler: () => mountPage(new JokenpoGame(content, scoreManager)) },
   { path: '/memoria', handler: () => mountPage(new MemoriaGame(content, scoreManager)) },
+  { path: '/pokedex', handler: () => mountPage(new PokedexGame(content, scoreManager)) },
   { path: '/stats', handler: () => mountPage(new StatsPage(content, scoreManager)) },
 ]);
 
