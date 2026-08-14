@@ -1,0 +1,20 @@
+title: Use textContent instead of innerHTML for plain text
+rule: >-
+  Detect uses of innerHTML when only text needs to be inserted. Using innerHTML
+  can introduce XSS vulnerabilities if the content is user-controlled, and it is
+  less efficient. Use textContent to safely insert plain text, and
+  createElement/appendChild for building DOM structures.
+severity: High
+examples:
+  - snippet: >-
+      const userMessage = getUserInput();
+
+      document.getElementById('message').innerHTML = userMessage; //
+      Noncompliant: potential XSS
+    isCorrect: false
+  - snippet: >-
+      const userMessage = getUserInput();
+
+      document.getElementById('message').textContent = userMessage; //
+      Compliant: safe insertion
+    isCorrect: true
