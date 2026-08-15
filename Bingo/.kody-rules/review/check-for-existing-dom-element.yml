@@ -1,0 +1,24 @@
+title: Check for existing DOM elements before appending
+rule: >-
+  When dynamically creating DOM elements, verify if the element already exists
+  before appending to avoid duplicate nodes and event listeners. Use
+  querySelector or getElementById to check existence, and only create the
+  element if it's not present.
+severity: Medium
+examples:
+  - snippet: |-
+      function addBadge() {
+        const badge = document.createElement('div');
+        badge.className = 'badge';
+        document.body.appendChild(badge); // Noncompliant: duplicates if called again
+      }
+    isCorrect: false
+  - snippet: |-
+      function addBadge() {
+        if (!document.querySelector('.badge')) {
+          const badge = document.createElement('div');
+          badge.className = 'badge';
+          document.body.appendChild(badge);
+        }
+      }
+    isCorrect: true
