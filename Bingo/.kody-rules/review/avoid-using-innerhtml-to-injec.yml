@@ -1,0 +1,21 @@
+title: Avoid using innerHTML to inject dynamic content
+rule: >-
+  Do not assign or concatenate dynamic content to innerHTML. This can lead to
+  XSS vulnerabilities, performance issues due to DOM re-parsing, and loss of
+  existing event listeners or references. Use textContent for text-only content,
+  or create elements with document.createElement and append them with
+  appendChild/insertBefore for structured HTML.
+severity: Critical
+examples:
+  - snippet: >-
+      const userInput = '<img src=x onerror=alert(1)>';
+
+      container.innerHTML += '<div>' + userInput + '</div>'; // Noncompliant:
+      XSS and re-parses entire DOM
+    isCorrect: false
+  - snippet: |-
+      const userInput = '<img src=x onerror=alert(1)>';
+      const div = document.createElement('div');
+      div.textContent = userInput; // Escapes HTML
+      container.appendChild(div);
+    isCorrect: true
