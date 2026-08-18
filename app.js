@@ -153,6 +153,8 @@
     const filtroLocal = document.getElementById('filtro-local').value;
     const filtroFornecedor = document.getElementById('filtro-fornecedor').value;
     const filtroSituacao = document.getElementById('filtro-situacao').value;
+    const filtroValidadeInicio = document.getElementById('filtro-validade-inicio').value;
+    const filtroValidadeFim = document.getElementById('filtro-validade-fim').value;
 
     let filtrados = alimentos.filter(a => {
       if (busca && !a.nome.toLowerCase().includes(busca)) return false;
@@ -164,6 +166,8 @@
         const sg = statusGeral(a);
         if (sg !== filtroSituacao) return false;
       }
+      if (filtroValidadeInicio && a.dataValidade < filtroValidadeInicio) return false;
+      if (filtroValidadeFim && a.dataValidade > filtroValidadeFim) return false;
       return true;
     });
 
@@ -371,8 +375,8 @@
     if (dados.quantidade === '' || dados.quantidade === null || dados.quantidade === undefined) {
       erros.push({ campo: 'quantidade', msg: 'Quantidade é obrigatória.' });
       valido = false;
-    } else if (Number(dados.quantidade) < 0) {
-      erros.push({ campo: 'quantidade', msg: 'Quantidade não pode ser negativa.' });
+    } else if (Number(dados.quantidade) <= 0) {
+      erros.push({ campo: 'quantidade', msg: 'Quantidade deve ser maior que zero.' });
       valido = false;
     }
     if (!dados.unidade) {
@@ -738,6 +742,8 @@
     document.getElementById('filtro-local').addEventListener('change', renderizarEstoque);
     document.getElementById('filtro-fornecedor').addEventListener('change', renderizarEstoque);
     document.getElementById('filtro-situacao').addEventListener('change', renderizarEstoque);
+    document.getElementById('filtro-validade-inicio').addEventListener('change', renderizarEstoque);
+    document.getElementById('filtro-validade-fim').addEventListener('change', renderizarEstoque);
 
     document.getElementById('busca-mov').addEventListener('input', renderizarMovimentacoes);
     document.getElementById('filtro-tipo-mov').addEventListener('change', renderizarMovimentacoes);
