@@ -375,8 +375,8 @@
     if (dados.quantidade === '' || dados.quantidade === null || dados.quantidade === undefined) {
       erros.push({ campo: 'quantidade', msg: 'Quantidade é obrigatória.' });
       valido = false;
-    } else if (Number(dados.quantidade) <= 0) {
-      erros.push({ campo: 'quantidade', msg: 'Quantidade deve ser maior que zero.' });
+    } else if (Number(dados.quantidade) < 0) {
+      erros.push({ campo: 'quantidade', msg: 'Quantidade não pode ser negativa.' });
       valido = false;
     }
     if (!dados.unidade) {
