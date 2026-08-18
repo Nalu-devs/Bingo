@@ -29,7 +29,7 @@
     <section id="tab-estoque" class="tab-content active">
       <div class="section-header">
         <h2>Estoque de Alimentos</h2>
-        <button class="btn-primary" onclick="abrirModalCadastro()">+ Novo Alimento</button>
+        <button class="btn-primary" onclick="window.__app.abrirModalCadastro()">+ Novo Alimento</button>
       </div>
 
       <div class="filtros">
@@ -194,7 +194,7 @@
 
         <div class="form-actions">
           <button type="submit" class="btn-primary" id="btn-submit">Cadastrar</button>
-          <button type="button" class="btn-secondary" onclick="limparFormulario()">Cancelar</button>
+          <button type="button" class="btn-secondary" onclick="window.__app.limparFormulario()">Cancelar</button>
         </div>
       </form>
     </section>
@@ -240,11 +240,11 @@
   </main>
 
   <!-- MODAL: REGISTRAR MOVIMENTAÇÃO -->
-  <div id="modal-movimentacao" class="modal-overlay" onclick="fecharModalMov(event)">
+  <div id="modal-movimentacao" class="modal-overlay" onclick="window.__app.fecharModalMov(event)">
     <div class="modal">
       <div class="modal-header">
         <h3 id="modal-mov-titulo">Registrar Movimentação</h3>
-        <button class="modal-close" onclick="fecharModalMov()">&times;</button>
+        <button class="modal-close" onclick="window.__app.fecharModalMov()">&times;</button>
       </div>
       <form id="form-movimentacao">
         <input type="hidden" id="mov-alimento-id">
@@ -298,18 +298,18 @@
 
         <div class="form-actions">
           <button type="submit" class="btn-primary">Salvar</button>
-          <button type="button" class="btn-secondary" onclick="fecharModalMov()">Cancelar</button>
+          <button type="button" class="btn-secondary" onclick="window.__app.fecharModalMov()">Cancelar</button>
         </div>
       </form>
     </div>
   </div>
 
   <!-- MODAL: DETALHES DO ALIMENTO -->
-  <div id="modal-detalhe" class="modal-overlay" onclick="fecharModalDetalhe(event)">
+  <div id="modal-detalhe" class="modal-overlay" onclick="window.__app.fecharModalDetalhe(event)">
     <div class="modal modal-lg">
       <div class="modal-header">
         <h3 id="detalhe-titulo">Detalhes do Alimento</h3>
-        <button class="modal-close" onclick="fecharModalDetalhe()">&times;</button>
+        <button class="modal-close" onclick="window.__app.fecharModalDetalhe()">&times;</button>
       </div>
       <div id="detalhe-conteudo"></div>
     </div>
