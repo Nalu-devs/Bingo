@@ -3,321 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Controle de Alimentos</title>
+  <title>Bingo - Produtos</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <header>
-    <div class="header-content">
-      <h1>Controle de Alimentos</h1>
-      <nav>
-        <button class="nav-btn active" data-tab="estoque">Estoque</button>
-        <button class="nav-btn" data-tab="cadastro">Cadastrar</button>
-        <button class="nav-btn" data-tab="movimentacoes">Movimentações</button>
-        <button class="nav-btn" data-tab="alertas">Alertas</button>
-      </nav>
+    <div class="container header-content">
+      <h1>Bingo</h1>
+      <span class="subtitle">Loja de Produtos</span>
     </div>
   </header>
 
   <main class="container">
-
-    <!-- PAINEL DE ALERTAS RÁPIDOS -->
-    <div id="alertas-ribbon"></div>
-
-    <!-- ABA: ESTOQUE -->
-    <section id="tab-estoque" class="tab-content active">
-      <div class="section-header">
-        <h2>Estoque de Alimentos</h2>
-        <button class="btn-primary" onclick="window.__app.abrirModalCadastro()">+ Novo Alimento</button>
-      </div>
-
-      <div class="filtros">
-        <input type="text" id="busca-geral" placeholder="Buscar alimento..." class="input-busca">
-        <select id="filtro-categoria">
-          <option value="">Todas categorias</option>
-          <option value="Grãos">Grãos</option>
-          <option value="Carnes">Carnes</option>
-          <option value="Laticínios">Laticínios</option>
-          <option value="Bebidas">Bebidas</option>
-          <option value="Hortifruti">Hortifruti</option>
-          <option value="Condimentos">Condimentos</option>
-          <option value="Congelados">Congelados</option>
-          <option value="Padaria">Padaria</option>
-          <option value="Outros">Outros</option>
-        </select>
-        <select id="filtro-marca">
-          <option value="">Todas marcas</option>
-        </select>
-        <select id="filtro-local">
-          <option value="">Todos locais</option>
-          <option value="Estoque seco">Estoque seco</option>
-          <option value="Geladeira">Geladeira</option>
-          <option value="Freezer">Freezer</option>
-          <option value="Despensa">Despensa</option>
-        </select>
-        <select id="filtro-fornecedor">
-          <option value="">Todos fornecedores</option>
-        </select>
-        <select id="filtro-situacao">
-          <option value="">Todas situações</option>
-          <option value="ok">Dentro da validade</option>
-          <option value="proximo">Próximo do vencimento</option>
-          <option value="vencido">Vencido</option>
-          <option value="estoque-baixo">Estoque baixo</option>
-          <option value="sem-estoque">Sem estoque</option>
-        </select>
-        <input type="date" id="filtro-validade-inicio" title="Validade a partir de">
-        <input type="date" id="filtro-validade-fim" title="Validade até">
-      </div>
-
-      <div id="lista-estoque" class="card-list"></div>
-    </section>
-
-    <!-- ABA: CADASTRO -->
-    <section id="tab-cadastro" class="tab-content">
-      <div class="section-header">
-        <h2 id="titulo-form">Cadastrar Alimento</h2>
-      </div>
-      <form id="form-alimento" class="form-card">
-        <input type="hidden" id="edit-id">
-
-        <fieldset>
-          <legend>Informações Básicas</legend>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="nome">Nome *</label>
-              <input type="text" id="nome" placeholder="Ex: Arroz" required>
-            </div>
-            <div class="form-group">
-              <label for="categoria">Categoria *</label>
-              <select id="categoria" required>
-                <option value="">Selecione</option>
-                <option value="Grãos">Grãos</option>
-                <option value="Carnes">Carnes</option>
-                <option value="Laticínios">Laticínios</option>
-                <option value="Bebidas">Bebidas</option>
-                <option value="Hortifruti">Hortifruti</option>
-                <option value="Condimentos">Condimentos</option>
-                <option value="Congelados">Congelados</option>
-                <option value="Padaria">Padaria</option>
-                <option value="Outros">Outros</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="marca">Marca</label>
-              <input type="text" id="marca" placeholder="Ex: Tio João">
-            </div>
-            <div class="form-group">
-              <label for="lote">Lote</label>
-              <input type="text" id="lote" placeholder="Ex: L20260812">
-            </div>
-            <div class="form-group">
-              <label for="codigo-interno">Código interno</label>
-              <input type="text" id="codigo-interno" placeholder="Ex: A001">
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Estoque</legend>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="quantidade">Quantidade *</label>
-              <input type="number" id="quantidade" min="0" step="0.01" placeholder="Ex: 10" required>
-            </div>
-            <div class="form-group">
-              <label for="unidade">Unidade de medida *</label>
-              <select id="unidade" required>
-                <option value="">Selecione</option>
-                <option value="kg">Quilograma (kg)</option>
-                <option value="g">Grama (g)</option>
-                <option value="litro">Litro (L)</option>
-                <option value="ml">Mililitro (mL)</option>
-                <option value="unidade">Unidade</option>
-                <option value="caixa">Caixa</option>
-                <option value="pacote">Pacote</option>
-                <option value="lata">Lata</option>
-                <option value="garrafa">Garrafa</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="estoque-minimo">Estoque mínimo</label>
-              <input type="number" id="estoque-minimo" min="0" step="0.01" placeholder="Ex: 5">
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Validade e Localização</legend>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="data-validade">Data de validade *</label>
-              <input type="date" id="data-validade" required>
-            </div>
-            <div class="form-group">
-              <label for="local">Local de armazenamento *</label>
-              <select id="local" required>
-                <option value="">Selecione</option>
-                <option value="Estoque seco">Estoque seco</option>
-                <option value="Geladeira">Geladeira</option>
-                <option value="Freezer">Freezer</option>
-                <option value="Despensa">Despensa</option>
-              </select>
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Informações Complementares</legend>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="data-entrada">Data de entrada</label>
-              <input type="date" id="data-entrada">
-            </div>
-            <div class="form-group">
-              <label for="preco">Preço de compra (R$)</label>
-              <input type="number" id="preco" min="0" step="0.01" placeholder="Ex: 12.50">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fornecedor">Fornecedor</label>
-              <input type="text" id="fornecedor" placeholder="Ex: Distribuidora ABC">
-            </div>
+    <section class="add-product">
+      <h2>Adicionar Produto</h2>
+      <form id="product-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Nome *</label>
+            <input type="text" id="name" placeholder="Nome do produto">
+            <div class="error-msg" id="error-name"></div>
           </div>
           <div class="form-group">
-            <label for="observacoes">Observações</label>
-            <textarea id="observacoes" rows="2" placeholder="Informações adicionais..."></textarea>
+            <label for="category">Categoria *</label>
+            <input type="text" id="category" placeholder="Ex: Eletrônicos">
+            <div class="error-msg" id="error-category"></div>
           </div>
-        </fieldset>
-
-        <div class="form-actions">
-          <button type="submit" class="btn-primary" id="btn-submit">Cadastrar</button>
-          <button type="button" class="btn-secondary" onclick="window.__app.limparFormulario()">Cancelar</button>
         </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="price">Preço (R$) *</label>
+            <input type="number" id="price" step="0.01" min="0" placeholder="0.00">
+            <div class="error-msg" id="error-price"></div>
+          </div>
+          <div class="form-group">
+            <label for="stock">Estoque *</label>
+            <input type="number" id="stock" min="0" placeholder="0">
+            <div class="error-msg" id="error-stock"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="description">Descrição</label>
+          <textarea id="description" rows="3" placeholder="Descrição do produto..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary" id="btn-submit">Adicionar Produto</button>
       </form>
     </section>
 
-    <!-- ABA: MOVIMENTAÇÕES -->
-    <section id="tab-movimentacoes" class="tab-content">
-      <div class="section-header">
-        <h2>Histórico de Movimentações</h2>
-      </div>
-
-      <div class="filtros">
-        <input type="text" id="busca-mov" placeholder="Buscar movimentação..." class="input-busca">
-        <select id="filtro-tipo-mov">
-          <option value="">Todos tipos</option>
-          <option value="entrada">Entrada</option>
-          <option value="saida">Saída</option>
-        </select>
-        <select id="filtro-motivo-mov">
-          <option value="">Todos motivos</option>
-          <option value="Compra">Compra</option>
-          <option value="Venda">Venda</option>
-          <option value="Uso na cozinha">Uso na cozinha</option>
-          <option value="Perda">Perda</option>
-          <option value="Produto vencido">Produto vencido</option>
-          <option value="Ajuste de estoque">Ajuste de estoque</option>
-          <option value="Doação">Doação</option>
-        </select>
-        <input type="date" id="filtro-data-inicio" title="Data início">
-        <input type="date" id="filtro-data-fim" title="Data fim">
-      </div>
-
-      <div id="lista-movimentacoes" class="card-list"></div>
-    </section>
-
-    <!-- ABA: ALERTAS -->
-    <section id="tab-alertas" class="tab-content">
-      <div class="section-header">
-        <h2>Alertas</h2>
-      </div>
-      <div id="painel-alertas" class="card-list"></div>
-    </section>
-
-  </main>
-
-  <!-- MODAL: REGISTRAR MOVIMENTAÇÃO -->
-  <div id="modal-movimentacao" class="modal-overlay" onclick="window.__app.fecharModalMov(event)">
-    <div class="modal">
-      <div class="modal-header">
-        <h3 id="modal-mov-titulo">Registrar Movimentação</h3>
-        <button class="modal-close" onclick="window.__app.fecharModalMov()">&times;</button>
-      </div>
-      <form id="form-movimentacao">
-        <input type="hidden" id="mov-alimento-id">
-        <input type="hidden" id="mov-edit-id">
-        <p class="modal-alimento-nome" id="mov-alimento-nome"></p>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="mov-tipo">Tipo *</label>
-            <select id="mov-tipo" required>
-              <option value="">Selecione</option>
-              <option value="entrada">Entrada</option>
-              <option value="saida">Saída</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="mov-quantidade">Quantidade *</label>
-            <input type="number" id="mov-quantidade" min="0.01" step="0.01" required>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="mov-data">Data *</label>
-            <input type="date" id="mov-data" required>
-          </div>
-          <div class="form-group">
-            <label for="mov-responsavel">Responsável *</label>
-            <input type="text" id="mov-responsavel" placeholder="Nome do responsável" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="mov-motivo">Motivo *</label>
-          <select id="mov-motivo" required>
-            <option value="">Selecione</option>
-            <option value="Compra">Compra</option>
-            <option value="Venda">Venda</option>
-            <option value="Uso na cozinha">Uso na cozinha</option>
-            <option value="Perda">Perda</option>
-            <option value="Produto vencido">Produto vencido</option>
-            <option value="Ajuste de estoque">Ajuste de estoque</option>
-            <option value="Doação">Doação</option>
+    <section class="products-section">
+      <div class="products-header">
+        <h2>Produtos</h2>
+        <div class="filters">
+          <input type="text" id="search" placeholder="Buscar produto...">
+          <select id="filter-category">
+            <option value="">Todas categorias</option>
+          </select>
+          <select id="sort">
+            <option value="name">Ordenar por nome</option>
+            <option value="price-asc">Preço: menor → maior</option>
+            <option value="price-desc">Preço: maior → menor</option>
+            <option value="stock">Estoque</option>
           </select>
         </div>
-
-        <div class="form-group">
-          <label for="mov-obs">Observações</label>
-          <textarea id="mov-obs" rows="2" placeholder="Observações..."></textarea>
-        </div>
-
-        <div class="form-actions">
-          <button type="submit" class="btn-primary">Salvar</button>
-          <button type="button" class="btn-secondary" onclick="window.__app.fecharModalMov()">Cancelar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL: DETALHES DO ALIMENTO -->
-  <div id="modal-detalhe" class="modal-overlay" onclick="window.__app.fecharModalDetalhe(event)">
-    <div class="modal modal-lg">
-      <div class="modal-header">
-        <h3 id="detalhe-titulo">Detalhes do Alimento</h3>
-        <button class="modal-close" onclick="window.__app.fecharModalDetalhe()">&times;</button>
       </div>
-      <div id="detalhe-conteudo"></div>
-    </div>
-  </div>
+      <div id="product-count"></div>
+      <div id="product-list"></div>
+    </section>
+  </main>
 
-  <!-- TOAST -->
   <div id="toast-container"></div>
 
   <script src="app.js"></script>

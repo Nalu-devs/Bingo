@@ -1,0 +1,10 @@
+{
+  "name": "bingo-products",
+  "version": "1.0.0",
+  "description": "Site simples de produtos",
+  "scripts": {
+    "test": "node tests/products.test.js",
+    "start": "open index.html"
+  },
+  "devDependencies": {}
+}
