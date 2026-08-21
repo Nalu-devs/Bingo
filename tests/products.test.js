@@ -13,16 +13,7 @@ const localStorageMock = (() => {
 global.localStorage = localStorageMock;
 
 const documentMock = {
-  createElement: (tag) => {
-    let _text = '';
-    return {
-      get textContent() { return _text; },
-      set textContent(v) { _text = v; },
-      get innerHTML() {
-        return _text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      },
-    };
-  },
+  createElement: () => ({}),
 };
 global.document = Object.assign(documentMock, {
   addEventListener: () => {},
