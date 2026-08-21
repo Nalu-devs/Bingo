@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bingo - Pedidos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <h1>Bingo</h1>
+      <span class="subtitle">Pedidos</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="products-section">
+      <div class="products-header">
+        <h2>Pedidos do cliente</h2>
+        <div class="filters">
+          <input type="text" id="search-order" placeholder="Buscar por cliente...">
+          <select id="filter-status">
+            <option value="">Todos os status</option>
+            <option value="pending">Pendente</option>
+            <option value="paid">Pago</option>
+            <option value="shipped">Enviado</option>
+            <option value="cancelled">Cancelado</option>
+          </select>
+        </div>
+      </div>
+      <div id="orders-summary"></div>
+      <div id="order-list"></div>
+    </section>
+  </main>
+
+  <div id="toast-container"></div>
+
+  <script src="orders.js"></script>
+</body>
+</html>
