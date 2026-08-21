@@ -12,6 +12,13 @@ function saveProducts(products) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
 }
 
+function escapeHtml(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 function generateId() {
   return crypto.randomUUID
     ? crypto.randomUUID()
@@ -57,7 +64,7 @@ function filterProducts(products, { search = '', category = '', sort = 'name' } 
   if (search) {
     const term = search.toLowerCase();
     result = result.filter(
-      p => p.name.toLowerCase().includes(term) || p.description.toLowerCase().includes(term)
+      p => p.name.toLowerCase().includes(term) || (p.description || '').toLowerCase().includes(term)
     );
   }
 
@@ -92,9 +99,9 @@ function renderProductCard(product) {
 
   return `
     <div class="product-card ${statusClass}" data-id="${product.id}">
-      <div class="product-name">${product.name}</div>
-      <div class="product-category">${product.category}</div>
-      <div class="product-description">${product.description || 'Sem descrição'}</div>
+      <div class="product-name">${escapeHtml(product.name)}</div>
+      <div class="product-category">${escapeHtml(product.category)}</div>
+      <div class="product-description">${escapeHtml(product.description) || 'Sem descrição'}</div>
       <div class="product-footer">
         <div class="product-price">${formatPrice(product.price)}</div>
         <div class="product-stock ${status}">${product.stock} em estoque</div>
@@ -134,7 +141,7 @@ function updateCategoryFilter() {
   const current = select.value;
 
   select.innerHTML = '<option value="">Todas categorias</option>' +
-    categories.map(c => `<option value="${c}" ${c === current ? 'selected' : ''}>${c}</option>`).join('');
+    categories.map(c => `<option value="${escapeHtml(c)}" ${c === current ? 'selected' : ''}>${escapeHtml(c)}</option>`).join('');
 }
 
 function showToast(message, type = 'success') {
@@ -264,5 +271,6 @@ if (typeof module !== 'undefined') {
     getStockStatus,
     filterProducts,
     getCategories,
+    escapeHtml,
   };
 }

@@ -11,7 +11,26 @@ const localStorageMock = (() => {
   };
 })();
 global.localStorage = localStorageMock;
-global.document = undefined;
+
+const documentMock = {
+  createElement: (tag) => {
+    let _text = '';
+    return {
+      get textContent() { return _text; },
+      set textContent(v) { _text = v; },
+      get innerHTML() {
+        return _text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      },
+    };
+  },
+};
+global.document = Object.assign(documentMock, {
+  addEventListener: () => {},
+  getElementById: () => ({ innerHTML: '', value: '', textContent: '', addEventListener: () => {}, classList: { add: () => {}, remove: () => {} } }),
+  querySelectorAll: () => [],
+  querySelector: () => ({ classList: { add: () => {}, remove: () => {} } }),
+  createElement: documentMock.createElement,
+});
 
 const {
   loadProducts,
@@ -22,6 +41,7 @@ const {
   getStockStatus,
   filterProducts,
   getCategories,
+  escapeHtml,
 } = require('../app.js');
 
 let passed = 0;
@@ -32,7 +52,7 @@ function test(name, fn) {
     fn();
     passed++;
     console.log(`  \x1b[32m✓\x1b[0m ${name}`);
-  } (err) {
+  } catch (err) {
     failed++;
     console.log(`  \x1b[31m✗\x1b[0m ${name}`);
     console.log(`    \x1b[31m${err.message}\x1b[0m`);
@@ -169,6 +189,11 @@ test('busca vazia retorna todos', () => {
   const result = filterProducts(sampleProducts, { search: '' });
   assert.strictEqual(result.length, 4);
 });
+test('busca com description undefined não quebra', () => {
+  const noDesc = [{ id: '9', name: 'Item', category: 'X', price: 1, stock: 1 }];
+  const result = filterProducts(noDesc, { search: 'item' });
+  assert.strictEqual(result.length, 1);
+});
 
 // --- getCategories ---
 console.log('\nCategorias:');
@@ -195,6 +220,25 @@ test('loadProducts retorna [] quando vazio', () => {
 test('loadProducts retorna [] com JSON inválido', () => {
   localStorageMock.setItem('bingo_products', '{invalid');
   assert.deepStrictEqual(loadProducts(), []);
+});
+
+// --- escapeHtml ---
+console.log('\nXSS / escapeHtml:');
+test('escapeHtml escapa < e >', () => {
+  assert.strictEqual(escapeHtml('<script>alert(1)</script>'), '&lt;script&gt;alert(1)&lt;/script&gt;');
+});
+test('escapeHtml escapa aspas', () => {
+  assert.strictEqual(escapeHtml('a"b'), 'a&quot;b');
+});
+test('escapeHtml escapa &', () => {
+  assert.strictEqual(escapeHtml('a&b'), 'a&amp;b');
+});
+test('escapeHtml retorna string vazia para null/undefined', () => {
+  assert.strictEqual(escapeHtml(null), '');
+  assert.strictEqual(escapeHtml(undefined), '');
+});
+test('escapeHtml retorna texto normal sem alteração', () => {
+  assert.strictEqual(escapeHtml('Camisa Azul'), 'Camisa Azul');
 });
 
 // --- Resumo ---
