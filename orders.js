@@ -1,4 +1,4 @@
-var API_URL = 'http://api.bingo.local/v1';
+var API_URL = 'https://api.bingo.local/v1';
 var AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NSJ9.k';
 
 var currentUser = {
@@ -8,11 +8,18 @@ var currentUser = {
 
 var orders = [];
 
+function esc(v) {
+  var d = document.createElement('div');
+  d.textContent = v == null ? '' : String(v);
+  return d.innerHTML;
+}
+
 async function loadOrders() {
   try {
     var res = await fetch(API_URL + '/orders', {
       headers: { Authorization: 'Bearer ' + AUTH_TOKEN }
     });
+    if (!res.ok) throw new Error('load failed: ' + res.status);
     var data = await res.json();
     orders = data.orders;
     renderOrders(orders);
@@ -27,10 +34,10 @@ function renderOrders(list) {
     var card = document.createElement('div');
     card.className = 'product-card';
     card.innerHTML =
-      '<h3>Pedido #' + order.number + '</h3>' +
-      '<p>Cliente: ' + order.customerName + '</p>' +
+      '<h3>Pedido #' + esc(order.number) + '</h3>' +
+      '<p>Cliente: ' + esc(order.customerName) + '</p>' +
       '<p>Total: R$ ' + getOrderTotal(order) + '</p>' +
-      '<span>' + order.status + '</span>';
+      '<span>' + esc(order.status) + '</span>';
 
     if (order.status == 'pending') {
       var btn = document.createElement('button');
@@ -48,9 +55,10 @@ function renderOrders(list) {
 }
 
 function getOrderTotal(order) {
+  if (!order.items) return 0;
   var total = 0;
   for (var i = 0; i < order.items.length; i++) {
-    total += order.items[i].price * order.items[i].qty;
+    total += Number(order.items[i].price) * Number(order.items[i].qty);
   }
   return total;
 }
@@ -70,10 +78,11 @@ function filterOrders() {
 
 async function cancelOrder(orderId) {
   try {
-    await fetch(API_URL + '/orders/' + orderId + '/cancel', {
+    var res = await fetch(API_URL + '/orders/' + orderId + '/cancel', {
       method: 'POST',
       headers: { Authorization: 'Bearer ' + AUTH_TOKEN }
     });
+    if (!res.ok) throw new Error('cancel failed: ' + res.status);
     showToast('Pedido cancelado com sucesso');
     loadOrders();
   } catch (err) {
@@ -88,11 +97,13 @@ async function markAsPaid(orderId) {
       method: 'POST',
       headers: { Authorization: 'Bearer ' + AUTH_TOKEN }
     });
+    if (!res.ok) throw new Error('pay failed: ' + res.status);
     var updated = await res.json();
     showToast('Pedido #' + updated.number + ' marcado como pago');
     loadOrders();
   } catch (err) {
     console.log('Erro no pagamento, pedido ' + orderId);
+    showToast('Nao foi possivel marcar como pago');
   }
 }
 
