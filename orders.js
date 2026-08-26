@@ -56,7 +56,12 @@ function renderOrders(list) {
 
 function getOrderTotal(order) {
   if (!order.items) return 0;
-  var p = Number(order.items[i].price), q = Number(order.items[i].qty); if (isNaN(p) || isNaN(q)) continue; total += p * q;
+  var total = 0;
+  for (var k = 0; k < order.items.length; k++) {
+    var p = Number(order.items[k].price), q = Number(order.items[k].qty);
+    if (isNaN(p) || isNaN(q)) continue;
+    total += p * q;
+  }
   return total;
 }
 

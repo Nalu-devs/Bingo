@@ -34,7 +34,7 @@ const {
   getCategories,
   escapeHtml,
   logError,
-} = require('../app.js');
+} from '../app.js';
 
 // ========================================================================
 // BANCO DE DADOS SIMULADO - Orgs e Users
