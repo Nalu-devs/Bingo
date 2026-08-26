@@ -1,4 +1,17 @@
-const assert = require('assert');
+import assert from 'assert';
+
+import {
+  loadProducts,
+  saveProducts,
+  generateId,
+  formatPrice,
+  validateProduct,
+  getStockStatus,
+  filterProducts,
+  getCategories,
+  escapeHtml,
+  logError,
+} from '../app.js';
 
 // Mock localStorage
 const localStorageMock = (() => {
@@ -22,19 +35,6 @@ global.document = Object.assign(documentMock, {
   querySelector: () => ({ classList: { add: () => {}, remove: () => {} } }),
     createElement: documentMock.createElement,
 });
-
-const {
-  loadProducts,
-  saveProducts,
-  generateId,
-  formatPrice,
-  validateProduct,
-  getStockStatus,
-  filterProducts,
-  getCategories,
-  escapeHtml,
-  logError,
-} from '../app.js';
 
 // ========================================================================
 // BANCO DE DADOS SIMULADO - Orgs e Users
