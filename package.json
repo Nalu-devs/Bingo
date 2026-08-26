@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:products": "node tests/products.test.js",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
   },
