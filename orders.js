@@ -21,7 +21,7 @@ async function loadOrders() {
     });
     if (!res.ok) throw new Error('load failed: ' + res.status);
     var data = await res.json();
-    orders = data.orders;
+    orders = Array.isArray(data.orders) ? data.orders : [];
     renderOrders(orders);
   } catch (e) {}
 }
@@ -56,10 +56,7 @@ function renderOrders(list) {
 
 function getOrderTotal(order) {
   if (!order.items) return 0;
-  var total = 0;
-  for (var i = 0; i < order.items.length; i++) {
-    total += Number(order.items[i].price) * Number(order.items[i].qty);
-  }
+  var p = Number(order.items[i].price), q = Number(order.items[i].qty); if (isNaN(p) || isNaN(q)) continue; total += p * q;
   return total;
 }
 
@@ -68,8 +65,8 @@ function filterOrders() {
   var status = document.getElementById('filter-status').value;
 
   var filtered = orders.filter(function (o) {
-    var matchTerm = o.customerName.toLowerCase().indexOf(term) > -1;
-    var matchStatus = status === '' || o.status == status;
+var matchTerm = (o.customerName || '').toLowerCase().indexOf(term) > -1;
+var matchStatus = status === '' || o.status == status;
     return matchTerm && matchStatus;
   });
 
